@@ -10,7 +10,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	
 	_unit addAction [format["<t color='#F0F000'>Virtual Ammobox</t>"], "VAS\open.sqf", _unit, 100, true];
 	
-	[objnull, format["%1 is now using VAS at %2", name _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
+	[objnull, format["%1 - Using VAS at %2", _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
 	
 	deletevehicle _logic;
 };

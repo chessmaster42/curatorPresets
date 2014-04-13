@@ -10,7 +10,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	
 	_unit land "GET IN";
 	
-	[objnull, format["%1 is now hovering at %2", name _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
+	[objnull, format["%1 - Hovering at %2", name _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
 	
 	deletevehicle _logic;
 };

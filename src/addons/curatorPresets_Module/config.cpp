@@ -7,6 +7,7 @@ class CfgPatches
 				"curatorPresets_ModuleDamageComponent",
 				"curatorPresets_ModuleHelicopterLand",
 				"curatorPresets_ModuleHelicopterHover",
+				"curatorPresets_ModuleUnitRecruitable",
 				"curatorPresets_ModuleUnitSpeed",
 				"curatorPresets_ModuleUnitSurrender",
 				"curatorPresets_ModuleVAS"
@@ -87,6 +88,65 @@ class CfgVehicles
 		displayName = "Damage Unit Component";
 		function = "curatorPresets_fnc_ModuleDamageComponent";
 		scopeCurator = 2;
+
+		class Arguments: ArgumentsBaseUnits
+		{
+			class Units: Units {};
+			class Component
+  			{
+				displayName = "Unit/Vehicle Component";
+				description = "Which component will be damaged";
+				typeName = "STRING";
+				class values
+				{
+					//Common
+					class HitEngine {
+						name = "Engine";
+						value = "HitEngine";
+						default = 1;
+					};
+					class HitHull {
+						name = "Hull";
+						value = "HitHull";
+					};
+					class HitFuel {
+						name = "Fuel";
+						value = "HitFuel";
+					};
+
+					//Air
+					class HitAvionics {
+						name = "Avionics";
+						value = "HitAvionics";
+					};
+					class HitVRotor {
+						name = "Vertical Rotor";
+						value = "HitVRotor";
+					};
+					class HitHRotor {
+						name = "Horizontal Rotor";
+						value = "HitHRotor";
+					};
+
+					//Tracked
+					class HitLTrack {
+						name = "Left Track";
+						value = "HitLTrack";
+					};
+					class HitRTrack {
+						name = "Right Track";
+						value = "HitRTrack";
+					};
+				};
+			};
+			class Damage
+  			{
+				displayName = "Damage";
+				description = "Amount to damage the component";
+				typeName = "NUMBER";
+				defaultValue = 1;
+			};
+		};
 	};
 	class curatorPresets_ModuleHelicopterLand: curatorPresets_ModuleBase
 	{
@@ -102,12 +162,46 @@ class CfgVehicles
 		function = "curatorPresets_fnc_ModuleHelicopterHover";
 		scopeCurator = 2;
 	};
+	class curatorPresets_ModuleUnitRecruitable: curatorPresets_ModuleBase
+	{
+		scope = 2;
+		displayName = "Unit Recruitable";
+		function = "curatorPresets_fnc_ModuleUnitRecruitable";
+		scopeCurator = 2;
+	};
 	class curatorPresets_ModuleUnitSpeed: curatorPresets_ModuleBase
 	{
 		scope = 2;
 		displayName = "Unit Speed";
 		function = "curatorPresets_fnc_ModuleUnitSpeed";
 		scopeCurator = 2;
+
+		class Arguments: ArgumentsBaseUnits
+		{
+			class Units: Units {};
+			class Component
+			{
+				displayName = "Unit/Vehicle Speed";
+				description = "Which speed the unit will travel at";
+				typeName = "STRING";
+				class values
+				{
+					class LimitedSpeed {
+						name = "Limited";
+						value = "LIMITED";
+						default = 1;
+					};
+					class NormalSpeed {
+						name = "Normal";
+						value = "NORMAL";
+					};
+					class FullSpeed {
+						name = "Full";
+						value = "FULL";
+					};
+				};
+			};
+		};
 	};
 	class curatorPresets_ModuleUnitSurrender: curatorPresets_ModuleBase
 	{
@@ -136,6 +230,7 @@ class CfgFunctions
 			class moduleDamageComponent{};
 			class moduleHelicopterLand{};
 			class moduleHelicopterHover{};
+			class moduleUnitRecruitable{};
 			class moduleUnitSpeed{};
 			class moduleUnitSurrender{};
 			class moduleVAS{};
