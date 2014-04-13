@@ -13,17 +13,17 @@ class CfgPatches
 				"curatorPresets_ModuleVAS"
 		};
 		requiredVersion = 1.0;
-		requiredAddons[] = {"A3_Modules_F"};
+		requiredAddons[] = {
+				"A3_UI_F",
+				"A3_Functions_F_Curator",
+				"A3_Modules_F_Curator",
+				"A3_Modules_F"
+		};
 	};
 };
 
 class CfgFactionClasses
 {
-	class NO_CATEGORY;
-	class curatorPresets_FactionClass: NO_CATEGORY
-	{
-		displayName = "Curator Presets";
-	};
 	class curatorPresets_Category
 	{
 		displayName = "Curator Presets";
@@ -75,7 +75,7 @@ class CfgVehicles
 			sync[] = {};
 		};
 	};
-	class curatorPresets_ModuleCWS: curatorPresets_ModuleBase
+	class curatorPresets_ModuleCWSLoad: curatorPresets_ModuleBase
 	{
 		scope = 2;
 		displayName = "CWS Injury";
@@ -84,69 +84,10 @@ class CfgVehicles
 	};
 	class curatorPresets_ModuleDamageComponent: curatorPresets_ModuleBase
 	{
-		scope = 2;
+		scope = 1;
 		displayName = "Damage Unit Component";
 		function = "curatorPresets_fnc_ModuleDamageComponent";
 		scopeCurator = 2;
-
-		class Arguments: ArgumentsBaseUnits
-		{
-			class Units: Units {};
-			class Component
-  			{
-				displayName = "Unit/Vehicle Component";
-				description = "Which component will be damaged";
-				typeName = "STRING";
-				class values
-				{
-					//Common
-					class HitEngine {
-						name = "Engine";
-						value = "HitEngine";
-						default = 1;
-					};
-					class HitHull {
-						name = "Hull";
-						value = "HitHull";
-					};
-					class HitFuel {
-						name = "Fuel";
-						value = "HitFuel";
-					};
-
-					//Air
-					class HitAvionics {
-						name = "Avionics";
-						value = "HitAvionics";
-					};
-					class HitVRotor {
-						name = "Vertical Rotor";
-						value = "HitVRotor";
-					};
-					class HitHRotor {
-						name = "Horizontal Rotor";
-						value = "HitHRotor";
-					};
-
-					//Tracked
-					class HitLTrack {
-						name = "Left Track";
-						value = "HitLTrack";
-					};
-					class HitRTrack {
-						name = "Right Track";
-						value = "HitRTrack";
-					};
-				};
-			};
-			class Damage
-  			{
-				displayName = "Damage";
-				description = "Amount to damage the component";
-				typeName = "NUMBER";
-				defaultValue = 1;
-			};
-		};
 	};
 	class curatorPresets_ModuleHelicopterLand: curatorPresets_ModuleBase
 	{
@@ -171,37 +112,10 @@ class CfgVehicles
 	};
 	class curatorPresets_ModuleUnitSpeed: curatorPresets_ModuleBase
 	{
-		scope = 2;
+		scope = 1;
 		displayName = "Unit Speed";
 		function = "curatorPresets_fnc_ModuleUnitSpeed";
 		scopeCurator = 2;
-
-		class Arguments: ArgumentsBaseUnits
-		{
-			class Units: Units {};
-			class Component
-			{
-				displayName = "Unit/Vehicle Speed";
-				description = "Which speed the unit will travel at";
-				typeName = "STRING";
-				class values
-				{
-					class LimitedSpeed {
-						name = "Limited";
-						value = "LIMITED";
-						default = 1;
-					};
-					class NormalSpeed {
-						name = "Normal";
-						value = "NORMAL";
-					};
-					class FullSpeed {
-						name = "Full";
-						value = "FULL";
-					};
-				};
-			};
-		};
 	};
 	class curatorPresets_ModuleUnitSurrender: curatorPresets_ModuleBase
 	{
@@ -235,5 +149,99 @@ class CfgFunctions
 			class moduleUnitSurrender{};
 			class moduleVAS{};
 		};
+	};
+};
+
+class RscText;
+class RscListBox;
+class RscXSliderH;
+class RscControlsGroupNoScrollbars;
+class RscAttributeComponent: RscControlsGroupNoScrollbars
+{
+	idc = 42001;
+	x = "7 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX)";
+	y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class Title: RscText
+		{
+			idc = 42002;
+			text = "Component";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class Value: RscListBox
+		{
+			idc = 42003;
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscAttributeComponentDamage: RscControlsGroupNoScrollbars
+{
+	idc = 42010;
+	x = "7 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX)";
+	y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class Title: RscText
+		{
+			idc = 42011;
+			text = "Component Damage";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class Value: RscXSliderH
+		{
+			idc = 42012;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+
+class Controls;
+class Background;
+class Title;
+class Content;
+class ButtonOK;
+class ButtonCancel;
+class RscDisplayAttributes;
+class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributes
+{
+	onLoad = "uinamespace setvariable ['RscDisplayAttributesModuleDamageComponent', (_this select 0)];";
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Damage Component Module";
+		};
+		class Content: Content
+		{
+			class Controls: controls
+			{
+				class Component: RscAttributeComponent{};
+				class Damage: RscAttributeComponentDamage{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
 	};
 };
