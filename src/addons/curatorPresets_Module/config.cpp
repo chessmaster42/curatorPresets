@@ -152,93 +152,156 @@ class CfgFunctions
 	};
 };
 
+class RscMapControl;
 class RscText;
 class RscListBox;
 class RscXSliderH;
-class RscControlsGroupNoScrollbars;
-class RscAttributeComponent: RscControlsGroupNoScrollbars
+class RscControlsGroup;
+class RscButtonMenuOK;
+class RscButtonMenuCancel;
+class RscDisplayAttributesModuleCuratorPresets
 {
-	idc = 42001;
-	x = "7 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX)";
-	y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))";
-	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
-	h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-	class controls
+	idd = -1;
+	movingenable = 0;
+	filterAttributes = 1;
+	class ControlsBackground{};
+	class Controls
 	{
+		class Background: RscText
+		{
+			colorBackground[] = {0,0,0,0.7};
+			idc = 42101;
+			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
+			y = "9.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
+			w = "27 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "6.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
 		class Title: RscText
 		{
-			idc = 42002;
-			text = "Component";
-			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[] = {0,0,0,0.5};
+			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.69])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.75])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.5])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
+			idc = 42102;
+			text = "Curator Presets Dialog Base";
+			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
+			y = "8.4 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
+			w = "27 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
-		class Value: RscListBox
+		class Content: RscControlsGroup
 		{
-			idc = 42003;
-			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			idc = 42103;
+			x = "7 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)";
+			y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
+			w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			class controls{};
+		};
+		class ButtonOK: RscButtonMenuOK
+		{
+			x = "28.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
+			y = "16.1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
+			w = "5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+		class ButtonCancel: RscButtonMenuCancel
+		{
+			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
+			y = "16.1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
+			w = "5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 	};
 };
-class RscAttributeComponentDamage: RscControlsGroupNoScrollbars
+class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleCuratorPresets
 {
-	idc = 42010;
-	x = "7 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX)";
-	y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))";
-	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
-	h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-	class controls
-	{
-		class Title: RscText
-		{
-			idc = 42011;
-			text = "Component Damage";
-			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[] = {0,0,0,0.5};
-		};
-		class Value: RscXSliderH
-		{
-			idc = 42012;
-			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
-	};
-};
-
-class Controls;
-class Background;
-class Title;
-class Content;
-class ButtonOK;
-class ButtonCancel;
-class RscDisplayAttributes;
-class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributes
-{
-	onLoad = "uinamespace setvariable ['RscDisplayAttributesModuleDamageComponent', (_this select 0)];";
+	idd = 42000;
 	filterAttributes = 1;
 	class Controls: Controls
 	{
 		class Background: Background{};
 		class Title: Title
 		{
-			text = "Damage Component Module";
+			text = "Damage Component Module Config";
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls
 			{
-				class Component: RscAttributeComponent{};
-				class Damage: RscAttributeComponentDamage{};
+				class ComponentTitle: RscText
+				{
+					idc = 42011;
+					text = "Component";
+					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					colorBackground[] = {0,0,0,0.5};
+				};
+				class ComponentValue: RscListBox
+				{
+					idc = 42012;
+					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+				};
+				class DamageTitle: RscText
+				{
+					idc = 42021;
+					text = "Component Damage";
+					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					colorBackground[] = {0,0,0,0.5};
+				};
+				class DamageValue: RscXSliderH
+				{
+					idc = 42022;
+					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					tooltip = "Damage";
+				};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+class RscDisplayAttributesModuleUnitSpeed: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 43000;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Unit Speed Module Config";
+		};
+		class Content: Content
+		{
+			class controls
+			{
+				class UnitSpeedTitle: RscText
+				{
+					idc = 43011;
+					text = "Unit Speed";
+					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					colorBackground[] = {0,0,0,0.5};
+				};
+				class UnitSpeedValue: RscListBox
+				{
+					idc = 43012;
+					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+				};
 			};
 		};
 		class ButtonOK: ButtonOK{};

@@ -13,6 +13,8 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		[objnull, "Error - Module was not placed on any unit"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
+
+	//Get class of unit
 	_unitClass = typeOf _unit;
 	
 	//Load up the dialog
@@ -20,28 +22,61 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	waitUntil { dialog };
 	sleep 0.1;
 
+	//Get the dialog display
+	_display = findDisplay 42000;
+
 	//Configure the list box in the dialog
-	_display = uinamespace getvariable ["RscDisplayAttributesModuleDamageComponent", objNull];
-	_ctrlValue = _display displayctrl 42003;
+	_ctrlComponent = _display displayctrl 42012;
 	{
-		_name = gettext(_x);
-		_lbComponent = _ctrlValue lbAdd [_name];
-	} foreach ((configFile >> "cfgVehicles" >> _unitClass >> "HitPoints") call bis_fnc_returnchildren);
-	_ctrlValue lbSetCurSel 0;
+		_name = configName _x;
+		_lbComponent = _ctrlComponent lbAdd _name;
+	} foreach ((configFile >> "cfgVehicles" >> _unitClass >> "HitPoints") call BIS_fnc_returnChildren);
+	_ctrlComponent lbSetCurSel 0;
+	_ctrlComponent ctrlCommit 1;
 
 	//Configure the slider in the dialog
-	_ctrlSlider = _display displayctrl 42012;
-	_ctrlSlider slidersetposition 10;
+	_ctrlDamage = _display displayCtrl 42022;
+	_ctrlDamage sliderSetRange [0, 10];
+	_ctrlDamage sliderSetPosition 5;
+	_ctrlDamage ctrlCommit 1;
+
+	//Setup handler when OK is clicked
+	_ctrlButtonOK = _display displayCtrl 1;
+	_ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
+		_display = ctrlParent (_this select 0);
+		_ctrlComponent = _display displayCtrl 42012;
+		_ctrlDamage = _display displayCtrl 42022;
+		uinamespace setVariable ["curatorPresets_ComponentValue", _ctrlComponent lbText lbCurSel _ctrlComponent];
+		uinamespace setVariable ["curatorPresets_DamageValue", 1 - ((sliderPosition _ctrlDamage) * 0.1)];
+	}];
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
 
-	_component = _ctrlValue lbText lbCurSel _ctrlValue;
-	_hit = 1 - sliderposition _ctrlSlider * 0.1;
+	//Get config from saved UI variables
+	_component = uinamespace getVariable "curatorPresets_ComponentValue";
+	_hit = uinamespace getVariable "curatorPresets_DamageValue";
+	if(isnil "_component") exitWith {
+		[objnull, "Error - Component was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		deletevehicle _logic;
+	};
+	if(isnil "_hit") exitWith {
+		[objnull, "Error - Damage was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		deletevehicle _logic;
+	};
+
+	//Calculate the component name
 	_componentName = getText(configFile >> "cfgVehicles" >> _unitClass >> "HitPoints" >> _component >> "name");
+
+	//Damage the component
 	_unit setHit [_componentName, _hit];
-	
+
+	//Alert Zeus
 	[objnull, format["%1 - Component %3 has %4 damage at %2", name _unit, mapGridPosition _unit, _componentName, _hit]] call bis_fnc_showCuratorFeedbackMessage;
+	
+	//Clean up
+	uinamespace setVariable ["curatorPresets_ComponentValue", nil];
+	uinamespace setVariable ["curatorPresets_DamageValue", nil];
 	
 	deletevehicle _logic;
 };
