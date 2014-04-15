@@ -30,7 +30,7 @@ Known Issues
 Changelog
 ==========
 
-v1.3 - Added Artillery and Vehicle Disembark modules, Fixed mod logo
-v1.2 - Implemented config dialogs for Component Damage and Unit Speed
-v1.1 - Added bisign keys, Fixed Curator messages, Added recruit unit module
-v1.0 - Initial alpha release
+-	v1.3 - Added Artillery and Vehicle Disembark modules, Fixed mod logo
+-	v1.2 - Implemented config dialogs for Component Damage and Unit Speed
+-	v1.1 - Added bisign keys, Fixed Curator messages, Added recruit unit module
+-	v1.0 - Initial alpha release
