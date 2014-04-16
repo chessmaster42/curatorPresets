@@ -37,7 +37,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	//Configure the slider in the dialog
 	_ctrlDamage = _display displayCtrl 42022;
 	_ctrlDamage sliderSetRange [0, 10];
-	_ctrlDamage sliderSetPosition 5;
+	_ctrlDamage sliderSetPosition 0;
 	_ctrlDamage ctrlCommit 1;
 
 	//Setup handler when OK is clicked

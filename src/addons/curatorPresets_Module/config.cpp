@@ -3,6 +3,7 @@ class CfgPatches
 	class curatorPresets_Module
 	{
 		units[] = {
+				"curatorPresets_ModuleAirFlight",
 				"curatorPresets_ModuleArtillery",
 				"curatorPresets_ModuleCWSLoad",
 				"curatorPresets_ModuleDamageComponent",
@@ -11,6 +12,7 @@ class CfgPatches
 				"curatorPresets_ModuleUnitRecruitable",
 				"curatorPresets_ModuleUnitSpeed",
 				"curatorPresets_ModuleUnitSurrender",
+				"curatorPresets_ModuleUnitWaypoint",
 				"curatorPresets_ModuleVAS",
 				"curatorPresets_ModuleVehicleDisembark"
 		};
@@ -78,6 +80,13 @@ class CfgVehicles
 			sync[] = {};
 		};
 	};
+	class curatorPresets_ModuleAirFlight: curatorPresets_ModuleBase
+	{
+		scope = 1;
+		displayName = "Air Flight";
+		function = "cpm_fnc_ModuleAirFlight";
+		scopeCurator = 2;
+	};
 	class curatorPresets_ModuleArtillery: curatorPresets_ModuleBase
 	{
 		scope = 1;
@@ -134,6 +143,13 @@ class CfgVehicles
 		function = "cpm_fnc_ModuleUnitSurrender";
 		scopeCurator = 2;
 	};
+	class curatorPresets_ModuleUnitWaypoint: curatorPresets_ModuleBase
+	{
+		scope = 1;
+		displayName = "Unit Waypoint";
+		function = "cpm_fnc_ModuleUnitWaypoint";
+		scopeCurator = 2;
+	};
 	class curatorPresets_ModuleVAS: curatorPresets_ModuleBase
 	{
 		scope = 2;
@@ -159,6 +175,7 @@ class CfgFunctions
 		class modules
 		{
 			file = "\curatorPresets_Module\functions\modules";
+			class moduleAirFlight{};
 			class moduleArtillery{};
 			class moduleCWSLoad{};
 			class moduleDamageComponent{};
@@ -167,6 +184,7 @@ class CfgFunctions
 			class moduleUnitRecruitable{};
 			class moduleUnitSpeed{};
 			class moduleUnitSurrender{};
+			class moduleUnitWaypoint{};
 			class moduleVAS{};
 			class moduleVehicleDisembark{};
 		};
@@ -179,6 +197,14 @@ class CfgFunctions
 			class loadRecruitable{};
 			class loadVAS{};
 		};
+		class ui
+		{
+			file = "\curatorPresets_Module\functions\ui";
+			class initAmmoType{};
+			class initCoordinates{};
+			class initUnitSpeed{};
+			class initWaypointType{};
+		};
 	};
 };
 
@@ -190,6 +216,148 @@ class RscXSliderH;
 class RscControlsGroup;
 class RscButtonMenuOK;
 class RscButtonMenuCancel;
+
+class RscDisplayAttributeModuleCoordinates: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitCoordinates";
+	idc = 41000;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "2.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class XCoordinateTitle: RscText
+		{
+			idc = 41001;
+			text = "X Coordinate";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class XCoordinateValue: RscEdit
+		{
+			idc = 41002;
+			text = "0";
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+		class YCoordinateTitle: RscText
+		{
+			idc = 41003;
+			text = "Y Coordinate";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class YCoordinateValue: RscEdit
+		{
+			idc = 41004;
+			text = "0";
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleWaypointType: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitWaypointType";
+	idc = 41010;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class WaypointTypeTitle: RscText
+		{
+			idc = 41011;
+			text = "Ammo Type";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class WaypointTypeValue: RscListBox
+		{
+			idc = 41012;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleAmmoType: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitAmmoType";
+	idc = 41020;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class AmmoTypeTitle: RscText
+		{
+			idc = 41021;
+			text = "Ammo Type";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class AmmoTypeValue: RscListBox
+		{
+			idc = 41022;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleUnitSpeed: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitUnitSpeed";
+	idc = 41030;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class UnitSpeedTitle: RscText
+		{
+			idc = 41031;
+			text = "Movement Speed";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class UnitSpeedValue: RscListBox
+		{
+			idc = 41032;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+
 class RscDisplayAttributesModuleCuratorPresets
 {
 	idd = -1;
@@ -242,6 +410,47 @@ class RscDisplayAttributesModuleCuratorPresets
 		};
 	};
 };
+class RscDisplayAttributesModuleAirFlight: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 47000;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Air Flight Module Config";
+		};
+		class Content: Content
+		{
+			class controls
+			{
+				class FlightSpeed: RscDisplayAttributeModuleUnitSpeed{};
+				class AltitudeTitle: RscText
+				{
+					idc = 47001;
+					text = "Altitude";
+					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					colorBackground[] = {0,0,0,0.5};
+				};
+				class AltitudeValue: RscEdit
+				{
+					idc = 47002;
+					text = "200";
+					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+				};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
 class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleCuratorPresets
 {
 	idd = 45000;
@@ -257,61 +466,10 @@ class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleCuratorPres
 		{
 			class controls
 			{
-				class XCoordinateTitle: RscText
+				class Coordinates: RscDisplayAttributeModuleCoordinates{};
+				class Ammo: RscDisplayAttributeModuleAmmoType
 				{
-					idc = 45011;
-					text = "X Coordinate";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class XCoordinateValue: RscEdit
-				{
-					idc = 45012;
-					text = "0";
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-				};
-				class YCoordinateTitle: RscText
-				{
-					idc = 45021;
-					text = "Y Coordinate";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class YCoordinateValue: RscEdit
-				{
-					idc = 45022;
-					text = "0";
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-				};
-				class AmmoTypeTitle: RscText
-				{
-					idc = 45031;
-					text = "Ammo Type";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
 					y = "2 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class AmmoTypeValue: RscListBox
-				{
-					idc = 45032;
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "2 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 				};
 				class RoundCountTitle: RscText
 				{
@@ -410,23 +568,32 @@ class RscDisplayAttributesModuleUnitSpeed: RscDisplayAttributesModuleCuratorPres
 		{
 			class controls
 			{
-				class UnitSpeedTitle: RscText
+				class UnitSpeed: RscDisplayAttributeModuleUnitSpeed{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+class RscDisplayAttributesModuleUnitWaypoint: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 46000;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Unit Waypoint Module Config";
+		};
+		class Content: Content
+		{
+			class controls
+			{
+				class Coordinates: RscDisplayAttributeModuleCoordinates{};
+				class WaypointType: RscDisplayAttributeModuleWaypointType
 				{
-					idc = 43011;
-					text = "Unit Speed";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class UnitSpeedValue: RscListBox
-				{
-					idc = 43012;
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					y = "2 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 				};
 			};
 		};
