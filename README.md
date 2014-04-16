@@ -25,11 +25,11 @@ Known Issues
 ============
 
 -	Surrendered units become unuseable after surrendering
--	Sometimes addAction doesn't go through on units (applies to VAS module mainly)
 
 Changelog
 ==========
 
+-	v1.4 - Fixed global and persistence of module functions
 -	v1.3 - Added Artillery and Vehicle Disembark modules, Fixed mod logo
 -	v1.2 - Implemented config dialogs for Component Damage and Unit Speed
 -	v1.1 - Added bisign keys, Fixed Curator messages, Added recruit unit module

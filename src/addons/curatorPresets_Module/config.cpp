@@ -58,6 +58,7 @@ class CfgVehicles
 		function = "";
 		functionPriority = 1;
 		isGlobal = 2;
+		isPersistent = 1;
 		isTriggerActivated = 0;
 		isDisposable = 1;
 
@@ -81,81 +82,83 @@ class CfgVehicles
 	{
 		scope = 1;
 		displayName = "Artillery";
-		function = "curatorPresets_fnc_ModuleArtillery";
+		function = "cpm_fnc_ModuleArtillery";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleCWSLoad: curatorPresets_ModuleBase
 	{
 		scope = 2;
 		displayName = "CWS Injury";
-		function = "curatorPresets_fnc_ModuleCWSLoad";
+		function = "cpm_fnc_ModuleCWSLoad";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleDamageComponent: curatorPresets_ModuleBase
 	{
 		scope = 1;
 		displayName = "Damage Unit Component";
-		function = "curatorPresets_fnc_ModuleDamageComponent";
+		function = "cpm_fnc_ModuleDamageComponent";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleHelicopterLand: curatorPresets_ModuleBase
 	{
 		scope = 2;
 		displayName = "Helicopter Land";
-		function = "curatorPresets_fnc_ModuleHelicopterLand";
+		function = "cpm_fnc_ModuleHelicopterLand";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleHelicopterHover: curatorPresets_ModuleBase
 	{
 		scope = 2;
 		displayName = "Helicopter Hover";
-		function = "curatorPresets_fnc_ModuleHelicopterHover";
+		function = "cpm_fnc_ModuleHelicopterHover";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleUnitRecruitable: curatorPresets_ModuleBase
 	{
 		scope = 2;
 		displayName = "Unit Recruitable";
-		function = "curatorPresets_fnc_ModuleUnitRecruitable";
+		function = "cpm_fnc_ModuleUnitRecruitable";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleUnitSpeed: curatorPresets_ModuleBase
 	{
 		scope = 1;
 		displayName = "Unit Speed";
-		function = "curatorPresets_fnc_ModuleUnitSpeed";
+		function = "cpm_fnc_ModuleUnitSpeed";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleUnitSurrender: curatorPresets_ModuleBase
 	{
 		scope = 2;
 		displayName = "Unit Surrender";
-		function = "curatorPresets_fnc_ModuleUnitSurrender";
+		function = "cpm_fnc_ModuleUnitSurrender";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleVAS: curatorPresets_ModuleBase
 	{
 		scope = 2;
 		displayName = "Virtual Ammobox System";
-		function = "curatorPresets_fnc_ModuleVAS";
+		function = "cpm_fnc_ModuleVAS";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleVehicleDisembark: curatorPresets_ModuleBase
 	{
 		scope = 1;
 		displayName = "Vehicle Disembark";
-		function = "curatorPresets_fnc_ModuleVehicleDisembark";
+		function = "cpm_fnc_ModuleVehicleDisembark";
 		scopeCurator = 2;
 	};
 };
 
 class CfgFunctions
 {
+	createShortcuts = 1;
 	class curatorPresets
 	{
-		class curatorPresets_FactionClass
+		tag = "cpm";
+		class modules
 		{
-			file = "\curatorPresets_Module\functions";
+			file = "\curatorPresets_Module\functions\modules";
 			class moduleArtillery{};
 			class moduleCWSLoad{};
 			class moduleDamageComponent{};
@@ -166,6 +169,15 @@ class CfgFunctions
 			class moduleUnitSurrender{};
 			class moduleVAS{};
 			class moduleVehicleDisembark{};
+		};
+		class common
+		{
+			file = "\curatorPresets_Module\functions\common";
+			class globalExec{};
+
+			class loadDamageComponent{};
+			class loadRecruitable{};
+			class loadVAS{};
 		};
 	};
 };

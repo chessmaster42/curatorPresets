@@ -8,7 +8,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_mouseOver = missionnamespace getvariable ["bis_fnc_curatorObjectPlaced_mouseOver",[""]];
 	if ((_mouseOver select 0) == typename objnull) then {_unit = _mouseOver select 1;};
 	
-	_unit addAction [format ["Recruit %1", name _unit], {[_this select 0] join (_this select 1)}, _unit, 6, false, true];
+	[[_unit], "cpm_fnc_LoadRecruitable"] spawn cpm_fnc_GlobalExec;
 	
 	[objnull, format["%1 - Recruitable at %2", name _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
 	
