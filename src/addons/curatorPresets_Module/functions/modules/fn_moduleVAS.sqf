@@ -7,6 +7,10 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_unit = objnull;
 	_mouseOver = missionnamespace getvariable ["bis_fnc_curatorObjectPlaced_mouseOver",[""]];
 	if ((_mouseOver select 0) == typename objnull) then {_unit = _mouseOver select 1;};
+	if(isnull _unit) exitWith {
+		[objnull, "Error - Module was not placed on any unit"] call bis_fnc_showCuratorFeedbackMessage;
+		deletevehicle _logic;
+	};
 	
 	[[_unit], "cpm_fnc_LoadVAS"] spawn cpm_fnc_GlobalExec;
 	

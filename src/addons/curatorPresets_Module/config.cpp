@@ -62,7 +62,7 @@ class CfgVehicles
 		isGlobal = 2;
 		isPersistent = 1;
 		isTriggerActivated = 0;
-		isDisposable = 1;
+		isDisposable = 0;
 
 		curatorInfoType = "RscDisplayAttributesMan";
 
@@ -106,20 +106,6 @@ class CfgVehicles
 		scope = 1;
 		displayName = "Damage Unit Component";
 		function = "cpm_fnc_ModuleDamageComponent";
-		scopeCurator = 2;
-	};
-	class curatorPresets_ModuleHelicopterLand: curatorPresets_ModuleBase
-	{
-		scope = 2;
-		displayName = "Helicopter Land";
-		function = "cpm_fnc_ModuleHelicopterLand";
-		scopeCurator = 2;
-	};
-	class curatorPresets_ModuleHelicopterHover: curatorPresets_ModuleBase
-	{
-		scope = 2;
-		displayName = "Helicopter Hover";
-		function = "cpm_fnc_ModuleHelicopterHover";
 		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleUnitRecruitable: curatorPresets_ModuleBase
@@ -179,8 +165,6 @@ class CfgFunctions
 			class moduleArtillery{};
 			class moduleCWSLoad{};
 			class moduleDamageComponent{};
-			class moduleHelicopterLand{};
-			class moduleHelicopterHover{};
 			class moduleUnitRecruitable{};
 			class moduleUnitSpeed{};
 			class moduleUnitSurrender{};
@@ -191,6 +175,8 @@ class CfgFunctions
 		class common
 		{
 			file = "\curatorPresets_Module\functions\common";
+			class initCPM{preInit = 1;};
+
 			class globalExec{};
 
 			class loadDamageComponent{};
@@ -202,8 +188,18 @@ class CfgFunctions
 			file = "\curatorPresets_Module\functions\ui";
 			class initAmmoType{};
 			class initCoordinates{};
+			class initDamageSlider{};
+			class initRoundCount{};
+			class initUnitComponent{};
 			class initUnitSpeed{};
+			class initVehicleAltitude{};
+			class initVehicleUnits{};
 			class initWaypointType{};
+		};
+		class events
+		{
+			file = "\curatorPresets_Module\functions\events";
+			class onWaypointPlaced{};
 		};
 	};
 };
@@ -280,7 +276,7 @@ class RscDisplayAttributeModuleWaypointType: RscControlsGroup
 		class WaypointTypeTitle: RscText
 		{
 			idc = 41011;
-			text = "Ammo Type";
+			text = "Waypoint Type";
 			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
@@ -357,6 +353,156 @@ class RscDisplayAttributeModuleUnitSpeed: RscControlsGroup
 		};
 	};
 };
+class RscDisplayAttributeModuleRoundCount: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitRoundCount";
+	idc = 41040;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class CountTitle: RscText
+		{
+			idc = 41041;
+			text = "Rounds";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class CountValue: RscListBox
+		{
+			idc = 41042;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleUnitComponent: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitUnitComponent";
+	idc = 41050;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class ComponentTitle: RscText
+		{
+			idc = 41051;
+			text = "Component";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class ComponentValue: RscListBox
+		{
+			idc = 41052;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleDamageSlider: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitDamageSlider";
+	idc = 41060;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class DamageTitle: RscText
+		{
+			idc = 41061;
+			text = "Damage";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class DamageValue: RscXSliderH
+		{
+			idc = 41062;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleVehicleUnits: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitVehicleUnits";
+	idc = 41070;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class CountTitle: RscText
+		{
+			idc = 41071;
+			text = "Vehicle Units";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class CountValue: RscListBox
+		{
+			idc = 41072;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleVehicleAltitude: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitVehicleAltitude";
+	idc = 41080;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class CountTitle: RscText
+		{
+			idc = 41081;
+			text = "Altitude";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class CountValue: RscEdit
+		{
+			idc = 41082;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
 
 class RscDisplayAttributesModuleCuratorPresets
 {
@@ -369,7 +515,7 @@ class RscDisplayAttributesModuleCuratorPresets
 		class Background: RscText
 		{
 			colorBackground[] = {0,0,0,0.7};
-			idc = 42101;
+			idc = 42001;
 			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
 			y = "9.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
 			w = "27 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
@@ -378,7 +524,7 @@ class RscDisplayAttributesModuleCuratorPresets
 		class Title: RscText
 		{
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.69])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.75])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.5])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
-			idc = 42102;
+			idc = 42002;
 			text = "Curator Presets Dialog Base";
 			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
 			y = "8.4 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
@@ -387,7 +533,7 @@ class RscDisplayAttributesModuleCuratorPresets
 		};
 		class Content: RscControlsGroup
 		{
-			idc = 42103;
+			idc = 42003;
 			x = "7 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)";
 			y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
 			w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
@@ -412,7 +558,7 @@ class RscDisplayAttributesModuleCuratorPresets
 };
 class RscDisplayAttributesModuleAirFlight: RscDisplayAttributesModuleCuratorPresets
 {
-	idd = 47000;
+	idd = 42100;
 	filterAttributes = 1;
 	class Controls: Controls
 	{
@@ -426,24 +572,9 @@ class RscDisplayAttributesModuleAirFlight: RscDisplayAttributesModuleCuratorPres
 			class controls
 			{
 				class FlightSpeed: RscDisplayAttributeModuleUnitSpeed{};
-				class AltitudeTitle: RscText
+				class Altitude: RscDisplayAttributeModuleVehicleAltitude
 				{
-					idc = 47001;
-					text = "Altitude";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
 					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class AltitudeValue: RscEdit
-				{
-					idc = 47002;
-					text = "200";
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 				};
 			};
 		};
@@ -453,7 +584,7 @@ class RscDisplayAttributesModuleAirFlight: RscDisplayAttributesModuleCuratorPres
 };
 class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleCuratorPresets
 {
-	idd = 45000;
+	idd = 42200;
 	filterAttributes = 1;
 	class Controls: Controls
 	{
@@ -471,23 +602,9 @@ class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleCuratorPres
 				{
 					y = "2 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 				};
-				class RoundCountTitle: RscText
+				class RoundCount: RscDisplayAttributeModuleRoundCount
 				{
-					idc = 45041;
-					text = "Rounds";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
 					y = "3 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class RoundCountValue: RscListBox
-				{
-					idc = 45042;
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "3 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 				};
 			};
 		};
@@ -497,7 +614,7 @@ class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleCuratorPres
 };
 class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleCuratorPresets
 {
-	idd = 42000;
+	idd = 42300;
 	filterAttributes = 1;
 	class Controls: Controls
 	{
@@ -510,42 +627,10 @@ class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleCurat
 		{
 			class controls
 			{
-				class ComponentTitle: RscText
+				class Component: RscDisplayAttributeModuleUnitComponent{};
+				class Damage: RscDisplayAttributeModuleDamageSlider
 				{
-					idc = 42011;
-					text = "Component";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class ComponentValue: RscListBox
-				{
-					idc = 42012;
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-				};
-				class DamageTitle: RscText
-				{
-					idc = 42021;
-					text = "Component Damage";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
 					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class DamageValue: RscXSliderH
-				{
-					idc = 42022;
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					tooltip = "Damage";
 				};
 			};
 		};
@@ -555,7 +640,7 @@ class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleCurat
 };
 class RscDisplayAttributesModuleUnitSpeed: RscDisplayAttributesModuleCuratorPresets
 {
-	idd = 43000;
+	idd = 42400;
 	filterAttributes = 1;
 	class Controls: Controls
 	{
@@ -577,7 +662,7 @@ class RscDisplayAttributesModuleUnitSpeed: RscDisplayAttributesModuleCuratorPres
 };
 class RscDisplayAttributesModuleUnitWaypoint: RscDisplayAttributesModuleCuratorPresets
 {
-	idd = 46000;
+	idd = 42500;
 	filterAttributes = 1;
 	class Controls: Controls
 	{
@@ -603,7 +688,7 @@ class RscDisplayAttributesModuleUnitWaypoint: RscDisplayAttributesModuleCuratorP
 };
 class RscDisplayAttributesModuleVehicleDisembark: RscDisplayAttributesModuleCuratorPresets
 {
-	idd = 44000;
+	idd = 42600;
 	filterAttributes = 1;
 	class Controls: Controls
 	{
@@ -616,23 +701,31 @@ class RscDisplayAttributesModuleVehicleDisembark: RscDisplayAttributesModuleCura
 		{
 			class controls
 			{
-				class UnitsTitle: RscText
+				class Units: RscDisplayAttributeModuleVehicleUnits{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+class RscDisplayAttributesModuleWaypoint: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 42700;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Waypoint Module Config";
+		};
+		class Content: Content
+		{
+			class controls
+			{
+				class WaypointType: RscDisplayAttributeModuleWaypointType
 				{
-					idc = 44011;
-					text = "Units to Disembark";
-					x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
 					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					colorBackground[] = {0,0,0,0.5};
-				};
-				class UnitsValue: RscListBox
-				{
-					idc = 44012;
-					x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-					w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-					h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 				};
 			};
 		};

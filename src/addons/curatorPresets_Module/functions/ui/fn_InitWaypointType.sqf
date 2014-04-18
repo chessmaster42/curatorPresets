@@ -7,9 +7,7 @@ _display = ctrlParent _control;
 _ctrlType = _display displayCtrl 41012;
 {
 	_lbComponent = _ctrlType lbAdd _x;
-} foreach ["MOVE", "DESTROY", "GETIN", "SAD", "JOIN", "LEADER", 
- "GETOUT", "CYCLE", "LOAD", "UNLOAD", "TR UNLOAD", "HOLD", "SENTRY", "GUARD", "TALK", "SCRIPTED", 
- "SUPPORT", "GETIN NEAREST", "AND", "OR"];
+} foreach ["MOVE", "DESTROY", "GETIN", "SAD", "JOIN", "LEADER", "GETOUT", "CYCLE", "LOAD", "UNLOAD", "TR UNLOAD", "HOLD", "SENTRY","GUARD","SUPPORT","GETIN NEAREST","DISMISS","Land","Land - Get in"];
 _ctrlType lbSetCurSel 0;
 _ctrlType ctrlCommit 1;
 

@@ -14,6 +14,9 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		deletevehicle _logic;
 	};
 
+	//Save the unit for the UI
+	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
+
 	//Get the units in the vehicle
 	_vehicleCrew = [
         (commander _unit),
@@ -21,37 +24,17 @@ if (_activated && local _logic && !isnull curatorcamera) then {
         (driver _unit)
     ];
 	_vehiclePassengers = crew _unit - _vehicleCrew;
-
 	
 	//Load up the dialog
 	_ok = createDialog "RscDisplayAttributesModuleVehicleDisembark";
 	waitUntil { dialog };
 	sleep 0.1;
 
-	//Get the dialog display
-	_display = findDisplay 44000;
-
-	//Configure the list box in the dialog
-	_ctrlUnits = _display displayctrl 44012;
-	_ctrlUnits lbAdd "Passengers";
-	_ctrlUnits lbAdd "Crew";
-	_ctrlUnits lbAdd "All";
-	_ctrlUnits lbSetCurSel 0;
-	_ctrlUnits ctrlCommit 1;
-
-	//Setup handler when OK is clicked
-	_ctrlButtonOK = _display displayCtrl 1;
-	_ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
-		_display = ctrlParent (_this select 0);
-		_ctrlUnits = _display displayCtrl 44012;
-		uinamespace setVariable ["curatorPresets_UnitsValue", _ctrlUnits lbText lbCurSel _ctrlUnits];
-	}];
-
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
 
 	//Get config from saved UI variables
-	_unitsToDisembark = uinamespace getVariable "curatorPresets_UnitsValue";
+	_unitsToDisembark = uinamespace getVariable "curatorPresets_VehicleUnitsValue";
 	if(isnil "_unitsToDisembark") exitWith {
 		[objnull, "Error - Unit type was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
@@ -78,7 +61,8 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	[objnull, format["%1 - %3 disembarked at %2", name _unit, mapGridPosition _unit, _unitsToDisembark]] call bis_fnc_showCuratorFeedbackMessage;
 	
 	//Clean up
-	uinamespace setVariable ["curatorPresets_UnitsValue", nil];
+	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
+	uinamespace setVariable ["curatorPresets_VehicleUnitsValue", nil];
 	
 	deletevehicle _logic;
 };

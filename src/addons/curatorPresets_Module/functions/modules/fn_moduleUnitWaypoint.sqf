@@ -14,6 +14,11 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		deletevehicle _logic;
 	};
 
+	_group = group _unit;
+
+	//Save the unit for the UI
+	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
+
 	//Load up the dialog
 	_ok = createDialog "RscDisplayAttributesModuleUnitWaypoint";
 	waitUntil { dialog };
@@ -43,15 +48,39 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_pos = [parseNumber _xCoordinate, parseNumber _yCoordinate];
 
 	//Add the waypoint to the unit's group
-	_waypoint = (group _unit) addWaypoint [_pos, 0];
-	_waypoint setWaypointType _waypointType;
-	_waypoint setWaypointName _waypointType;
-	_waypoint setWaypointDescription _waypointType;
+	_waypoint = _group addWaypoint [_pos, 0];
+
+	//Handle special waypoint cases
+	if(_waypointType == "GUARD") then {
+		_point = createGuardedPoint [side _unit, _pos, -1, objnull];
+
+		_iconParams = ["a3\ui_f\data\map\MapControl\waypointeditor_ca.paa", [1,1,1,1], _pos, 0.5, 0.5, 0, "Guard", 0, 0.025];
+		{
+			[_x, _iconParams, true, true] call bis_fnc_addCuratorIcon;
+		} foreach allcurators;
+	};
+	if(_waypointType == "Land") then {
+		_waypoint setWaypointStatements ["true", "vehicle this land 'LAND';"];
+
+		_waypointType = "MOVE";
+	};
+	if(_waypointType == "Land - Get in") then {
+		_waypoint setWaypointStatements ["true", "vehicle this land 'GET IN';"];
+
+		_waypointType = "MOVE";
+	};
 	
+	_waypoint setWaypointType _waypointType;
+	_waypoint setWaypointName format["%1 Waypoint", _waypointType];
+	_waypoint setWaypointDescription format["%1 Waypoint", _waypointType];
+
+	[objnull, format["%1 - Using waypoint type %3 position %4,%5 at %2", _group, mapGridPosition leader _unit, _waypointType, _xCoordinate, _yCoordinate]] call bis_fnc_showCuratorFeedbackMessage;
+
 	//Clean up
+	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
 	uinamespace setVariable ["curatorPresets_XValue", nil];
 	uinamespace setVariable ["curatorPresets_YValue", nil];
-	uinamespace setVariable ["curatorPresets_TypeValue", nil];
+	uinamespace setVariable ["curatorPresets_WaypointTypeValue", nil];
 	
 	deletevehicle _logic;
 };

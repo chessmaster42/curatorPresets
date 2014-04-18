@@ -14,6 +14,9 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		deletevehicle _logic;
 	};
 	
+	//Save the unit for the UI
+	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
+
 	//Load up the dialog
 	_ok = createDialog "RscDisplayAttributesModuleUnitSpeed";
 	waitUntil { dialog };
@@ -35,6 +38,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	[objnull, format["%1 - %3 movement speed at %2", name _unit, mapGridPosition _unit, _speed]] call bis_fnc_showCuratorFeedbackMessage;
 	
 	//Clean up
+	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
 	uinamespace setVariable ["curatorPresets_UnitSpeedValue", nil];
 	
 	deletevehicle _logic;

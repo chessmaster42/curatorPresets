@@ -14,42 +14,13 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		deletevehicle _logic;
 	};
 
+	//Save the unit for the UI
+	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
+
 	//Load up the dialog
 	_ok = createDialog "RscDisplayAttributesModuleArtillery";
 	waitUntil { dialog };
 	sleep 0.1;
-
-	//Get the dialog display
-	_display = findDisplay 45000;
-
-	//Configure the list box for ammo type
-	_ctrlType = _display displayctrl 41022;
-	{
-		_lbComponent = _ctrlType lbAdd _x;
-	} foreach getArtilleryAmmo [_unit];
-	_ctrlType lbSetCurSel 0;
-	_ctrlType ctrlCommit 1;
-
-	//Configure the list box for round count
-	_ctrlRounds = _display displayctrl 45042;
-	_ctrlRounds lbAdd "1";
-	_ctrlRounds lbAdd "2";
-	_ctrlRounds lbAdd "3";
-	_ctrlRounds lbAdd "4";
-	_ctrlRounds lbAdd "5";
-	_ctrlRounds lbAdd "6";
-	_ctrlRounds lbAdd "7";
-	_ctrlRounds lbAdd "8";
-	_ctrlRounds lbSetCurSel 0;
-	_ctrlRounds ctrlCommit 1;
-
-	//Setup handler when OK is clicked
-	_ctrlButtonOK = _display displayCtrl 1;
-	_ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
-		_display = ctrlParent (_this select 0);
-		_ctrlRounds = _display displayCtrl 45042;
-		uinamespace setVariable ["curatorPresets_RoundsValue", _ctrlRounds lbText lbCurSel _ctrlRounds];
-	}];
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
@@ -91,6 +62,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	};
 	
 	//Clean up
+	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
 	uinamespace setVariable ["curatorPresets_XValue", nil];
 	uinamespace setVariable ["curatorPresets_YValue", nil];
 	uinamespace setVariable ["curatorPresets_AmmoTypeValue", nil];
