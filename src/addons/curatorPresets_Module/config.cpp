@@ -7,6 +7,8 @@ class CfgPatches
 				"curatorPresets_ModuleArtillery",
 				"curatorPresets_ModuleCWSLoad",
 				"curatorPresets_ModuleDamageComponent",
+				"curatorPresets_ModuleUnitAction",
+				"curatorPresets_ModuleUnitAnimation",
 				"curatorPresets_ModuleUnitRecruitable",
 				"curatorPresets_ModuleUnitSpeed",
 				"curatorPresets_ModuleUnitSurrender",
@@ -105,6 +107,20 @@ class CfgVehicles
 		function = "cpm_fnc_ModuleDamageComponent";
 		scopeCurator = 2;
 	};
+	class curatorPresets_ModuleUnitAction: curatorPresets_ModuleBase
+	{
+		scope = 2;
+		displayName = "Unit Action";
+		function = "cpm_fnc_ModuleUnitAction";
+		scopeCurator = 2;
+	};
+	class curatorPresets_ModuleUnitAnimation: curatorPresets_ModuleBase
+	{
+		scope = 2;
+		displayName = "Unit Animation";
+		function = "cpm_fnc_ModuleUnitAnimation";
+		scopeCurator = 2;
+	};
 	class curatorPresets_ModuleUnitRecruitable: curatorPresets_ModuleBase
 	{
 		scope = 2;
@@ -155,6 +171,8 @@ class CfgFunctions
 			class moduleArtillery{};
 			class moduleCWSLoad{};
 			class moduleDamageComponent{};
+			class moduleUnitAction{};
+			class moduleUnitAnimation{};
 			class moduleUnitRecruitable{};
 			class moduleUnitSpeed{};
 			class moduleUnitSurrender{};
@@ -179,6 +197,8 @@ class CfgFunctions
 			class initCoordinates{};
 			class initDamageSlider{};
 			class initRoundCount{};
+			class initUnitAction{};
+			class initUnitAnimation{};
 			class initUnitComponent{};
 			class initUnitSpeed{};
 			class initVehicleAltitude{};
@@ -492,6 +512,66 @@ class RscDisplayAttributeModuleVehicleAltitude: RscControlsGroup
 		};
 	};
 };
+class RscDisplayAttributeModuleUnitAction: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitUnitAction";
+	idc = 41090;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class ActionTitle: RscText
+		{
+			idc = 41091;
+			text = "Action";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class ActionValue: RscListBox
+		{
+			idc = 41092;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleUnitAnimation: RscControlsGroup
+{
+	onSetFocus = "_this call cpm_fnc_InitUnitAnimation";
+	idc = 41100;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class AnimationTitle: RscText
+		{
+			idc = 41101;
+			text = "Animation";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class AnimationValue: RscListBox
+		{
+			idc = 41102;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
 
 class RscDisplayAttributesModuleCuratorPresets
 {
@@ -621,6 +701,50 @@ class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleCurat
 				{
 					y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 				};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+class RscDisplayAttributesModuleUnitAction: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 42800;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Action Module Config";
+		};
+		class Content: Content
+		{
+			class controls
+			{
+				class UnitAction: RscDisplayAttributeModuleUnitAction{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+class RscDisplayAttributesModuleUnitAnimation: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 42900;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Animation Module Config";
+		};
+		class Content: Content
+		{
+			class controls
+			{
+				class UnitAnimation: RscDisplayAttributeModuleUnitAnimation{};
 			};
 		};
 		class ButtonOK: ButtonOK{};

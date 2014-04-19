@@ -12,11 +12,17 @@ This mod currently provides a number of utility functions through Zeus-enabled m
 -	Artillery - Calls for artillery fire from the unit using coordinates, ammo type, and round count
 -	CWS Injury Load - Loads Chessmaster's Wounding System onto the unit
 -	Damage Component - Damages the unit's component based on the component selected and the damage slider
+-	Unit Action - Runs an action on the unit
+-	Unit Animation - Plays an animation on the unit
 -	Unit Recruitable - Adds an action to the unit that allows players to recruit into their own group
 -	Unit Speed - Sets the unit speed to limited, normal, or full based on the selection
 -	Unit Surrender - Calls the unit to surrender
 -	Vehicle Disembark - Calls the passengers, crew, or all units in the vehicle to disembark
 -	Virtual Ammobox System - Loads the Virtual Ammobox System onto the unit/object
+
+I have also implemented non-module feature(s) that are listed below
+
+-	Waypoint Handler - When a waypoint is placed in Zeus (RMB by default) you will get a config popup to set the waypoint type. This is skipped for get-in or destroy orders.
 
 Currently these modules are in the Modules screen in Zeus under the Zeus category. I'm still working on a custom category but for now this is where the modules will be.
 
@@ -24,10 +30,13 @@ Known Issues
 ============
 
 -	Surrendered units become useless after surrendering
+-	Some UI elements must be clicked on to initialize
+-	Guard waypoint type spawns a trigger and icon that can't yet be removed
 
 Changelog
 ==========
 
+-	v1.6 (Not Released Yet) - Added Unit Action module (complete), Added Unit Animation module (incomplete)
 -	v1.5 - Internal UI overhaul, Added Air Flight module, Added waypoint placement handler
 -	v1.4 - Fixed global and persistence of module functions
 -	v1.3 - Added Artillery and Vehicle Disembark modules, Fixed mod logo
