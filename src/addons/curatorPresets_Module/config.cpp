@@ -7,12 +7,9 @@ class CfgPatches
 				"curatorPresets_ModuleArtillery",
 				"curatorPresets_ModuleCWSLoad",
 				"curatorPresets_ModuleDamageComponent",
-				"curatorPresets_ModuleHelicopterLand",
-				"curatorPresets_ModuleHelicopterHover",
 				"curatorPresets_ModuleUnitRecruitable",
 				"curatorPresets_ModuleUnitSpeed",
 				"curatorPresets_ModuleUnitSurrender",
-				"curatorPresets_ModuleUnitWaypoint",
 				"curatorPresets_ModuleVAS",
 				"curatorPresets_ModuleVehicleDisembark"
 		};
@@ -129,13 +126,6 @@ class CfgVehicles
 		function = "cpm_fnc_ModuleUnitSurrender";
 		scopeCurator = 2;
 	};
-	class curatorPresets_ModuleUnitWaypoint: curatorPresets_ModuleBase
-	{
-		scope = 1;
-		displayName = "Unit Waypoint";
-		function = "cpm_fnc_ModuleUnitWaypoint";
-		scopeCurator = 2;
-	};
 	class curatorPresets_ModuleVAS: curatorPresets_ModuleBase
 	{
 		scope = 2;
@@ -168,7 +158,6 @@ class CfgFunctions
 			class moduleUnitRecruitable{};
 			class moduleUnitSpeed{};
 			class moduleUnitSurrender{};
-			class moduleUnitWaypoint{};
 			class moduleVAS{};
 			class moduleVehicleDisembark{};
 		};
@@ -654,32 +643,6 @@ class RscDisplayAttributesModuleUnitSpeed: RscDisplayAttributesModuleCuratorPres
 			class controls
 			{
 				class UnitSpeed: RscDisplayAttributeModuleUnitSpeed{};
-			};
-		};
-		class ButtonOK: ButtonOK{};
-		class ButtonCancel: ButtonCancel{};
-	};
-};
-class RscDisplayAttributesModuleUnitWaypoint: RscDisplayAttributesModuleCuratorPresets
-{
-	idd = 42500;
-	filterAttributes = 1;
-	class Controls: Controls
-	{
-		class Background: Background{};
-		class Title: Title
-		{
-			text = "Unit Waypoint Module Config";
-		};
-		class Content: Content
-		{
-			class controls
-			{
-				class Coordinates: RscDisplayAttributeModuleCoordinates{};
-				class WaypointType: RscDisplayAttributeModuleWaypointType
-				{
-					y = "2 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-				};
 			};
 		};
 		class ButtonOK: ButtonOK{};
