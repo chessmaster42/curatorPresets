@@ -14,6 +14,7 @@ This mod currently provides a number of utility functions through Zeus-enabled m
 -	Damage Component - Damages the unit's component based on the component selected and the damage slider
 -	Unit Action - Runs an action on the unit
 -	Unit Animation - Plays an animation on the unit
+-	Unit Chat - Sends a chat message through the unit
 -	Unit Recruitable - Adds an action to the unit that allows players to recruit into their own group
 -	Unit Speed - Sets the unit speed to limited, normal, or full based on the selection
 -	Unit Surrender - Calls the unit to surrender
@@ -29,14 +30,13 @@ Currently these modules are in the Modules screen in Zeus under the Zeus categor
 Known Issues
 ============
 
--	Surrendered units become useless after surrendering
 -	Some UI elements must be clicked on to initialize
 -	Guard waypoint type spawns a trigger and icon that can't yet be removed
 
 Changelog
 ==========
 
--	v1.6 (Not Released Yet) - Added Unit Action module (complete), Added Unit Animation module (incomplete)
+-	v1.6 - Added Unit Action module, Added Unit Animation module (incomplete), Added Unit Chat module, Improved Unit Surrender module, Changed list boxes to combo boxes, Misc UI improvements
 -	v1.5 - Internal UI overhaul, Added Air Flight module, Added waypoint placement handler
 -	v1.4 - Fixed global and persistence of module functions
 -	v1.3 - Added Artillery and Vehicle Disembark modules, Fixed mod logo

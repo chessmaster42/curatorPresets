@@ -2,14 +2,13 @@ _control = _this select 0;
 
 _control ctrlRemoveAllEventHandlers "setFocus";
 
-_display = ctrlParent _control;
-
 //Get unit info
 _unit = uinamespace getVariable "curatorPresets_ModuleUnit";
 _unitClass = typeOf _unit;
 
 //Configure the list box
-_ctrl = _display displayctrl 41102;
+_display = ctrlParent _control;
+_ctrl = _display displayCtrl 41102;
 {
 	_name = configName _x;
 	_lbComponent = _ctrl lbAdd _name;
