@@ -7,6 +7,7 @@ class CfgPatches
 				"curatorPresets_ModuleArtillery",
 				"curatorPresets_ModuleCWSLoad",
 				"curatorPresets_ModuleDamageComponent",
+				"curatorPresets_ModuleSpawnGarrison",
 				"curatorPresets_ModuleUnitAction",
 				"curatorPresets_ModuleUnitAnimation",
 				"curatorPresets_ModuleUnitChat",
@@ -108,6 +109,13 @@ class CfgVehicles
 		function = "cpm_fnc_ModuleDamageComponent";
 		scopeCurator = 2;
 	};
+	class curatorPresets_ModuleSpawnGarrison: curatorPresets_ModuleBase
+	{
+		scope = 1;
+		displayName = "Spawn Garrison";
+		function = "cpm_fnc_ModuleSpawnGarrison";
+		scopeCurator = 2;
+	};
 	class curatorPresets_ModuleUnitAction: curatorPresets_ModuleBase
 	{
 		scope = 2;
@@ -179,6 +187,7 @@ class CfgFunctions
 			class moduleArtillery{};
 			class moduleCWSLoad{};
 			class moduleDamageComponent{};
+			class moduleSpawnGarrison{};
 			class moduleUnitAction{};
 			class moduleUnitAnimation{};
 			class moduleUnitChat{};
@@ -210,13 +219,16 @@ class CfgFunctions
 			file = "\curatorPresets_Module\functions\ui";
 			class initAmmoType{};
 			class initCoordinates{};
+			class initCoordinateRadius{};
 			class initDamageSlider{};
+			class initDensitySlider{};
 			class initRoundCount{};
 			class initUnitAction{};
 			class initUnitAnimation{};
 			class initUnitChatChannel{};
 			class initUnitChatText{};
 			class initUnitComponent{};
+			class initUnitSide{};
 			class initUnitSpeed{};
 			class initVehicleAltitude{};
 			class initVehicleUnits{};
@@ -660,6 +672,97 @@ class RscDisplayAttributeModuleUnitChatText: RscControlsGroupNoScrollbars
 		};
 	};
 };
+class RscDisplayAttributeModuleDensitySlider: RscControlsGroupNoScrollbars
+{
+	onSetFocus = "_this call cpm_fnc_InitDensitySlider";
+	idc = 41130;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class Title: RscText
+		{
+			idc = 41131;
+			text = "Density";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class Value: RscXSliderH
+		{
+			idc = 41132;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleUnitSide: RscControlsGroupNoScrollbars
+{
+	onSetFocus = "_this call cpm_fnc_InitUnitSide";
+	idc = 41140;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class Title: RscText
+		{
+			idc = 41141;
+			text = "Side";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class Value: RscCombo
+		{
+			wholeHeight = "4.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			idc = 41142;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscDisplayAttributeModuleCoordinateRadius: RscControlsGroupNoScrollbars
+{
+	onSetFocus = "_this call cpm_fnc_InitCoordinateRadius";
+	idc = 41150;
+	x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class Title: RscText
+		{
+			idc = 41151;
+			text = "Radius";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class Value: RscXSliderH
+		{
+			idc = 41152;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
 
 class RscDisplayAttributesModuleCuratorPresets
 {
@@ -805,6 +908,72 @@ class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleCurat
 		class ButtonCancel: ButtonCancel{};
 	};
 };
+class RscDisplayAttributesModuleUnitSpeed: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 42400;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Unit Speed Module Config";
+		};
+		class Content: Content
+		{
+			class Controls: controls
+			{
+				class UnitSpeed: RscDisplayAttributeModuleUnitSpeed{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+class RscDisplayAttributesModuleVehicleDisembark: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 42600;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Vehicle Disembark Module Config";
+		};
+		class Content: Content
+		{
+			class Controls: controls
+			{
+				class Units: RscDisplayAttributeModuleVehicleUnits{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+class RscDisplayAttributesModuleWaypoint: RscDisplayAttributesModuleCuratorPresets
+{
+	idd = 42700;
+	filterAttributes = 1;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Waypoint Module Config";
+		};
+		class Content: Content
+		{
+			class Controls: controls
+			{
+				class WaypointType: RscDisplayAttributeModuleWaypointType{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
 class RscDisplayAttributesModuleUnitAction: RscDisplayAttributesModuleCuratorPresets
 {
 	idd = 42800;
@@ -885,69 +1054,47 @@ class RscDisplayAttributesModuleUnitChat: RscDisplayAttributesModuleCuratorPrese
 		};
 	};
 };
-class RscDisplayAttributesModuleUnitSpeed: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleSpawnGarrison: RscDisplayAttributesModuleCuratorPresets
 {
-	idd = 42400;
+	idd = 43100;
 	filterAttributes = 1;
 	class Controls: Controls
 	{
-		class Background: Background{};
+		class Background: Background
+		{
+			h = "9.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
 		class Title: Title
 		{
-			text = "Unit Speed Module Config";
+			text = "Spawn Garrison Module Config";
 		};
 		class Content: Content
 		{
+			h = "8 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			class Controls: controls
 			{
-				class UnitSpeed: RscDisplayAttributeModuleUnitSpeed{};
+				class Coordinates: RscDisplayAttributeModuleCoordinates{};
+				class Radius: RscDisplayAttributeModuleCoordinateRadius
+				{
+					y = "2.4 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+				};
+				class Density: RscDisplayAttributeModuleDensitySlider
+				{
+					y = "3.6 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+				};
+				class Side: RscDisplayAttributeModuleUnitSide
+				{
+					y = "4.8 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+				};
 			};
 		};
-		class ButtonOK: ButtonOK{};
-		class ButtonCancel: ButtonCancel{};
-	};
-};
-class RscDisplayAttributesModuleVehicleDisembark: RscDisplayAttributesModuleCuratorPresets
-{
-	idd = 42600;
-	filterAttributes = 1;
-	class Controls: Controls
-	{
-		class Background: Background{};
-		class Title: Title
+		class ButtonOK: ButtonOK
 		{
-			text = "Vehicle Disembark Module Config";
+			y = "19.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
 		};
-		class Content: Content
+		class ButtonCancel: ButtonCancel
 		{
-			class Controls: controls
-			{
-				class Units: RscDisplayAttributeModuleVehicleUnits{};
-			};
+			y = "19.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
 		};
-		class ButtonOK: ButtonOK{};
-		class ButtonCancel: ButtonCancel{};
-	};
-};
-class RscDisplayAttributesModuleWaypoint: RscDisplayAttributesModuleCuratorPresets
-{
-	idd = 42700;
-	filterAttributes = 1;
-	class Controls: Controls
-	{
-		class Background: Background{};
-		class Title: Title
-		{
-			text = "Waypoint Module Config";
-		};
-		class Content: Content
-		{
-			class Controls: controls
-			{
-				class WaypointType: RscDisplayAttributeModuleWaypointType{};
-			};
-		};
-		class ButtonOK: ButtonOK{};
-		class ButtonCancel: ButtonCancel{};
 	};
 };

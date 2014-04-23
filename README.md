@@ -12,6 +12,7 @@ This mod currently provides a number of utility functions through Zeus-enabled m
 -	Artillery - Calls for artillery fire from the unit using coordinates, ammo type, and round count
 -	CWS Injury Load - Loads Chessmaster's Wounding System onto the unit
 -	Damage Component - Damages the unit's component based on the component selected and the damage slider
+-	Spawn Garrison - Spawns a garrison of units at the given location based on some config params
 -	Unit Action - Runs an action on the unit
 -	Unit Animation - Plays an animation on the unit
 -	Unit Chat - Sends a chat message through the unit
@@ -36,6 +37,7 @@ Known Issues
 Changelog
 ==========
 
+-	v1.7 (Not released yet) - Added Spawn Garrison module
 -	v1.6 - Added Unit Action module, Added Unit Animation module (incomplete), Added Unit Chat module, Improved Unit Surrender module, Changed list boxes to combo boxes, Misc UI improvements
 -	v1.5 - Internal UI overhaul, Added Air Flight module, Added waypoint placement handler
 -	v1.4 - Fixed global and persistence of module functions
