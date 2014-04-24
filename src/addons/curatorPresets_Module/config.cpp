@@ -201,8 +201,8 @@ class CfgFunctions
 		{
 			file = "\curatorPresets_Module\functions\common";
 			class initCPM{preInit = 1;};
-
 			class globalExec{};
+			class spawnGarrison{};
 
 			class getUnitUnderCursor{};
 			class getGroupUnderCursor{};
