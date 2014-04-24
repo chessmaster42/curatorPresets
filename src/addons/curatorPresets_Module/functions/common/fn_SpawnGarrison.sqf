@@ -6,8 +6,8 @@ _side = _this select 3;
 //Only run spawn garrison on the server
 if(!isServer) exitWith {};
 
-_unitCountMax = 100;
-_groupCountMax = 50;
+_unitCountMax = 150;
+_groupCountMax = 25;
 
 //Convert the side to the BIS values
 _faction = "";
@@ -137,18 +137,18 @@ _groupArray = [];
 			
 			//Look somewhere randomly
 			_group setFormDir _dir;
+
+			//Register the units with all curators
+			{
+				_units = units _group;
+				_x addCuratorEditableObjects [_units, true];
+			} foreach allCurators;
 		};
 	};
 } foreach _buildingsArray;
 
-//Register the units with all curators
-{
-	_group = _x;
-	{
-		_units = units _group;
-		_x addCuratorEditableObjects [_units, true];
-	} foreach allCurators;
-} foreach _groupArray;
+["Spawned garrison of %5 units in %6 groups at %1,%2 within distance of %3 for %4", _center select 0, _center select 1, _radius, _side, _unitCount, _groupCount] call bis_fnc_logFormat;
 
 //Alert Zeus
+//TODO - Fix this so that it can run on the curator client. Right now it does nothing since it runs only on the server
 [objnull, format["Spawned garrison of %5 units in %6 groups at %1,%2 within distance of %3 for %4", _center select 0, _center select 1, _radius, _side, _unitCount, _groupCount]] call bis_fnc_showCuratorFeedbackMessage;
