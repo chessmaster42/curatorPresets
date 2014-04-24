@@ -42,38 +42,41 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	};
 
 	//Convert the side to the BIS values
-	_faction = "CIV";
+	_faction = "";
 	_classType = "";
 	switch (toLower _side) do {
 		case "west": {
 			_side = west;
-			_faction = "USMC";
+			_faction = "BLU_F";
 		};
 		case "east": {
 			_side = east;
-			_faction = "RU";
+			_faction = "OPF_F";
 		};
 		case "independent": {
 			_side = resistance;
-			_faction = "GUE";
+			_faction = "IND_F";
 		};
-		case "civilian": {_side = civilian};
+		case "civilian": {
+			_side = civilian;
+			_faction = "CIV_F";
+		};
 	};
 
 	//Get a list of available unit types
-	_idx = 0;
+	_index = 0;
 	_CfgVehicles = configFile >> "CfgVehicles";
 	_unitsArray = [];
-	for "_i" from 1 to (count _CfgVehicles - 1) do 
+	for [{_i=1},{_i<(count _CfgVehicles - 1)},{_i=_i+1}] do 
 	{
 		_CfgVehicle = _CfgVehicles select _i;
 
-		//Keep going when it is a public entry
+		//Only use public entries
 		if (getNumber(_CfgVehicle >> "scope") == 2) then 
 		{
 			_vehicleDisplayName 	= getText(_CfgVehicle >> "displayname");
 			_vehicleDisplayName		= [_vehicleDisplayName, gettext(_CfgVehicle >> "picture")];
-			_cfgclass 				= (configName (_CfgVehicle));  
+			_cfgclass 				= configName _CfgVehicle;  
 			_cfgFaction 			= getText(_CfgVehicle >> "faction");
 			_simulation 			= getText(_CfgVehicle >> "simulation");
 			_vehicleClass			= getText(_CfgVehicle >> "vehicleClass");
@@ -84,8 +87,8 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 				{
 					if ((toLower(_vehicleClass) == _classType) || (_classType == "")) then 
 					{
-						_unitsArray set[_idx, [_cfgclass,_vehicleDisplayName]];									
-						_idx = _idx + 1;
+						_unitsArray set[_index, [_cfgclass, _vehicleDisplayName]];									
+						_index = _index + 1;
 					};
 				};
 			};
@@ -103,6 +106,8 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	};
 
 	//Iterate through each building
+	_unitCount = 0;
+	_groupCount = 0;
 	{
 		_building = _x;
 
@@ -111,7 +116,13 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		while { format ["%1", _building buildingPos _buildingPosCount] != "[0,0,0]" } do {_buildingPosCount = _buildingPosCount + 1};
 
 		//Only spawn units if the building has interior positions
-		if (_buildingPosCount > 0) then {
+		if (_buildingPosCount > 0) then
+		{
+			//Create a group for the units in this building
+			//TODO - Find a way to reduce the number of groups created
+			_group = creategroup _side;
+			_groupCount = _groupCount + 1;
+
 			//Iterate through each building position
 			for [{_i=0},{_i<_buildingPosCount},{_i=_i+1}] do 
 			{
@@ -121,38 +132,49 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 				if (random 10 < _density) then	
 				{	
 					//Spawn as long as there are no other nearby units
-					if (count (nearestObjects [_spawnPos, ["Man"], 1]) < 1) then {
+					if (count (nearestObjects [_spawnPos, ["Man"], 1]) < 1) then
+					{
 						//Create the new unit
-						//TODO - Fix the units array
-						_type = ["O_Soldier_F", "Opfor Soldier"];//_unitsArray select round (random 4);
-						_group = creategroup _side;
+						_type = _unitsArray select round (random 4);
 						_unit = _group createUnit [_type select 0, _spawnPos, [], 0.5, "NONE"];
 						waituntil {alive _unit}; 
 						_unit setpos _spawnPos;
-						
-						//Put it on safe
-						_group setBehaviour "SAFE";
-						_group setSpeedMode "LIMITED";
-						
-						//Get a random facing direction
-						_dir = round(random 360); 
-						
-						//Make them stand
-						{
-							_x setUnitPos "UP";
-							_x setdir _dir;
-						} foreach units _group;
-						
-						//Look somewhere randomly
-						_group setFormDir _dir;
+
+						_unitCount = _unitCount + 1;
 					};
 				}
+			};
+
+			//Clean up empty groups
+			if(count (units _group) < 1) then {
+				deleteGroup _group;
+			} else {
+				//Put them on safe
+				_group setBehaviour "SAFE";
+				_group setSpeedMode "LIMITED";
+				
+				//Get a random facing direction
+				_dir = round(random 360); 
+				
+				//Make them stand
+				{
+					_x setUnitPos "UP";
+					_x setdir _dir;
+				} foreach units _group;
+				
+				//Look somewhere randomly
+				_group setFormDir _dir;
+	
+				//Register the units with all curators
+				{
+					_x addCuratorEditableObjects [units _group, true];
+				} foreach allCurators;
 			};
 		};
 	} foreach _buildingsArray;
 
 	//Alert Zeus
-	[objnull, format["Spawned garrison at %1,%2 within distance of %3 for %4", _xCoordinate, _yCoordinate, _radius, _side]] call bis_fnc_showCuratorFeedbackMessage;
+	[objnull, format["Spawned garrison of %5 units in %6 groups at %1,%2 within distance of %3 for %4", _xCoordinate, _yCoordinate, _radius, _side, _unitCount, _groupCount]] call bis_fnc_showCuratorFeedbackMessage;
 	
 	//Clean up
 	uinamespace setVariable ["curatorPresets_ModuleUnit", objnull];
