@@ -24,6 +24,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	};
 
 	//Set the unit's flight altitude
+	_unit move getPosATL _unit;
 	_unit flyInHeight (parseNumber _zCoordinate);
 	
 	[objnull, format["%1 - Altitude set to %3 at %2", name _unit, mapGridPosition _unit, _zCoordinate]] call bis_fnc_showCuratorFeedbackMessage;

@@ -46,6 +46,7 @@ Known Issues
 Changelog
 ==========
 
+-	v1.7.2 (Not Released Yet) - Fixed some issues with Unit Surrender, Disabled fleeing for a vehicle when given a "Land" or "Land - Get In" waypoint type (goes back when waypoint is completed)
 -	v1.7.1 - Fixed some critical problems in the new Spawn Garrison module
 -	v1.7 - Added Spawn Garrison module
 -	v1.6 - Added Unit Action module, Added Unit Animation module (incomplete), Added Unit Chat module, Improved Unit Surrender module, Changed list boxes to combo boxes, Misc UI improvements

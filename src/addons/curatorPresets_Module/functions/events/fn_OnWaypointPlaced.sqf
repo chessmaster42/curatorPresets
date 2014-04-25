@@ -51,14 +51,18 @@ deleteWaypoint [_group, _wpID];
 		[_curator, _iconParams, true, true] call bis_fnc_addCuratorIcon;
 	};
 	if(_waypointType == "Land") then {
-		[_group, _wpID] setWaypointStatements ["true", "vehicle this land 'LAND';"];
+		[_group, _wpID] setWaypointStatements ["true", "vehicle this land 'LAND'; vehicle this allowFleeing 1;"];
 	
 		_waypointType = "MOVE";
+
+		vehicle _leader allowFleeing 0;
 	};
 	if(_waypointType == "Land - Get in") then {
-		[_group, _wpID] setWaypointStatements ["true", "vehicle this land 'GET IN';"];
+		[_group, _wpID] setWaypointStatements ["true", "vehicle this land 'GET IN'; vehicle this allowFleeing 1;"];
 	
 		_waypointType = "MOVE";
+
+		vehicle _leader allowFleeing 0;
 	};
 	
 	[_group, _wpID] setWaypointType _waypointType;

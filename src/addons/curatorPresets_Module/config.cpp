@@ -177,6 +177,7 @@ class CfgVehicles
 class CfgFunctions
 {
 	createShortcuts = 1;
+
 	class curatorPresets
 	{
 		tag = "cpm";
