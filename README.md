@@ -15,10 +15,10 @@ This mod currently provides a number of utility functions through Zeus-enabled m
 -	Spawn Garrison - Spawns a garrison of units at the given location based on some config params (use with caution!)
 -	Unit Action - Runs an action on the unit
 -	Unit Animation - Plays an animation on the unit
--	Unit Chat - Sends a chat message through the unit
+-	Unit Chat - Sends a text chat message through the unit
 -	Unit Recruitable - Adds an action to the unit that allows players to recruit into their own group
 -	Unit Speed - Sets the unit speed to limited, normal, or full based on the selection
--	Unit Surrender - Calls the unit to surrender
+-	Unit Surrender - Calls the unit to surrender, players can use "Secure Hostage" to capture the unit
 -	Vehicle Disembark - Calls the passengers, crew, or all units in the vehicle to disembark
 -	Virtual Ammobox System - Loads the Virtual Ammobox System onto the unit/object
 
@@ -31,7 +31,7 @@ Currently these modules are in the Modules screen in Zeus under the Zeus categor
 Notes
 =====
 
--	Spawn Garrison is limited to 100 units and 50 groups. Once at the unit limit no more will spawn. Once at the group limit all future units will be added to the last group
+-	Spawn Garrison is limited to 150 units and 25 groups. Once at the unit limit no more will spawn. Once at the group limit all future units will be added to the last group
 -	Unit Animation is not yet complete and as such will not do anything yet
 
 Known Issues
@@ -40,8 +40,6 @@ Known Issues
 -	Some UI elements must be clicked on to initialize
 -	Guard waypoint type spawns a trigger and icon that can't yet be removed
 -	Units will not always obey when Unit Action is called on them (seems to be limited to specific action types)
--	Unit Surrender module doesn't remove action when action is used
--	Surrendered units that have been secured appear to sometimes have animation/movement issues
 
 Changelog
 ==========
