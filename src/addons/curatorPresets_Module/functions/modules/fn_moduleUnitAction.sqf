@@ -18,19 +18,23 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 
 	//Get config from saved UI variables
 	_action = uinamespace getVariable "curatorPresets_UnitActionValue";
+	_appliesTo = uinamespace getVariable "curatorPresets_AppliesToValue";
+	if(isnil "_appliesTo") exitWith {
+		[objnull, "Error - 'Applies To' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		deletevehicle _logic;
+	};
 	if(isnil "_action") exitWith {
-		[objnull, "Error - Action was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		[objnull, "Error - 'Action' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 
-	//Run the action on the unit
-	[[_unit, _action], "cpm_fnc_LoadUnitAction"] spawn cpm_fnc_GlobalExec;
+	//Run the action
+	[[_unit, _action, _appliesTo], "cpm_fnc_LoadUnitAction"] spawn cpm_fnc_GlobalExec;
 
 	[objnull, format["%1 - Action %3 activated at %2", name _unit, mapGridPosition _unit, _action]] call bis_fnc_showCuratorFeedbackMessage;
 	
 	//Clean up
 	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
-	uinamespace setVariable ["curatorPresets_UnitActionValue", nil];
 
 	deletevehicle _logic;
 };

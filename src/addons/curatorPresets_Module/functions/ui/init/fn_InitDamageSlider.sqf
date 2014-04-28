@@ -1,3 +1,5 @@
+#include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
+
 _control = _this select 0;
 
 _control ctrlRemoveAllEventHandlers "setFocus";
@@ -11,9 +13,16 @@ _ctrlDamage sliderSetPosition 0;
 _ctrlDamage ctrlCommit 1;
 
 //Setup handler when OK is clicked
-_ctrlButtonOK = _display displayCtrl 1;
+_ctrlButtonOK = _display displayCtrl IDC_OK;
 _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_display = ctrlParent (_this select 0);
 	_ctrlDamage = _display displayCtrl 41062;
-	uinamespace setVariable ["curatorPresets_DamageValue", 1 - ((sliderPosition _ctrlDamage) * 0.1)];
+	uinamespace setVariable ["curatorPresets_DamageValue", ((sliderPosition _ctrlDamage) * 0.1)];
+}];
+
+//Setup handler when Cancel is clicked
+_ctrlButtonCancel = _display displayCtrl IDC_CANCEL;
+_ctrlButtonCancel ctrlAddEventHandler ["buttonclick", {
+	//Blank out any existing value
+	uinamespace setVariable ["curatorPresets_DamageValue", nil];
 }];

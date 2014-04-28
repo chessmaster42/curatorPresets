@@ -92,6 +92,21 @@ _groupArray = [];
 			_group = creategroup _side;
 			_groupArray set [_groupCount, _group];
 			_groupCount = _groupCount + 1;
+		} else {
+			//If we have reach the group limit, find the closest group to this building
+			_buildingPos = _building buildingPos 0;
+			_closestGroup = _group;
+			{
+				_groupLeader = leader _x;
+				_distance = [getPosATL _groupLeader, _buildingPos] call cpm_fnc_Distance;
+				_closestGroupLeader = leader _closestGroup;
+				_closestDistance = [getPosATL _closestGroupLeader, _buildingPos] call cpm_fnc_Distance;
+
+				if(_closestDistance > _distance) then {
+					_closestGroup = _x;
+				};
+			} forEach _groupArray;
+			_group = _closestGroup;
 		};
 
 		//Iterate through each building position

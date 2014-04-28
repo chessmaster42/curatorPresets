@@ -17,21 +17,41 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	waitUntil { !dialog };
 
 	//Get config from saved UI variables
-	_zCoordinate = uinamespace getVariable "curatorPresets_ZValue";
-	if(isnil "_zCoordinate") exitWith {
+	_speed = uinamespace getVariable "curatorPresets_UnitSpeedValue";
+	_altitude = uinamespace getVariable "curatorPresets_AltitudeValue";
+	if(isnil "_speed") exitWith {
+		[objnull, "Error - 'Speed' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		deletevehicle _logic;
+	};
+	if(isnil "_altitude") exitWith {
 		[objnull, "Error - Altitude was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 
 	//Set the unit's flight altitude
-	_unit move getPosATL _unit;
-	_unit flyInHeight (parseNumber _zCoordinate);
+	_tempPos = getPosATL _unit;
+	_wpPos = [_tempPos select 0, _tempPos select 1, _altitude];
+	_unit move _wpPos;
+	_unit flyInHeight _altitude;
+
+	//Set the unit's movement speed
+	switch (_speed) do {
+		case 0: {
+			_speed = "LIMITED";
+		};
+		case 1: {
+			_speed = "NORMAL";
+		};
+		case 2: {
+			_speed = "FULL";
+		};
+	};
+	_unit setSpeedMode _speed;
 	
-	[objnull, format["%1 - Altitude set to %3 at %2", name _unit, mapGridPosition _unit, _zCoordinate]] call bis_fnc_showCuratorFeedbackMessage;
+	[objnull, format["%1 - Altitude set to %3 at %2", name _unit, mapGridPosition _unit, _altitude]] call bis_fnc_showCuratorFeedbackMessage;
 	
 	//Clean up
 	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
-	uinamespace setVariable ["curatorPresets_ZValue", nil];
 
 	deletevehicle _logic;
 };

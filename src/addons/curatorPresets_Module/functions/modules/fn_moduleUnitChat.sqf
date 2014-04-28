@@ -20,11 +20,11 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_channel = uinamespace getVariable "curatorPresets_UnitChatChannel";
 	_message = uinamespace getVariable "curatorPresets_UnitChatMessage";
 	if(isnil "_channel") exitWith {
-		[objnull, "Error - Channel was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		[objnull, "Error - 'Channel' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 	if(isnil "_message") exitWith {
-		[objnull, "Error - Message was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		[objnull, "Error - 'Message' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 
@@ -32,12 +32,10 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	[[_unit, _channel, _message], "cpm_fnc_LoadUnitChat"] spawn cpm_fnc_GlobalExec;
 
 	//Alert Zeus
-	[objnull, format["%1 - Chat sent at %2", name _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
+	[objnull, format["%1 - Chat sent to channel %2", name _unit, _channel]] call bis_fnc_showCuratorFeedbackMessage;
 	
 	//Clean up
 	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
-	uinamespace setVariable ["curatorPresets_UnitChatChannel", nil];
-	uinamespace setVariable ["curatorPresets_UnitChatMessage", nil];
 
 	deletevehicle _logic;
 };

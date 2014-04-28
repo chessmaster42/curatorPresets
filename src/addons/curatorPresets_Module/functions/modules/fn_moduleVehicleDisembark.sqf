@@ -55,7 +55,6 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	
 	//Clean up
 	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
-	uinamespace setVariable ["curatorPresets_VehicleUnitsValue", nil];
 	
 	deletevehicle _logic;
 };

@@ -22,11 +22,11 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_component = uinamespace getVariable "curatorPresets_UnitComponentValue";
 	_hit = uinamespace getVariable "curatorPresets_DamageValue";
 	if(isnil "_component") exitWith {
-		[objnull, "Error - Component was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		[objnull, "Error - 'Component' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 	if(isnil "_hit") exitWith {
-		[objnull, "Error - Damage was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		[objnull, "Error - 'Damage' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 
@@ -44,8 +44,6 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	
 	//Clean up
 	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
-	uinamespace setVariable ["curatorPresets_UnitComponentValue", nil];
-	uinamespace setVariable ["curatorPresets_DamageValue", nil];
 	
 	deletevehicle _logic;
 };

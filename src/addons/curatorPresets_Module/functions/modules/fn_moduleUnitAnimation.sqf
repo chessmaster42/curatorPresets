@@ -3,6 +3,13 @@ _units = _this select 1;
 _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
+	//TEMP
+	if(true) exitWith {
+		[objnull, "Error - Animation module not yet implemented"] call bis_fnc_showCuratorFeedbackMessage;
+		deletevehicle _logic;
+	};
+	//ENDTEMP
+
 	_unit = [_logic] call cpm_fnc_GetUnitUnderCursor;
 
 	//Save the unit for the UI
@@ -18,8 +25,13 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 
 	//Get config from saved UI variables
 	_animation = uinamespace getVariable "curatorPresets_UnitAnimationValue";
+	_appliesTo = uinamespace getVariable "curatorPresets_AppliesToValue";
+	if(isnil "_appliesTo") exitWith {
+		[objnull, "Error - 'Applies To' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		deletevehicle _logic;
+	};
 	if(isnil "_animation") exitWith {
-		[objnull, "Error - Animation was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		[objnull, "Error - 'Animation' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 
@@ -29,7 +41,6 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	
 	//Clean up
 	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
-	uinamespace setVariable ["curatorPresets_UnitAnimationValue", nil];
 
 	deletevehicle _logic;
 };
