@@ -21,7 +21,7 @@ if(count _positionArray < 1) exitWith {};
 	_buildingPos = _x select 1;
 	
 	_unit doMove _buildingPos;
-	format["Moving %1 to position #%2", _unit, _posIndex] call bis_fnc_logFormat;
+	[format["Moving %1 to position #%2", _unit, _posIndex], 2] call cpm_fnc_ShowMessage;
 	
 	_distanceLeft = 999;
 	_distanceMoved = 999;
@@ -37,4 +37,4 @@ if(count _positionArray < 1) exitWith {};
 	};
 } forEach _positionArray;
 
-format["%1 finished moving through %2 positions in building %3", _unit, count _positionArray, _building] call bis_fnc_logFormat;
+[format["%1 finished moving through %2 positions in building %3", _unit, count _positionArray, _building], 2] call cpm_fnc_ShowMessage;

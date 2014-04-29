@@ -23,3 +23,7 @@ if(count _unitList < 1) exitWith {};
 {
 	[_x] spawn CWS_Load;
 } forEach _unitList;
+
+_cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];
+_cwsUnitsArray = _cwsUnitsArray + _unitList;
+missionnamespace setVariable ["curatorPresets_CWS_Units", _cwsUnitsArray];

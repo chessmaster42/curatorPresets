@@ -1,31 +1,38 @@
-[] spawn {
-	//Hold here until a curator is availabe for us to attach to
-	while {count allCurators < 1} do {
-		sleep 5;
-	};
+//TODO - Add this to some sort of config
+missionnamespace setVariable ["curatorPresets_Debugging", true];
 
-	["CPM - Initializing ..."] call bis_fnc_logFormat;
+if(isServer && isDedicated) exitWith {};
+
+[] spawn {
+	[] call cpm_fnc_WaitForCuratorLoad;
+
+	["Initializing ...", 4] call cpm_fnc_ShowMessage;
 
 	{
-		_x addCuratorAddons ["curatorPresets_Module"];
+		[format["Initializing curator %1", _x], 99] call cpm_fnc_ShowMessage;
+		//Load the addon server-side
+		if(isServer) then {
+			_x addCuratorAddons ["curatorPresets_Module"];
+		};
 
-		_3dIcons = addMissionEventHandler ["Draw3D", {
-			{
-				{
-					if ((_x getVariable "cws_ais_aisInit") && (alive _x)) then {
-						_message = "CWS";
-						_icon_size = 0.5;
-						_text_size = 0.025;
-						_pos = visiblePosition _x;
-						_pos set [2, (_pos select 2) + 3];
-						drawIcon3D["a3\ui_f\data\map\MapControl\hospital_ca.paa", [1,0,0,1], _pos, _icon_size, _icon_size, 0, _message, 0, _text_size];
-					};
-				} forEach units _x;
-			} forEach allGroups;
-		}];
-		_x setVariable ["curatorPresets_3DIconHandler", _3dIcons];
+		//Load the 3D icons client-side for curators
+		if([player] call cpm_fnc_IsZeusCurator) then
+		{
+			_3dIcons = addMissionEventHandler ["Draw3D", {[] call cpm_fnc_DrawCWSIcons}];
+			_x setVariable ["curatorPresets_CWS_3DIconHandler", _3dIcons];
+		};
 	} foreach allCurators;
 
-	["CPM - Initialized"] call bis_fnc_logFormat;
-	systemChat "CPM - Initialized";
+	//Build an array of all units that currently have CWS loaded
+	_initialCWSUnitsArray = [];
+	{
+		{
+			if (_x getVariable "cws_ais_aisInit") then {
+				_initialCWSUnitsArray = _initialCWSUnitsArray + [_x];
+			};
+		} forEach units _x;
+	} forEach allGroups;
+	missionnamespace setVariable ["curatorPresets_CWS_Units", _initialCWSUnitsArray];
+
+	["Initialized", 4] call cpm_fnc_ShowMessage;
 };

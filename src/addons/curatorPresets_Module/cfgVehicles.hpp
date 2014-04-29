@@ -40,13 +40,21 @@ class CfgVehicles
 	class curatorPresets_ModuleEmpty: curatorPresets_ModuleBase
 	{
 		mapSize = 0;
-		category = "";
+		category = "Curator";
 		subCategory = "";
-		displayName = "";
 		icon = "";
+
+		displayName = "";
 		function = "cpm_fnc_ModuleEmpty";
-		isGlobal = 0;
-		isDisposable = 1;
+		scopeCurator = 1;
+	};
+	class curatorPresets_ModuleFailsafeReload: curatorPresets_ModuleBase
+	{
+		category = "Curator";
+
+		displayName = "CPM Failsafe Reload";
+		function = "cpm_fnc_ModuleFailsafeReload";
+		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleAirFlight: curatorPresets_ModuleBase
 	{

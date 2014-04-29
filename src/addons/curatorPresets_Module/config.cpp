@@ -8,6 +8,7 @@ class CfgPatches
 				"curatorPresets_ModuleCWSLoad",
 				"curatorPresets_ModuleDamageComponent",
 				"curatorPresets_ModuleEmpty",
+				"curatorPresets_ModuleFailsafeReload",
 				"curatorPresets_ModuleSpawnGarrison",
 				"curatorPresets_ModuleTaskForceRadio",
 				"curatorPresets_ModuleUnitAction",

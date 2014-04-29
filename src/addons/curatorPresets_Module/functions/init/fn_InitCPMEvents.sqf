@@ -1,26 +1,24 @@
+if(isServer && isDedicated) exitWith {};
+
 [] spawn {
-	//Hold here until a curator is availabe for us to attach to
-	while {count allCurators < 1} do {
-		sleep 5;
-	};
+	[] call cpm_fnc_WaitForCuratorLoad;
 	
-	["CPM - Adding event handlers to curators ..."] call bis_fnc_logFormat;
+	["Initializing Events ...", 4] call cpm_fnc_ShowMessage;
 	{
-		["CPM - Adding event handlers to curator '%1'", _x] call bis_fnc_logFormat;
+		[format["CPM - Adding event handlers to curator '%1'", _x], 2] call cpm_fnc_ShowMessage;
 	
 		_x addEventHandler ["CuratorWaypointEdited", {
-			["CPM - CuratorWaypointEdited"] call bis_fnc_logFormat;
+			["CPM - CuratorWaypointEdited", 2] call cpm_fnc_ShowMessage;
 			_this call cpm_fnc_OnWaypointEdited;
 		}];
 		_x addEventHandler ["CuratorWaypointPlaced", {
-			["CPM - CuratorWaypointPlaced"] call bis_fnc_logFormat;
+			["CPM - CuratorWaypointPlaced", 2] call cpm_fnc_ShowMessage;
 			_this call cpm_fnc_OnWaypointPlaced;
 		}];
 		_x addEventHandler ["CuratorWaypointSelectionChanged", {
-			["CPM - CuratorWaypointSelectionChanged"] call bis_fnc_logFormat;
+			["CPM - CuratorWaypointSelectionChanged", 2] call cpm_fnc_ShowMessage;
 			_this call cpm_fnc_OnWaypointSelectionChanged;
 		}];
 	} foreach allCurators;
-	["CPM - Finished adding event handlers to curators"] call bis_fnc_logFormat;
-	systemChat "CPM - Events Initialized";
+	["Events Initialized", 4] call cpm_fnc_ShowMessage;
 };

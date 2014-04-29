@@ -35,7 +35,7 @@ if(_mode == 0) then {
 			[[_captive, 1, _captor], "cpm_fnc_LoadUnitSurrender"] spawn cpm_fnc_GlobalExec;
 		}, _x, 6, false, true];
 		if(local _x) then {
-			_x setVariable ["curatorPresets_secureAction", _secureAction, true];
+			_x setVariable ["curatorPresets_Action_SecureHostage", _secureAction, true];
 		};
 	} forEach _unitList;
 };
@@ -52,11 +52,11 @@ if(_mode == 1) then {
 	};
 	_unit switchmove "";
 
-	_secureAction = _unit getVariable "curatorPresets_secureAction";
+	_secureAction = _unit getVariable "curatorPresets_Action_SecureHostage";
 	if(!isnil "_secureAction") then {
 		_unit removeAction _secureAction;
 		if(local _unit) then {
-			_unit setVariable ["curatorPresets_secureAction", nil, true];
+			_unit setVariable ["curatorPresets_Action_SecureHostage", nil, true];
 		};
 	};
 };

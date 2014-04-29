@@ -19,6 +19,7 @@ class CfgFunctions
 			class moduleArtillery{};
 			class moduleCWSLoad{};
 			class moduleDamageComponent{};
+			class moduleFailsafeReload{};
 			class moduleSpawnGarrison{};
 			class moduleTaskForceRadio{};
 			class moduleUnitAction{};
@@ -42,6 +43,10 @@ class CfgFunctions
 			class getGroupUnderCursor{};
 			class showMessage{};
 			class distance{};
+			class isZeusCurator{};
+			class drawCWSIcons{};
+			class monitorCuratorDisplay{};
+			class waitForCuratorLoad{};
 		};
 		class loaders
 		{
@@ -85,6 +90,7 @@ class CfgFunctions
 			class onWaypointEdited{};
 			class onWaypointPlaced{};
 			class onWaypointSelectionChanged{};
+			class onModuleTreeLoad{};
 		};
 	};
 };
