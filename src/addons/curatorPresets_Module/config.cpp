@@ -32,9 +32,9 @@ class CfgPatches
 		};
 		author[] = {"Chessmaster42"};
 		authorUrl = "https://github.com/chessmaster42/curatorPresets";
-		version = 1.8.0;
-		versionStr = "1.8.0";
-		versionAr[] = {1,8,0};
+		version = 1.8.1;
+		versionStr = "1.8.1";
+		versionAr[] = {1,8,1};
 	};
 };
 

@@ -23,7 +23,7 @@ class CfgVehicles
 		scopeCurator = 1;
 
 		displayName = "Curator Presets Module Base";
-		icon = "\curatorPresets_Module\data\iconPresets_ca.paa";
+		icon = "\curatorPresets_Module\data\icon_ca.paa";
 
 		function = "";
 		functionPriority = 1;

@@ -19,6 +19,7 @@ class CfgFunctions
 			class moduleArtillery{};
 			class moduleCWSLoad{};
 			class moduleDamageComponent{};
+			class moduleEmpty{};
 			class moduleFailsafeReload{};
 			class moduleSpawnGarrison{};
 			class moduleTaskForceRadio{};
@@ -50,7 +51,7 @@ class CfgFunctions
 		};
 		class loaders
 		{
-			file = "\curatorPresets_Module\functions\common";
+			file = "\curatorPresets_Module\functions\loaders";
 			class loadCWS{};
 			class loadDamageComponent{};
 			class loadRecruitable{};

@@ -13,7 +13,11 @@ _index = 0;
 	_ctrl lbSetValue [_lbComponent, _index];
 	_index = _index + 1;
 } foreach ["No","Yes"];
-_ctrl lbSetCurSel 0;
+if(tf_same_sw_frequencies_for_side) then {
+	_ctrl lbSetCurSel 1;
+} else {
+	_ctrl lbSetCurSel 0;
+};
 _ctrl ctrlCommit 1;
 
 //Setup handler when OK is clicked

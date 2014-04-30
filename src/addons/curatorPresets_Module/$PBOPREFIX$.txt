@@ -1,6 +1,0 @@
-curatorPresets_Module
-======<HEADER>=======
-prefix=curatorPresets_Module
-Pbo Type is: Arma Addon
-Sha: '5A07FF066C9FB88CBA3664A12D29E0F0C549E60A'
-======</HEADER>============

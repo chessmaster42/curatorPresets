@@ -1,6 +1,6 @@
 #include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 
-["Loading module tree ...", 4] call cpm_fnc_ShowMessage;
+["Loading module tree ...", 99] call cpm_fnc_ShowMessage;
 
 disableSerialization;
 
@@ -8,8 +8,6 @@ disableSerialization;
 while {isNull (findDisplay IDD_RSCDISPLAYCURATOR)} do {
 	sleep 1;
 };
-
-["Creating module tree ...", 4] call cpm_fnc_ShowMessage;
 
 //Get the UI control
 _display = findDisplay IDD_RSCDISPLAYCURATOR;
@@ -88,4 +86,4 @@ _ctrl tvSort [[_tvCPMBranch], false];
 //Sort the base module list
 _ctrl tvSort [[], false];
 
-["Finished loading module tree", 4] call cpm_fnc_ShowMessage;
+["Finished loading module tree", 99] call cpm_fnc_ShowMessage;

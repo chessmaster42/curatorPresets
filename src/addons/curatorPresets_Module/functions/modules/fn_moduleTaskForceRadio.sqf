@@ -3,6 +3,16 @@ _units = _this select 1;
 _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
+	if(isNil "tf_no_auto_long_range_radio") then {
+		tf_no_auto_long_range_radio = false;
+	};
+	if(isNil "tf_same_lr_frequencies_for_side") then {
+		tf_same_lr_frequencies_for_side = false;
+	};
+	if(isNil "tf_same_sw_frequencies_for_side") then {
+		tf_same_sw_frequencies_for_side = false;
+	};
+
 	//Load up the dialog
 	_ok = createDialog "RscDisplayAttributesModuleTaskForceRadio";
 	waitUntil { dialog };
