@@ -1,6 +1,10 @@
 #include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 
+["Loading module tree ...", 99] call cws_fnc_ShowMessage;
+
 disableSerialization;
+
+_categoryClass = _this select 0;
 
 //Safety precaution, wait for the curator screen to be displayed
 while {isNull (findDisplay IDD_RSCDISPLAYCURATOR)} do {
@@ -12,8 +16,9 @@ _display = findDisplay IDD_RSCDISPLAYCURATOR;
 _ctrl = _display displayCtrl IDC_RSCDISPLAYCURATOR_CREATE_MODULES;
 
 //Get the category details
-_categoryClass = "CuratorPresets";
-_categoryName = gettext (configFile >> "CfgFactionClasses" >> _categoryClass >> "displayName");
+_category = (configFile >> "CfgFactionClasses" >> _categoryClass);
+_categoryName = gettext (_category >> "displayName");
+_subCategories = ((_category >> "subCategories") call BIS_fnc_returnChildren);
 
 //Check to see if our category already exists and if so delete it
 for [{_i=0},{_i<(_ctrl tvCount [])},{_i=_i+1}] do 
@@ -25,15 +30,18 @@ for [{_i=0},{_i<(_ctrl tvCount [])},{_i=_i+1}] do
 };
 
 //Create the new module category
-_tvCPMBranch = _ctrl tvAdd [[], _categoryName];
+_tvMainBranch = _ctrl tvAdd [[], _categoryName];
 
 //Create the sub-categories
-_tvCPMCore = _ctrl tvAdd [[_tvCPMBranch], "Core"];
-_ctrl tvSetData [[_tvCPMBranch, _tvCPMCore], "curatorPresets_ModuleEmpty"];
-_tvCPMUnit = _ctrl tvAdd [[_tvCPMBranch], "Unit"];
-_ctrl tvSetData [[_tvCPMBranch, _tvCPMUnit], "curatorPresets_ModuleEmpty"];
-_tvCPMSystem = _ctrl tvAdd [[_tvCPMBranch], "System"];
-_ctrl tvSetData [[_tvCPMBranch, _tvCPMSystem], "curatorPresets_ModuleEmpty"];
+_subCategoryBranches = [];
+{
+	_tvText = gettext (_x >> "displayName");
+	_tvData = gettext (_x >> "function");
+	_tvBranch = _ctrl tvAdd [[_tvMainBranch], _tvText];
+	_ctrl tvSetData [[_tvCPMBranch, _tvCPMCore], _tvData];
+
+	_subCategoryBranches set [count _subCategoryBranches, _tvBranch];
+} forEach _subCategories;
 
 _moduleClassList = getArray (configFile >> "cfgPatches" >> "curatorPresets_Module" >> "units");
 
@@ -50,17 +58,13 @@ _index = 0;
 		_moduleSubCategory = gettext (configFile >> "CfgVehicles" >> _x >> "subCategory");
 
 		_tvModuleBranch = nil;
-		switch(_moduleSubCategory) do {
-			case "Unit": {
-				_tvModuleBranch = _tvCPMUnit;
+		_idx = 0;
+		{
+			if(_moduleSubCategory == configName _x) exitWith {
+				_tvModuleBranch = _subCategoryBranches select _idx;
 			};
-			case "System": {
-				_tvModuleBranch = _tvCPMSystem;
-			};
-			default {
-				_tvModuleBranch = _tvCPMCore;
-			};
-		};
+			_idx = _idx + 1;
+		} forEach _subCategories;
 
 		//Create the new tree entry
 		_leaf = _ctrl tvAdd [[_tvCPMBranch, _tvModuleBranch], _moduleDisplayName];
@@ -83,3 +87,5 @@ _ctrl tvSort [[_tvCPMBranch], false];
 
 //Sort the base module list
 _ctrl tvSort [[], false];
+
+["Finished loading module tree", 99] call cws_fnc_ShowMessage;

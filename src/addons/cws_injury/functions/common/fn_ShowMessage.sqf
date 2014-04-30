@@ -19,7 +19,7 @@ switch(_mode) do {
 		systemChat format ["[%1] - %2", _modPrefix, _message];
 	};
 	case 2: {	//Log file
-		format ["[%1] [%2] - %3", [1] call cpm_fnc_GetTimestamp, _modPrefix, _message] call bis_fnc_logFormat;
+		format ["[%1] [%2] - %3", [1] call cws_fnc_GetTimestamp, _modPrefix, _message] call bis_fnc_logFormat;
 	};
 	case 3: {	//Curator message at top of screen
 		[objnull, _message] call bis_fnc_showCuratorFeedbackMessage;
@@ -47,10 +47,10 @@ switch(_mode) do {
 			_message = format ["[%1] %2", _modPrefix, _message];
 		};
 		if(_useTimestamp) then {
-			_message = format ["[%1] %2", [0] call cpm_fnc_GetTimestamp, _message]
+			_message = format ["[%1] %2", [0] call cws_fnc_GetTimestamp, _message]
 		};
 
-		[[_sender, _channel, _message], "cws_fnc_LoadUnitChat"] spawn cpm_fnc_GlobalExec;
+		[[_sender, _channel, _message], "cws_fnc_LoadUnitChat"] spawn cws_fnc_GlobalExec;
 	};
 	case 7: {
 		hint _message;

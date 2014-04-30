@@ -19,10 +19,10 @@ class CfgFunctions
 			class moduleArtillery{};
 			class moduleCWSLoad{};
 			class moduleDamageComponent{};
+			class moduleDummy{};
 			class moduleEmpty{};
 			class moduleFailsafeReload{};
 			class moduleSpawnGarrison{};
-			class moduleTaskForceRadio{};
 			class moduleUnitAction{};
 			class moduleUnitAnimation{};
 			class moduleUnitChat{};

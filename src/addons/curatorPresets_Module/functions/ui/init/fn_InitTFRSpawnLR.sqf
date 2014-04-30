@@ -25,12 +25,10 @@ _ctrlButtonOK = _display displayCtrl IDC_OK;
 _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_display = ctrlParent (_this select 0);
 	_ctrl = _display displayCtrl 41202;
-	uinamespace setVariable ["curatorPresets_TFR_LRPackSpawn_Value", _ctrl lbValue lbCurSel _ctrl];
-}];
-
-//Setup handler when Cancel is clicked
-_ctrlButtonCancel = _display displayCtrl IDC_CANCEL;
-_ctrlButtonCancel ctrlAddEventHandler ["buttonclick", {
-	//Blank out any existing value
-	uinamespace setVariable ["curatorPresets_TFR_LRPackSpawn_Value", nil];
+	_enableLRSpawn = _ctrl lbValue lbCurSel _ctrl;
+	if(_enableLRSpawn > 0) then {
+		tf_no_auto_long_range_radio = true;
+	} else {
+		tf_no_auto_long_range_radio = false;
+	};
 }];

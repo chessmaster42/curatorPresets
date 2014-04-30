@@ -21,7 +21,7 @@ switch(_appliesTo) do {
 if(count _unitList < 1) exitWith {};
 
 {
-	[_x] spawn CWS_Load;
+	[_x] spawn cws_fnc_LoadCWS;
 } forEach _unitList;
 
 _cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];

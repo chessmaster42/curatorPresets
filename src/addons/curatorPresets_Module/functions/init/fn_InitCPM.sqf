@@ -9,7 +9,6 @@ if(isServer && isDedicated) exitWith {};
 	["Initializing ...", 4] call cpm_fnc_ShowMessage;
 
 	{
-		[format["Initializing curator %1", _x], 99] call cpm_fnc_ShowMessage;
 		//Load the addon server-side
 		if(isServer) then {
 			_x addCuratorAddons ["curatorPresets_Module"];

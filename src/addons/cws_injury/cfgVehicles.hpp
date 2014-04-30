@@ -50,8 +50,14 @@ class CfgVehicles
 	};
 	class cws_injury_ModuleConfig: cws_injury_ModuleBase
 	{
+		subCategory = "System";
+
+		scope = 2;
+		scopeCurator = 2;
+
 		displayName = "CWS Config";
 		function = "cws_fnc_ModuleConfig";
-		scopeCurator = 2;
+
+		curatorInfoType = "RscDisplayAttributesModuleCWSConfig";
 	};
 };

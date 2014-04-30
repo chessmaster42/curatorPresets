@@ -3,9 +3,8 @@ class CfgPatches
 	class cws_injury
 	{
 		units[] = {
-				"cws_injury_ModuleEmpty",
-				"cws_injury_ModuleFailsafeReload",
 				"cws_injury_ModuleConfig",
+				"cws_injury_ModuleEmpty"
 		};
 		requiredVersion = 1.0;
 		requiredAddons[] = {
@@ -31,6 +30,25 @@ class CfgFactionClasses
 		displayname = "CWS Injury";
 		priority = 8;
 		side = 7;
+
+		class subCategories
+		{
+			class debug
+			{
+				displayname = "Common";
+				function = "{deletevehicle (_this select 0)}";
+			};
+			class system
+			{
+				displayname = "System";
+				function = "{deletevehicle (_this select 0)}";
+			};
+			class unit
+			{
+				displayname = "Unit";
+				function = "{deletevehicle (_this select 0)}";
+			};
+		};
 	};
 };
 

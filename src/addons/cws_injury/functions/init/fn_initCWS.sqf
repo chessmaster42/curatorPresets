@@ -63,13 +63,13 @@ cws_ais_killcam_quotes = [
 cws_ais_debugging			=	false;
 
 [] spawn {
-	["Initializing ...", 4] call cpm_fnc_ShowMessage;
-
 	waituntil{alive player};
+
+	["Initializing ...", 4] call cws_fnc_ShowMessage;
 
 	{
 		[_x] spawn cws_fnc_LoadCWS;
 	} forEach playableUnits;
 
-	["Initialized", 4] call cpm_fnc_ShowMessage;
+	["Initialized", 4] call cws_fnc_ShowMessage;
 };

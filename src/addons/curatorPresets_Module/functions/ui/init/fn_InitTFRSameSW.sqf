@@ -25,12 +25,13 @@ _ctrlButtonOK = _display displayCtrl IDC_OK;
 _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_display = ctrlParent (_this select 0);
 	_ctrl = _display displayCtrl 41222;
-	uinamespace setVariable ["curatorPresets_TFR_SameSW_Value", _ctrl lbValue lbCurSel _ctrl];
-}];
-
-//Setup handler when Cancel is clicked
-_ctrlButtonCancel = _display displayCtrl IDC_CANCEL;
-_ctrlButtonCancel ctrlAddEventHandler ["buttonclick", {
-	//Blank out any existing value
-	uinamespace setVariable ["curatorPresets_TFR_SameSW_Value", nil];
+	_sameSW = _ctrl lbValue lbCurSel _ctrl;
+	if(_sameSW > 0) then {
+		tf_same_sw_frequencies_for_side = true;
+		tf_freq_west = 31;
+		tf_freq_east = 31;
+		tf_freq_guer = 31;
+	} else {
+		tf_same_sw_frequencies_for_side = false;
+	};
 }];

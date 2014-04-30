@@ -52,9 +52,11 @@ class CfgVehicles
 	{
 		category = "Curator";
 
+		scope = 2;
+		scopeCurator = 2;
+
 		displayName = "CPM Failsafe Reload";
 		function = "cpm_fnc_ModuleFailsafeReload";
-		scopeCurator = 2;
 	};
 	class curatorPresets_ModuleAirFlight: curatorPresets_ModuleBase
 	{
@@ -89,10 +91,16 @@ class CfgVehicles
 	};
 	class curatorPresets_ModuleTaskForceRadio: curatorPresets_ModuleBase
 	{
-		displayName = "Task Force Radio";
-		function = "cpm_fnc_ModuleTaskForceRadio";
-		scopeCurator = 2;
 		subCategory = "System";
+
+		scope = 2;
+		scopeCurator = 2;
+
+		displayName = "Task Force Radio";
+		icon = "\curatorPresets_Module\data\icon_tfr_ca.paa";
+
+		function = "cpm_fnc_ModuleDummy";
+
 		curatorInfoType = "RscDisplayAttributesModuleTaskForceRadio";
 	};
 	class curatorPresets_ModuleUnitAction: curatorPresets_ModuleBase
@@ -146,7 +154,6 @@ class CfgVehicles
 	};
 	class curatorPresets_ModuleVAS: curatorPresets_ModuleBase
 	{
-		scope = 2;
 		displayName = "Virtual Ammobox System";
 		function = "cpm_fnc_ModuleVAS";
 		scopeCurator = 2;

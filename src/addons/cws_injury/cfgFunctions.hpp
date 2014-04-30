@@ -9,6 +9,7 @@ class CfgFunctions
 		{
 			file = "\cws_injury\functions\init";
 			class initCWS{preInit = 1;};
+			class initCWSGUI{preInit = 1;};
 		};
 		class modules
 		{
@@ -22,6 +23,9 @@ class CfgFunctions
 			class globalExec{};
 			class showMessage{};
 			class getTimestamp{};
+			class isZeusCurator{};
+			class monitorCuratorDisplay{};
+			class waitForCuratorLoad{};
 		};
 		class loaders
 		{
@@ -32,10 +36,13 @@ class CfgFunctions
 		class ui_init
 		{
 			file = "\cws_injury\functions\ui\init";
+			class initEnableDebugging{};
+			class initListBox{};
 		};
 		class events
 		{
 			file = "\cws_injury\functions\events";
+			class onModuleTreeLoad{};
 		};
 		class cws
 		{
