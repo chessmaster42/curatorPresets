@@ -68,7 +68,7 @@ _buildingscount	= count _buildingsArray;
 
 //Exit if there were no buildings found
 if (_buildingscount < 1) exitwith {
-	[objnull, "Error - No buildings within area"] call bis_fnc_showCuratorFeedbackMessage;
+	["Error - No buildings within area", 3] call ccl_fnc_ShowMessage;
 };
 
 _unitCount = 0;
@@ -98,9 +98,9 @@ _groupArray = [];
 			_closestGroup = _group;
 			{
 				_groupLeader = leader _x;
-				_distance = [getPosATL _groupLeader, _buildingPos] call cpm_fnc_Distance;
+				_distance = [getPosATL _groupLeader, _buildingPos] call ccl_fnc_Distance;
 				_closestGroupLeader = leader _closestGroup;
-				_closestDistance = [getPosATL _closestGroupLeader, _buildingPos] call cpm_fnc_Distance;
+				_closestDistance = [getPosATL _closestGroupLeader, _buildingPos] call ccl_fnc_Distance;
 
 				if(_closestDistance > _distance) then {
 					_closestGroup = _x;
@@ -162,8 +162,6 @@ _groupArray = [];
 	};
 } foreach _buildingsArray;
 
-["Spawned garrison of %5 units in %6 groups at %1,%2 within distance of %3 for %4", _center select 0, _center select 1, _radius, _side, _unitCount, _groupCount] call bis_fnc_logFormat;
-
 //Alert Zeus
 //TODO - Fix this so that it can run on the curator client. Right now it does nothing since it runs only on the server
-[objnull, format["Spawned garrison of %5 units in %6 groups at %1,%2 within distance of %3 for %4", _center select 0, _center select 1, _radius, _side, _unitCount, _groupCount]] call bis_fnc_showCuratorFeedbackMessage;
+[format["Spawned garrison of %5 units in %6 groups at %1,%2 within distance of %3 for %4", _center select 0, _center select 1, _radius, _side, _unitCount, _groupCount], 5] call ccl_fnc_ShowMessage;

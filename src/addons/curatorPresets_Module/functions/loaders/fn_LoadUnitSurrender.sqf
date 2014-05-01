@@ -32,7 +32,7 @@ if(_mode == 0) then {
 		_secureAction = _x addAction ["Secure Hostage", {
 			_captive = _this select 0;
 			_captor = _this select 1;
-			[[_captive, 1, _captor], "cpm_fnc_LoadUnitSurrender"] spawn cpm_fnc_GlobalExec;
+			[[_captive, 1, _captor], "cpm_fnc_LoadUnitSurrender"] spawn ccl_fnc_GlobalExec;
 		}, _x, 6, false, true];
 		if(local _x) then {
 			_x setVariable ["curatorPresets_Action_SecureHostage", _secureAction, true];

@@ -3,7 +3,7 @@ _units = _this select 1;
 _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
-	_unit = [_logic] call cpm_fnc_GetUnitUnderCursor;
+	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
 
 	//Save the unit for the UI
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];

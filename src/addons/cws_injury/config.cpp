@@ -13,42 +13,25 @@ class CfgPatches
 				"A3_Functions_F",
 				"A3_Functions_F_Curator",
 				"A3_Modules_F",
-				"A3_Modules_F_Curator"
+				"A3_Modules_F_Curator",
+				"chessmastersCommonLibrary"
 		};
 		author[] = {"Chessmaster42"};
 		authorUrl = "https://github.com/chessmaster42/cws_injury";
-		version = 1.0.1;
-		versionStr = "1.0.1";
-		versionAr[] = {1,0,1};
+		version = 1.1.0;
+		versionStr = "1.1.0";
+		versionAr[] = {1,1,0};
 	};
 };
 
 class CfgFactionClasses
 {
-	class CWSInjury
+	class ChessmastersCommonLibrary;
+	class CWSInjury: ChessmastersCommonLibrary
 	{
 		displayname = "CWS Injury";
-		priority = 8;
-		side = 7;
 
-		class subCategories
-		{
-			class debug
-			{
-				displayname = "Common";
-				function = "{deletevehicle (_this select 0)}";
-			};
-			class system
-			{
-				displayname = "System";
-				function = "{deletevehicle (_this select 0)}";
-			};
-			class unit
-			{
-				displayname = "Unit";
-				function = "{deletevehicle (_this select 0)}";
-			};
-		};
+		addon = "cws_injury";
 	};
 };
 

@@ -1,4 +1,5 @@
-#include "\cws_injury\functions\ui\defineResinclDesign.inc"
+#include "\A3\ui_f\hpp\defineResincl.inc"
+#include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 
 private ["_control", "_params", "_idc", "_savedValue", "_data", "_selectedIndex", "_display", "_ctrl", "_ctrlButtonOK", "_ctrlButtonCancel"];
 

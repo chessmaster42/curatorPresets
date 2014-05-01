@@ -15,17 +15,11 @@ class CfgFunctions
 		{
 			file = "\cws_injury\functions\modules";
 			class moduleConfig{};
-			class moduleEmpty{};
+			class moduleCWSLoad{};
 		};
 		class common
 		{
 			file = "\cws_injury\functions\common";
-			class globalExec{};
-			class showMessage{};
-			class getTimestamp{};
-			class isZeusCurator{};
-			class monitorCuratorDisplay{};
-			class waitForCuratorLoad{};
 		};
 		class loaders
 		{
@@ -36,13 +30,12 @@ class CfgFunctions
 		class ui_init
 		{
 			file = "\cws_injury\functions\ui\init";
+			class initAppliesTo{};
 			class initEnableDebugging{};
-			class initListBox{};
 		};
 		class events
 		{
 			file = "\cws_injury\functions\events";
-			class onModuleTreeLoad{};
 		};
 		class cws
 		{

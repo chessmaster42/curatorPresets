@@ -5,7 +5,7 @@ _units = _this select 1;
 _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
-	_unit = [_logic] call cpm_fnc_GetUnitUnderCursor;
+	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
 
 	//Save the unit for the UI
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
@@ -35,8 +35,9 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		_skillType = _x select 0;
 		_skillValue = _x select 1;
 
-		_unit setSkill [_skillType, _skillValue];
+		[[_unit, [_skillType, _skillValue], _appliesTo], "cpm_fnc_LoadUnitSkills"] spawn ccl_fnc_GlobalExec;
 	} forEach _skillsArray;
+
 	
 	[objnull, format["%1 - Set skills at %2", name _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
 	

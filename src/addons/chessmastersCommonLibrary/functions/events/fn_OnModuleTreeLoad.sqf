@@ -1,7 +1,5 @@
 #include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 
-["Loading module tree ...", 99] call cws_fnc_ShowMessage;
-
 disableSerialization;
 
 _categoryClass = _this select 0;
@@ -18,6 +16,7 @@ _ctrl = _display displayCtrl IDC_RSCDISPLAYCURATOR_CREATE_MODULES;
 //Get the category details
 _category = (configFile >> "CfgFactionClasses" >> _categoryClass);
 _categoryName = gettext (_category >> "displayName");
+_categoryMod = gettext (_category >> "addon");
 _subCategories = ((_category >> "subCategories") call BIS_fnc_returnChildren);
 
 //Check to see if our category already exists and if so delete it
@@ -36,14 +35,14 @@ _tvMainBranch = _ctrl tvAdd [[], _categoryName];
 _subCategoryBranches = [];
 {
 	_tvText = gettext (_x >> "displayName");
-	_tvData = gettext (_x >> "function");
+	_tvData = gettext (_x >> "moduleClass");
 	_tvBranch = _ctrl tvAdd [[_tvMainBranch], _tvText];
-	_ctrl tvSetData [[_tvCPMBranch, _tvCPMCore], _tvData];
+	_ctrl tvSetData [[_tvMainBranch, _tvBranch], _tvData];
 
 	_subCategoryBranches set [count _subCategoryBranches, _tvBranch];
 } forEach _subCategories;
 
-_moduleClassList = getArray (configFile >> "cfgPatches" >> "curatorPresets_Module" >> "units");
+_moduleClassList = getArray (configFile >> "cfgPatches" >> _categoryMod >> "units");
 
 //Add all of the modules to the category
 _index = 0;
@@ -60,15 +59,15 @@ _index = 0;
 		_tvModuleBranch = nil;
 		_idx = 0;
 		{
-			if(_moduleSubCategory == configName _x) exitWith {
+			if(_moduleSubCategory == configName _x) then {
 				_tvModuleBranch = _subCategoryBranches select _idx;
 			};
 			_idx = _idx + 1;
 		} forEach _subCategories;
 
 		//Create the new tree entry
-		_leaf = _ctrl tvAdd [[_tvCPMBranch, _tvModuleBranch], _moduleDisplayName];
-		_newPath = [_tvCPMBranch, _tvModuleBranch, _leaf];
+		_leaf = _ctrl tvAdd [[_tvMainBranch, _tvModuleBranch], _moduleDisplayName];
+		_newPath = [_tvMainBranch, _tvModuleBranch, _leaf];
 
 		//Copy all of the data into it
 		_ctrl tvSetData [_newPath, _x];
@@ -80,12 +79,10 @@ _index = 0;
 } forEach _moduleClassList;
 
 //Sort the new lists
-_ctrl tvSort [[_tvCPMBranch, _tvCPMCore], false];
-_ctrl tvSort [[_tvCPMBranch, _tvCPMUnit], false];
-_ctrl tvSort [[_tvCPMBranch, _tvCPMSystem], false];
-_ctrl tvSort [[_tvCPMBranch], false];
+{
+	_ctrl tvSort [[_tvMainBranch, _x], false];
+} forEach _subCategoryBranches;
+_ctrl tvSort [[_tvMainBranch], false];
 
 //Sort the base module list
 _ctrl tvSort [[], false];
-
-["Finished loading module tree", 99] call cws_fnc_ShowMessage;

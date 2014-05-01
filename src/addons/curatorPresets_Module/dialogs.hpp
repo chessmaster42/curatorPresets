@@ -14,68 +14,32 @@ class RscMapControl;
 class RscText;
 class RscXSliderH;
 
-class RscDisplayAttributeModule: RscControlsGroupNoScrollbars
+class RscDisplayAttributeModule
 {
-	onSetFocus = "";
-	idc = -1;
-	x = "7 * (((safezoneW / safezoneH) min 1.2) / 40)";
-	y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
-	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 	class controls{};
 };
 class RscDisplayAttributeModuleCombo: RscDisplayAttributeModule
 {
-	onSetFocus = "";
-	idc = -1;
-	class controls
+	class controls: controls
 	{
-		class Title1: RscText
-		{
-			idc = -1;
-			text = "";
-			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[] = {0,0,0,0.5};
-		};
-		class Value1: RscCombo
-		{
-			wholeHeight = "7 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			idc = -1;
-			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
+		class Title1;
+		class Value1;
 	};
 };
 class RscDisplayAttributeModuleSlider: RscDisplayAttributeModule
 {
-	onSetFocus = "";
-	idc = -1;
-	class controls
+	class controls: controls
 	{
-		class Title1: RscText
-		{
-			idc = -1;
-			text = "";
-			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[] = {0,0,0,0.5};
-		};
-		class Value1: RscXSliderH
-		{
-			onSliderPosChanged = "(_this select 0) ctrlSetTooltip str(sliderPosition (_this select 0))";
-			idc = -1;
-			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
+		class Title1;
+		class Value1;
+	};
+};
+class RscDisplayAttributeModuleTextEdit: RscDisplayAttributeModule
+{
+	class controls: controls
+	{
+		class Title1;
+		class Value1;
 	};
 };
 
@@ -245,29 +209,20 @@ class RscDisplayAttributeModuleVehicleUnits: RscDisplayAttributeModuleCombo
 		};
 	};
 };
-class RscDisplayAttributeModuleVehicleAltitude: RscDisplayAttributeModule
+class RscDisplayAttributeModuleVehicleAltitude: RscDisplayAttributeModuleTextEdit
 {
 	onSetFocus = "_this call cpm_fnc_InitVehicleAltitude";
 	idc = 41080;
 	class controls: controls
 	{
-		class Title1: RscText
+		class Title1: Title1
 		{
 			idc = 41081;
 			text = "Altitude";
-			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[] = {0,0,0,0.5};
 		};
-		class Value1: RscEdit
+		class Value1: Value1
 		{
 			idc = 41082;
-			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 	};
 };
@@ -660,59 +615,25 @@ class RscDisplayAttributeModuleTFRSameSW: RscDisplayAttributeModuleCombo
 	};
 };
 
-class RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
-	idd = -1;
-	movingenable = 0;
-	class ControlsBackground{};
 	class Controls
 	{
-		class Background: RscText
-		{
-			colorBackground[] = {0,0,0,0.7};
-			idc = 30001;
-			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
-			y = "9.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "27 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "6.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
-		class Title: RscText
-		{
-			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.69])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.75])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.5])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
-			idc = 30002;
-			text = "Curator Presets Mod Dialog";
-			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
-			y = "8.4 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "27 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
+		class Background: RscText{};
+		class Title: RscText{};
 		class Content: RscControlsGroup
 		{
-			idc = 30003;
-			x = "7 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)";
-			y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "5.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			class controls{};
+			class Controls: RscControlsGroup
+			{
+				class controls{};
+			};
 		};
-		class ButtonOK: RscButtonMenuOK
-		{
-			x = "28.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
-			y = "16.1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
-		class ButtonCancel: RscButtonMenuCancel
-		{
-			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
-			y = "16.1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
+		class ButtonOK: RscButtonMenuOK{};
+		class ButtonCancel: RscButtonMenuCancel{};
 	};
 };
 
-class RscDisplayAttributesModuleAirFlight: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleAirFlight: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleAirFlight','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleAirFlight','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -736,7 +657,7 @@ class RscDisplayAttributesModuleAirFlight: RscDisplayAttributesModuleCuratorPres
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleArtillery','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleArtillery','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -761,7 +682,7 @@ class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleCuratorPres
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleDamageComponent','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleDamageComponent','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -785,30 +706,7 @@ class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleCurat
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleUnitSpeed: RscDisplayAttributesModuleCuratorPresets
-{
-	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleUnitSpeed','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
-	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleUnitSpeed','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
-	idd = 42130;
-	class Controls: Controls
-	{
-		class Background: Background{};
-		class Title: Title
-		{
-			text = "Group Speed";
-		};
-		class Content: Content
-		{
-			class Controls: controls
-			{
-				class Control1: RscDisplayAttributeModuleUnitSpeed{};
-			};
-		};
-		class ButtonOK: ButtonOK{};
-		class ButtonCancel: ButtonCancel{};
-	};
-};
-class RscDisplayAttributesModuleVehicleDisembark: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleVehicleDisembark: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleVehicleDisembark','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleVehicleDisembark','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -831,7 +729,7 @@ class RscDisplayAttributesModuleVehicleDisembark: RscDisplayAttributesModuleCura
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleWaypoint: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleWaypoint: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleWaypoint','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleWaypoint','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -854,7 +752,7 @@ class RscDisplayAttributesModuleWaypoint: RscDisplayAttributesModuleCuratorPrese
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleUnitAction: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleUnitAction: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleUnitAction','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleUnitAction','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -878,7 +776,7 @@ class RscDisplayAttributesModuleUnitAction: RscDisplayAttributesModuleCuratorPre
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleUnitAnimation: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleUnitAnimation: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleUnitAnimation','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleUnitAnimation','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -902,7 +800,7 @@ class RscDisplayAttributesModuleUnitAnimation: RscDisplayAttributesModuleCurator
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleUnitChat: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleUnitChat: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleUnitChat','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleUnitChat','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -926,7 +824,7 @@ class RscDisplayAttributesModuleUnitChat: RscDisplayAttributesModuleCuratorPrese
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleSpawnGarrison: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleSpawnGarrison: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleSpawnGarrison','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleSpawnGarrison','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -952,7 +850,7 @@ class RscDisplayAttributesModuleSpawnGarrison: RscDisplayAttributesModuleCurator
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleUnitSkills: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleUnitSkills: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleUnitSkills','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleUnitSkills','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -976,30 +874,7 @@ class RscDisplayAttributesModuleUnitSkills: RscDisplayAttributesModuleCuratorPre
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleCWS: RscDisplayAttributesModuleCuratorPresets
-{
-	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleCWS','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
-	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleCWS','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
-	idd = 42210;
-	class Controls: Controls
-	{
-		class Background: Background{};
-		class Title: Title
-		{
-			text = "Chessmaster's Wounding System";
-		};
-		class Content: Content
-		{
-			class Controls: controls
-			{
-				class Control1: RscDisplayAttributeModuleAppliesTo{};
-			};
-		};
-		class ButtonOK: ButtonOK{};
-		class ButtonCancel: ButtonCancel{};
-	};
-};
-class RscDisplayAttributesModuleUnitRecruitable: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleUnitRecruitable: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleUnitRecruitable','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleUnitRecruitable','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -1022,7 +897,7 @@ class RscDisplayAttributesModuleUnitRecruitable: RscDisplayAttributesModuleCurat
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleUnitSurrender: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleUnitSurrender: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleUnitSurrender','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleUnitSurrender','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -1045,7 +920,7 @@ class RscDisplayAttributesModuleUnitSurrender: RscDisplayAttributesModuleCurator
 		class ButtonCancel: ButtonCancel{};
 	};
 };
-class RscDisplayAttributesModuleTaskForceRadio: RscDisplayAttributesModuleCuratorPresets
+class RscDisplayAttributesModuleTaskForceRadio: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleTaskForceRadio','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleTaskForceRadio','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";

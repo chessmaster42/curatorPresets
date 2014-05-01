@@ -8,7 +8,7 @@ _buildingscount	= count _buildingsArray;
 
 //Check if no buildings were found
 if (_buildingscount < 1) exitWith {
-	["Error - No buildings within area", 2] call cpm_fnc_ShowMessage;
+	["Error - No buildings within area", 2] call ccl_fnc_ShowMessage;
 };
 
 //Check for a building that is searcheable
@@ -23,10 +23,10 @@ _building = objnull;
 } forEach _buildingsArray;
 
 if(_buildingPosCount < 1) exitWith {
-	["Error - No searchable buildings found", 2] call cpm_fnc_ShowMessage;
+	["Error - No searchable buildings found", 2] call ccl_fnc_ShowMessage;
 };
 
-[format["Moving %1 through building %2 with %3 positions", _group, _building, _buildingPosCount], 2] call cpm_fnc_ShowMessage;
+[format["Moving %1 through building %2 with %3 positions", _group, _building, _buildingPosCount], 2] call ccl_fnc_ShowMessage;
 
 //Split up the building positions between every member of the group
 _groupUnits = units _group;

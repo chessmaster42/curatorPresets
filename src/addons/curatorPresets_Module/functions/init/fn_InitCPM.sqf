@@ -4,9 +4,9 @@ missionnamespace setVariable ["curatorPresets_Debugging", true];
 if(isServer && isDedicated) exitWith {};
 
 [] spawn {
-	[] call cpm_fnc_WaitForCuratorLoad;
+	[] call ccl_fnc_WaitForCuratorLoad;
 
-	["Initializing ...", 4] call cpm_fnc_ShowMessage;
+	["Initializing ...", 4, ["CPM"]] call ccl_fnc_ShowMessage;
 
 	{
 		//Load the addon server-side
@@ -15,7 +15,7 @@ if(isServer && isDedicated) exitWith {};
 		};
 
 		//Load the 3D icons client-side for curators
-		if([player] call cpm_fnc_IsZeusCurator) then
+		if([player] call ccl_fnc_IsZeusCurator) then
 		{
 			_3dIcons = addMissionEventHandler ["Draw3D", {[] call cpm_fnc_DrawCWSIcons}];
 			_x setVariable ["curatorPresets_CWS_3DIconHandler", _3dIcons];
@@ -33,5 +33,5 @@ if(isServer && isDedicated) exitWith {};
 	} forEach allGroups;
 	missionnamespace setVariable ["curatorPresets_CWS_Units", _initialCWSUnitsArray];
 
-	["Initialized", 4] call cpm_fnc_ShowMessage;
+	["Initialized", 4, ["CPM"]] call ccl_fnc_ShowMessage;
 };

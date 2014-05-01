@@ -6,7 +6,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
 
 	//Load up the dialog
-	_ok = createDialog "RscDisplayAttributesModuleUnitRecruitable";
+	createDialog "RscDisplayAttributesModuleCWS";
 	waitUntil { dialog };
 	sleep 0.5;
 
@@ -14,15 +14,15 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	waitUntil { !dialog };
 
 	//Get config from saved UI variables
-	_appliesTo = uinamespace getVariable "curatorPresets_AppliesToValue";
+	_appliesTo = uinamespace getVariable "cws_injury_AppliesToValue";
 	if(isnil "_appliesTo") exitWith {
-		[objnull, "Error - 'Applies To' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+		["Error - 'Applies To' was not defined", 3, ["CWS"]] call ccl_fnc_ShowMessage;
 		deletevehicle _logic;
 	};
 
-	[[_unit, _appliesTo], "cpm_fnc_LoadRecruitable"] spawn ccl_fnc_GlobalExec;
+	[[_unit, _appliesTo], "cws_fnc_LoadCWS"] spawn ccl_fnc_GlobalExec;
 	
-	[objnull, format["%1 - Recruitable at %2", name _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
+	[format["%1 is now using CWS at %2", name _unit, mapGridPosition _unit], 3, ["CWS"]] call ccl_fnc_ShowMessage;
 	
 	deletevehicle _logic;
 };

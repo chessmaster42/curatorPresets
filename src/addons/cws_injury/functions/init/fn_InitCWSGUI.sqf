@@ -1,11 +1,11 @@
 if(isServer && isDedicated) exitWith {};
 
 [] spawn {
-	[] call cws_fnc_WaitForCuratorLoad;
+	[] call ccl_fnc_WaitForCuratorLoad;
 
-	["Initializing GUI ...", 4] call cws_fnc_ShowMessage;
+	["Initializing GUI ...", 4, ["CWS"]] call ccl_fnc_ShowMessage;
 
-	[] spawn cws_fnc_MonitorCuratorDisplay;
+	[] spawn ccl_fnc_MonitorCuratorDisplay;
 
-	["GUI Initialized", 4] call cws_fnc_ShowMessage;
+	["GUI Initialized", 4, ["CWS"]] call ccl_fnc_ShowMessage;
 };

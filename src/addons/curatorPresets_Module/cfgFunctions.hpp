@@ -17,10 +17,7 @@ class CfgFunctions
 			file = "\curatorPresets_Module\functions\modules";
 			class moduleAirFlight{};
 			class moduleArtillery{};
-			class moduleCWSLoad{};
 			class moduleDamageComponent{};
-			class moduleDummy{};
-			class moduleEmpty{};
 			class moduleFailsafeReload{};
 			class moduleSpawnGarrison{};
 			class moduleUnitAction{};
@@ -28,7 +25,6 @@ class CfgFunctions
 			class moduleUnitChat{};
 			class moduleUnitRecruitable{};
 			class moduleUnitSkills{};
-			class moduleUnitSpeed{};
 			class moduleUnitSurrender{};
 			class moduleVAS{};
 			class moduleVehicleDisembark{};
@@ -36,23 +32,14 @@ class CfgFunctions
 		class common
 		{
 			file = "\curatorPresets_Module\functions\common";
-			class globalExec{};
 			class spawnGarrison{};
 			class moveGroupThroughBuilding{};
 			class moveUnitThroughBuilding{};
-			class getUnitUnderCursor{};
-			class getGroupUnderCursor{};
-			class showMessage{};
-			class distance{};
-			class isZeusCurator{};
 			class drawCWSIcons{};
-			class monitorCuratorDisplay{};
-			class waitForCuratorLoad{};
 		};
 		class loaders
 		{
 			file = "\curatorPresets_Module\functions\loaders";
-			class loadCWS{};
 			class loadDamageComponent{};
 			class loadRecruitable{};
 			class loadUnitAction{};
@@ -91,7 +78,6 @@ class CfgFunctions
 			class onWaypointEdited{};
 			class onWaypointPlaced{};
 			class onWaypointSelectionChanged{};
-			class onModuleTreeLoad{};
 		};
 	};
 };

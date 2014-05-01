@@ -26,5 +26,5 @@ if (_activated && local _logic && !isnull curatorcamera) then
 
 	//TODO - Finish config
 
-	["CWS configured", 3] call cws_fnc_ShowMessage;
+	["CWS configured", 3, ["CWS"]] call ccl_fnc_ShowMessage;
 };

@@ -3,7 +3,7 @@ _units = _this select 1;
 _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
-	_unit = [_logic] call cpm_fnc_GetUnitUnderCursor;
+	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
 
 	//Save the unit for the UI
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
@@ -29,7 +29,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	};
 
 	//Run the action on the unit
-	[[_unit, _channel, _message], "cpm_fnc_LoadUnitChat"] spawn cpm_fnc_GlobalExec;
+	[[_unit, _channel, _message], "cpm_fnc_LoadUnitChat"] spawn ccl_fnc_GlobalExec;
 
 	//Alert Zeus
 	[objnull, format["%1 - Chat sent to channel %2", name _unit, _channel]] call bis_fnc_showCuratorFeedbackMessage;

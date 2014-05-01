@@ -1,17 +1,38 @@
 // Authored by chessmaster42
 // Based on 'A3 Wounding System' by Psychobastard
 
-private ["_unit"]
+private ["_unit","_appliesTo"];
 _unit = _this select 0;
+_appliesTo = if(count _this > 1) then {_this select 1} else {nil};
 
 //Make sure that _unit is valid
 if (isNil "_unit") exitWith {};
+
+//Recursively load CWS if the Applies To param is set
+if(!isNil "_appliesTo") then {
+	_unitList = [];
+	switch(_appliesTo) do {
+		case 1: {
+			_group = group _unit;
+			_unitList = units _group;
+		};
+		case 5: {
+			_unitList = playableUnits;
+		};
+	};
+	
+	if(count _unitList > 0) then {
+		{
+			[_x] spawn cws_fnc_LoadCWS;
+		} forEach _unitList;
+	};
+};
 
 //If this unit is already loaded then exit
 if (!isNil {_unit getVariable "cws_ais_aisInit"}) exitWith {};
 
 //Bail if we're trying to load on a dead AI unit
-if(!isPlayer && !(alive _unit)) exitWith {};
+if(!isPlayer _unit && !(alive _unit)) exitWith {};
 
 //Set the init flag and start loading CWS
 _unit setVariable ["cws_ais_aisInit", true];
@@ -123,20 +144,24 @@ if (cws_ais_dead_dialog == 1) then {
 
 //If this unit is the local player show a hint to let them know CWS is loaded
 if (_unit == player) then {
-	["CWS Wounding Loaded", 7] call cws_fnc_ShowMessage;
+	["CWS Wounding Loaded", 7, "CWS"] call ccl_fnc_ShowMessage;
 };
 
 //Message to side chat so that everyone knows when units on their side have CWS loaded
 if(playerSide == (side _unit)) then {
 	if(isPlayer _unit) then {
-		[format ["%1 - Chessmaster's Wounding System loaded!", name _unit], 6, [_unit, "Side", true]] call cws_fnc_ShowMessage;
+		[format ["%1 - Chessmaster's Wounding System loaded!", name _unit], 6, ["CWS", _unit, "Side", true]] call ccl_fnc_ShowMessage;
 	} else {
-		[format ["%1 (AI) - Chessmaster's Wounding System loaded!", name _unit], 6, [_unit, "Side", true]] call cws_fnc_ShowMessage;
+		[format ["%1 (AI) - Chessmaster's Wounding System loaded!", name _unit], 6, ["CWS", _unit, "Side", true]] call ccl_fnc_ShowMessage;
 	};
 };
 
 if(local _unit) then {
-	format["%1 (Local) - CWS Wounding Loaded!", _unit], 99] call cws_fnc_ShowMessage;
+	[format["%1 (Local) - CWS Wounding Loaded!", _unit], 99] call ccl_fnc_ShowMessage;
 } else {
-	format["%1 (Remote) - CWS Wounding Loaded!", _unit], 99] call cws_fnc_ShowMessage;
+	[format["%1 (Remote) - CWS Wounding Loaded!", _unit], 99] call ccl_fnc_ShowMessage;
 };
+
+_cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];
+_cwsUnitsArray = _cwsUnitsArray + [_unit];
+missionnamespace setVariable ["curatorPresets_CWS_Units", _cwsUnitsArray];

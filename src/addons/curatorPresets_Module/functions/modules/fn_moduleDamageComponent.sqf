@@ -5,7 +5,7 @@ _units = _this select 1;
 _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
-	_unit = [_logic] call cpm_fnc_GetUnitUnderCursor;
+	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
 
 	//Save the unit for the UI
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
@@ -37,7 +37,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_componentName = getText(configFile >> "cfgVehicles" >> _unitClass >> "HitPoints" >> _component >> "name");
 
 	//Damage the component
-	[[_unit, _componentName, _hit], "cpm_fnc_LoadDamageComponent"] spawn cpm_fnc_GlobalExec;
+	[[_unit, _componentName, _hit], "cpm_fnc_LoadDamageComponent"] spawn ccl_fnc_GlobalExec;
 
 	//Alert Zeus
 	[objnull, format["%1 - Component %3 has %4 damage at %2", name _unit, mapGridPosition _unit, _componentName, _hit]] call bis_fnc_showCuratorFeedbackMessage;

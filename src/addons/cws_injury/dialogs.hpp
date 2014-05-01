@@ -14,68 +14,32 @@ class RscMapControl;
 class RscText;
 class RscXSliderH;
 
-class RscDisplayAttributeModule: RscControlsGroupNoScrollbars
+class RscDisplayAttributeModule
 {
-	onSetFocus = "";
-	idc = -1;
-	x = "7 * (((safezoneW / safezoneH) min 1.2) / 40)";
-	y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-	w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
-	h = "1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 	class controls{};
 };
 class RscDisplayAttributeModuleCombo: RscDisplayAttributeModule
 {
-	onSetFocus = "";
-	idc = -1;
-	class controls
+	class controls: controls
 	{
-		class Title1: RscText
-		{
-			idc = -1;
-			text = "";
-			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[] = {0,0,0,0.5};
-		};
-		class Value1: RscCombo
-		{
-			wholeHeight = "7 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			idc = -1;
-			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
+		class Title1;
+		class Value1;
 	};
 };
 class RscDisplayAttributeModuleSlider: RscDisplayAttributeModule
 {
-	onSetFocus = "";
-	idc = -1;
-	class controls
+	class controls: controls
 	{
-		class Title1: RscText
-		{
-			idc = -1;
-			text = "";
-			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[] = {0,0,0,0.5};
-		};
-		class Value1: RscXSliderH
-		{
-			onSliderPosChanged = "(_this select 0) ctrlSetTooltip str(sliderPosition (_this select 0))";
-			idc = -1;
-			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
+		class Title1;
+		class Value1;
+	};
+};
+class RscDisplayAttributeModuleTextEdit: RscDisplayAttributeModule
+{
+	class controls: controls
+	{
+		class Title1;
+		class Value1;
 	};
 };
 
@@ -96,60 +60,43 @@ class RscDisplayAttributeModuleCWSEnableDebugging: RscDisplayAttributeModuleComb
 		};
 	};
 };
-
-class RscDisplayAttributesModuleCWSInjury
+class RscDisplayAttributeModuleCWSAppliesTo: RscDisplayAttributeModuleCombo
 {
-	idd = -1;
-	movingenable = 0;
-	class ControlsBackground{};
-	class Controls
+	onSetFocus = "_this call cws_fnc_InitAppliesTo";
+	idc = 43020;
+	class controls: controls
 	{
-		class Background: RscText
+		class Title1: Title1
 		{
-			colorBackground[] = {0,0,0,0.7};
-			idc = 30001;
-			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
-			y = "9.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "27 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "6.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			idc = 43021;
+			text = "Applies To";
 		};
-		class Title: RscText
+		class Value1: Value1
 		{
-			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.69])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.75])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.5])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
-			idc = 30002;
-			text = "Curator Presets Mod Dialog";
-			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
-			y = "8.4 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "27 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
-		class Content: RscControlsGroup
-		{
-			idc = 30003;
-			x = "7 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)";
-			y = "10 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "26 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "5.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			class controls{};
-		};
-		class ButtonOK: RscButtonMenuOK
-		{
-			x = "28.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
-			y = "16.1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
-		class ButtonCancel: RscButtonMenuCancel
-		{
-			x = "6.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
-			y = "16.1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w = "5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			idc = 43022;
 		};
 	};
 };
 
-class RscDisplayAttributesModuleCWSConfig: RscDisplayAttributesModuleCWSInjury
+class RscDisplayAttributesModuleChessmastersCommonLibraryBase
+{
+	class Controls
+	{
+		class Background: RscText{};
+		class Title: RscText{};
+		class Content: RscControlsGroup
+		{
+			class Controls: RscControlsGroup
+			{
+				class controls{};
+			};
+		};
+		class ButtonOK: RscButtonMenuOK{};
+		class ButtonCancel: RscButtonMenuCancel{};
+	};
+};
+
+class RscDisplayAttributesModuleCWSConfig: RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
 	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleCWSConfig','ChessmastersWoundingSystemDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
 	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleCWSConfig','ChessmastersWoundingSystemDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
@@ -172,6 +119,30 @@ class RscDisplayAttributesModuleCWSConfig: RscDisplayAttributesModuleCWSInjury
 		class ButtonCancel: ButtonCancel{};
 	};
 };
+class RscDisplayAttributesModuleCWS: RscDisplayAttributesModuleChessmastersCommonLibraryBase
+{
+	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleCWS','ChessmastersWoundingSystemDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
+	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleCWS','ChessmastersWoundingSystemDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
+	idd = 44110;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Load CWS";
+		};
+		class Content: Content
+		{
+			class Controls: controls
+			{
+				class Control1: RscDisplayAttributeModuleCWSAppliesTo{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+
 
 class RscTitles
 {

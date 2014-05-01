@@ -1,52 +1,13 @@
 class CfgVehicles
 {
 	class Logic;
-	class Module_F: Logic
+	class Module_F;
+	class chessmastersCommonLibrary_ModuleBase;
+	class curatorPresets_ModuleBase: chessmastersCommonLibrary_ModuleBase
 	{
-		class ModuleDescription
-		{
-			class AnyPlayer;
-			class AnyBrain;
-			class EmptyDetector;
-		};
-	};
-	class curatorPresets_ModuleBase: Module_F
-	{
-		mapSize = 1;
-		author = "Chessmaster42";
-		vehicleClass = "Modules";
 		category = "CuratorPresets";
-		subCategory = "Core";
-		side = 7;
-
-		scope = 1;
-		scopeCurator = 1;
 
 		displayName = "Curator Presets Module Base";
-		icon = "\curatorPresets_Module\data\icon_ca.paa";
-
-		function = "";
-		functionPriority = 1;
-		isGlobal = 2;
-		isTriggerActivated = 0;
-		isDisposable = 0;
-
-		class Arguments{};
-		class ModuleDescription: ModuleDescription
-		{
-			description = "Core module for Curator Presets Mod";
-		};
-	};
-	class curatorPresets_ModuleEmpty: curatorPresets_ModuleBase
-	{
-		mapSize = 0;
-		category = "Curator";
-		subCategory = "";
-		icon = "";
-
-		displayName = "";
-		function = "cpm_fnc_ModuleEmpty";
-		scopeCurator = 1;
 	};
 	class curatorPresets_ModuleFailsafeReload: curatorPresets_ModuleBase
 	{
@@ -70,13 +31,6 @@ class CfgVehicles
 		function = "cpm_fnc_ModuleArtillery";
 		scopeCurator = 2;
 	};
-	class curatorPresets_ModuleCWSLoad: curatorPresets_ModuleBase
-	{
-		displayName = "CWS Injury";
-		function = "cpm_fnc_ModuleCWSLoad";
-		scopeCurator = 2;
-		subCategory = "System";
-	};
 	class curatorPresets_ModuleDamageComponent: curatorPresets_ModuleBase
 	{
 		displayName = "Damage Unit Component";
@@ -98,6 +52,7 @@ class CfgVehicles
 
 		displayName = "Task Force Radio";
 		icon = "\curatorPresets_Module\data\icon_tfr_ca.paa";
+		picture = "\curatorPresets_Module\data\icon_tfr_ca.paa";
 
 		function = "cpm_fnc_ModuleDummy";
 
@@ -135,13 +90,6 @@ class CfgVehicles
 	{
 		displayName = "Unit Skills";
 		function = "cpm_fnc_ModuleUnitSkills";
-		scopeCurator = 2;
-		subCategory = "Unit";
-	};
-	class curatorPresets_ModuleUnitSpeed: curatorPresets_ModuleBase
-	{
-		displayName = "Unit Speed";
-		function = "cpm_fnc_ModuleUnitSpeed";
 		scopeCurator = 2;
 		subCategory = "Unit";
 	};

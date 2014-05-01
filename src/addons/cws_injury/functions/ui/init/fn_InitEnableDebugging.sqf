@@ -8,4 +8,4 @@ _params = [
 	if(cws_ais_debugging) then {1} else {0}
 ];
 
-[_control, _params] call cws_fnc_InitListBox;
+[_control, _params] call ccl_fnc_InitListBox;

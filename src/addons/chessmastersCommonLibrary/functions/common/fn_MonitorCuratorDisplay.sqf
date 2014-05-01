@@ -2,7 +2,7 @@
 
 disableSerialization;
 
-while {[player] call cpm_fnc_IsZeusCurator} do {
+while {[player] call ccl_fnc_IsZeusCurator} do {
 	//Wait for the curator screen to be displayed
 	while {isNull (findDisplay IDD_RSCDISPLAYCURATOR)} do {
 		sleep 1;
@@ -11,10 +11,10 @@ while {[player] call cpm_fnc_IsZeusCurator} do {
 	_display = findDisplay IDD_RSCDISPLAYCURATOR;
 	_ctrl = _display displayCtrl IDC_RSCDISPLAYCURATOR_MODEMODULES;
 	_ctrl ctrlAddEventHandler ["buttonclick", {
-		[] spawn cpm_fnc_OnModuleTreeLoad;
+		["CuratorPresets"] spawn ccl_fnc_OnModuleTreeLoad;
 	}];
 
-	[] call cpm_fnc_OnModuleTreeLoad;
+	["CuratorPresets"] call ccl_fnc_OnModuleTreeLoad;
 
 	//Wait for the curator screen to be removed
 	while {!isNull (findDisplay IDD_RSCDISPLAYCURATOR)} do {

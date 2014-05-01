@@ -65,11 +65,11 @@ cws_ais_debugging			=	false;
 [] spawn {
 	waituntil{alive player};
 
-	["Initializing ...", 4] call cws_fnc_ShowMessage;
+	["Initializing ...", 4, ["CWS"]] call ccl_fnc_ShowMessage;
 
 	{
 		[_x] spawn cws_fnc_LoadCWS;
 	} forEach playableUnits;
 
-	["Initialized", 4] call cws_fnc_ShowMessage;
+	["Initialized", 4, ["CWS"]] call ccl_fnc_ShowMessage;
 };

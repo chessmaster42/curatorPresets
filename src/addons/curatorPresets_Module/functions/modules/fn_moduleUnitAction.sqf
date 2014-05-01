@@ -3,7 +3,7 @@ _units = _this select 1;
 _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
-	_unit = [_logic] call cpm_fnc_GetUnitUnderCursor;
+	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
 
 	//Save the unit for the UI
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
@@ -29,7 +29,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	};
 
 	//Run the action
-	[[_unit, _action, _appliesTo], "cpm_fnc_LoadUnitAction"] spawn cpm_fnc_GlobalExec;
+	[[_unit, _action, _appliesTo], "cpm_fnc_LoadUnitAction"] spawn ccl_fnc_GlobalExec;
 
 	[objnull, format["%1 - Action %3 activated at %2", name _unit, mapGridPosition _unit, _action]] call bis_fnc_showCuratorFeedbackMessage;
 	

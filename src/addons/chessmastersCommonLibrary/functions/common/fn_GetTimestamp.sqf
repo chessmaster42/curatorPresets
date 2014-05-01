@@ -3,8 +3,8 @@ _mode = if(count _this > 0) then {_this select 0} else {0};
 _year = date select 0;
 _month = date select 1;
 _day = date select 2;
-_hour = date select 4;
-_minute = date select 5;
+_hour = date select 3;
+_minute = date select 4;
 _second = time % 60;
 _millisecond = (diag_tickTime * 1000) % 1000;
 

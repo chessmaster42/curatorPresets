@@ -9,7 +9,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	//Load up the dialog
 	_ok = createDialog "RscDisplayAttributesModuleSpawnGarrison";
 	waitUntil { dialog };
-	sleep 0.1;
+	sleep 0.5;
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
@@ -36,7 +36,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		deletevehicle _logic;
 	};
 
-	[[_coordinate, _radius, _density, _side], "cpm_fnc_SpawnGarrison"] spawn cpm_fnc_GlobalExec;
+	[[_coordinate, _radius, _density, _side], "cpm_fnc_SpawnGarrison"] spawn ccl_fnc_GlobalExec;
 
 	//Clean up
 	uinamespace setVariable ["curatorPresets_ModuleUnit", objnull];
