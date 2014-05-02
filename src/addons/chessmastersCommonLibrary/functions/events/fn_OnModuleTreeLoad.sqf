@@ -1,8 +1,10 @@
 #include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 
-disableSerialization;
+private ["_categoryClass","_display","_ctrl","_category","_categoryName","_categoryMod","_subCategories","_tvMainBranch","_subCategoryBranches","_moduleClassList","_index"];
 
 _categoryClass = _this select 0;
+
+disableSerialization;
 
 //Safety precaution, wait for the curator screen to be displayed
 while {isNull (findDisplay IDD_RSCDISPLAYCURATOR)} do {

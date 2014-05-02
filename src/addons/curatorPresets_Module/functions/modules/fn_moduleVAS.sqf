@@ -4,6 +4,7 @@ _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
 	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
+	if(isNull _unit) exitWith{};
 
 	[[_unit], "cpm_fnc_LoadVAS"] spawn ccl_fnc_GlobalExec;
 	

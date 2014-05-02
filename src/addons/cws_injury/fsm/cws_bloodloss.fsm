@@ -3,30 +3,26 @@
 /*
 item0[] = {"start",0,250,-386.841858,-274.763580,-321.196259,-237.337494,0.000000,"start"};
 item1[] = {"true",8,218,-294.160950,-276.279480,-222.604858,-237.345810,0.000000,"true"};
-item2[] = {"Effects2",2,4346,-58.868343,-188.520935,-3.639973,-147.885513,0.000000,"Effects2"};
+item2[] = {"bleed_loop",2,4346,-58.868343,-188.520935,-3.639973,-147.885513,0.000000,"bleed loop"};
 item3[] = {"sleep",4,218,-64.407600,-100.484978,1.512154,-59.180626,0.000000,"sleep"};
-item4[] = {"healed___died",4,218,116.722412,-113.377907,206.722412,-63.377907,1.000000,"healed /" \n "died"};
-item5[] = {"bleed_of_death",4,218,-259.866211,-120.066917,-155.819397,-75.418060,2.000000,"bleed of death"};
+item4[] = {"healed",4,218,116.722412,-113.377907,206.722412,-63.377907,1.000000,"healed"};
+item5[] = {"death",4,218,-259.866211,-120.066917,-155.819397,-75.418060,2.000000,"death"};
 item6[] = {"death",1,250,-234.448166,16.387945,-181.906342,46.989937,0.000000,"death"};
 item7[] = {"end",1,250,136.211731,6.727341,186.337524,40.571522,0.000000,"end"};
 item8[] = {"Effects1",2,250,-187.445648,-275.000092,-128.734100,-237.515472,0.000000,"Effects1"};
 item9[] = {"true",8,218,-65.256653,-275.840057,3.623799,-235.226547,0.000000,"true"};
-item10[] = {"__isPlayer__isIn",4,218,-399.323578,-115.627823,-309.323578,-49.417061,0.000000,"!isPlayer" \n "!isInAgony"};
-item11[] = {"exit",1,250,-379.510406,14.058210,-327.335480,46.046249,0.000000,"exit"};
 link0[] = {0,1};
-link1[] = {0,10};
-link2[] = {1,8};
-link3[] = {2,3};
-link4[] = {2,4};
-link5[] = {2,5};
-link6[] = {3,2};
-link7[] = {4,7};
-link8[] = {5,6};
-link9[] = {8,9};
-link10[] = {9,2};
-link11[] = {10,11};
+link1[] = {1,8};
+link2[] = {2,3};
+link3[] = {2,4};
+link4[] = {2,5};
+link5[] = {3,2};
+link6[] = {4,7};
+link7[] = {5,6};
+link8[] = {8,9};
+link9[] = {9,2};
 globals[] = {0.000000,0,0,0,0,640,480,1,22,6316128,1,-438.949554,227.492523,183.215668,-406.520813,740,911,1};
-window[] = {2,-1,-1,-1,-1,986,250,1510,250,3,758};
+window[] = {2,-1,-1,-1,-1,811,75,1335,75,3,758};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -37,7 +33,7 @@ class FSM
     class start
     {
       name = "start";
-      init = /*%FSM<STATEINIT""">*/"private [""_passed_time"",""_average_damage""];" \n
+      init = /*%FSM<STATEINIT""">*/"private [""_randomfactor"",""_time_of_agony"",""_passed_time"",""_timeleft"",""_pausedTime""];" \n
        "" \n
        "_unit = _this;" \n
        "" \n
@@ -45,6 +41,7 @@ class FSM
        "_time_of_agony = time;" \n
        "_passed_time = 0;" \n
        "_timeleft = 999;" \n
+       "_pausedTime = 0;" \n
        "" \n
        "_ppEff = [];" \n
        "if (isPlayer _unit && player == _unit) then {" \n
@@ -55,16 +52,6 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "__isPlayer__isIn">*/
-        class __isPlayer__isIn
-        {
-          priority = 0.000000;
-          to="exit";
-          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"(isPlayer _unit && player != _unit) || !(_unit getVariable ""cws_ais_agony"")"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-        };
-        /*%FSM</LINK>*/
         /*%FSM<LINK "true">*/
         class true
         {
@@ -78,24 +65,36 @@ class FSM
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "Effects2">*/
-    class Effects2
+    /*%FSM<STATE "bleed_loop">*/
+    class bleed_loop
     {
-      name = "Effects2";
-      init = /*%FSM<STATEINIT""">*/"_blinkduration = 0.7 + (random 0.4);" \n
+      name = "bleed_loop";
+      init = /*%FSM<STATEINIT""">*/"_blinkduration = 0.7 + random 0.4;" \n
        "" \n
-       "//Pause the bleedout timer by pushing the initial agony time forward by the blink time" \n
-       "if(!isNull(_unit getVariable [""healer"", objNull])) then {" \n
-       "	_time_of_agony = _time_of_agony + _blinkduration;" \n
+       "//Pause the bleedout timer" \n
+       "if(!isNull(_unit getVariable [""healer"", objNull]) && _pausedTime == 0) then {" \n
+       "	_pausedTime = time - _time_of_agony;" \n
+       "" \n
+       "	[format [""%1 - Bleeding paused"", _unit], 99] call ccl_fnc_ShowMessage;" \n
        "};" \n
        "" \n
+       "//Unpause the bleedout timer" \n
+       "if(isNull(_unit getVariable [""healer"", objNull]) && _pausedTime > 0) then {" \n
+       "	_pausedTime = 0;" \n
+       "" \n
+       "	[format [""%1 - Bleeding resumed"", _unit], 99] call ccl_fnc_ShowMessage;" \n
+       "};" \n
+       "" \n
+       "_damage_inverse = 1 - ([_unit] call cws_fnc_getUnitDamage);" \n
+       "_max_bleed_time = (_damage_inverse * _randomfactor) + 60;" \n
        "_passed_time = time - _time_of_agony;" \n
-       "_average_damage = [_unit] call cws_fnc_getUnitDamage;" \n
-       "_damage_inverse = 1 - _average_damage;" \n
-       "_bleed_time = (_damage_inverse * _randomfactor) + 60;" \n
-       "_timeleft = (_bleed_time - _passed_time) - _blinkduration;" \n
-       "_timeleft_normalized = 1 - (_passed_time / _bleed_time);" \n
-       "_txt = format [""%1 Seconds"", floor _timeleft];" \n
+       "" \n
+       "if(_pausedTime > 0) then {" \n
+       "	_passed_time = _pausedTime;" \n
+       "};" \n
+       "" \n
+       "_timeleft = _max_bleed_time - _passed_time;" \n
+       "_timeleft_normalized = 1 - (_passed_time / _max_bleed_time);" \n
        "" \n
        "_unit setFatigue 1;" \n
        "_unit setBleedingRemaining 2;" \n
@@ -105,6 +104,7 @@ class FSM
        "" \n
        "if(isPlayer _unit && player == _unit) then {" \n
        "	if (_timeleft > 3) then {" \n
+       "		_txt = format [""%1 Seconds"", floor _timeleft];" \n
        "		titleText [_txt, ""PLAIN DOWN"", 0.2];" \n
        "	} else {" \n
        "		titleText [""It's too late for you..."", ""PLAIN DOWN"", 0.5];" \n
@@ -116,23 +116,23 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "bleed_of_death">*/
-        class bleed_of_death
+        /*%FSM<LINK "death">*/
+        class death
         {
           priority = 2.000000;
           to="death";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_timeleft <= 0"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_timeleft <= 0 || {!alive _unit}"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
-        /*%FSM<LINK "healed___died">*/
-        class healed___died
+        /*%FSM<LINK "healed">*/
+        class healed
         {
           priority = 1.000000;
           to="end";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!(_unit getVariable ""cws_ais_agony"") || {!alive _unit}"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(_unit getVariable ""cws_ais_agony"")"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -140,7 +140,7 @@ class FSM
         class sleep
         {
           priority = 0.000000;
-          to="Effects2";
+          to="bleed_loop";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"time - _timenow > _blinkduration"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
@@ -153,15 +153,14 @@ class FSM
     class death
     {
       name = "death";
-      init = /*%FSM<STATEINIT""">*/"if (alive _unit) then {_unit setDamage 1};" \n
-       "" \n
-       "if(isPlayer _unit && player == _unit) then {" \n
+      init = /*%FSM<STATEINIT""">*/"if(isPlayer _unit && player == _unit) then {" \n
        "	{_x ppEffectEnable false} forEach _ppEff;" \n
        "	ppEffectDestroy _ppEff;" \n
        "	resetCamShake;" \n
        "};" \n
        "" \n
-       "_unit setVariable [""cws_ais_bleedout_time"", 0, true];"/*%FSM</STATEINIT""">*/;
+       "_unit setVariable [""cws_ais_bleedout_time"", 0, true];" \n
+       "_unit setVariable [""cws_ais_unit_died"", true, true];"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -199,23 +198,12 @@ class FSM
         class true
         {
           priority = 0.000000;
-          to="Effects2";
+          to="bleed_loop";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
-      };
-    };
-    /*%FSM</STATE>*/
-    /*%FSM<STATE "exit">*/
-    class exit
-    {
-      name = "exit";
-      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
-      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
-      class Links
-      {
       };
     };
     /*%FSM</STATE>*/
@@ -225,7 +213,6 @@ class FSM
   {
     "death",
     "end",
-    "exit",
   };
 };
 /*%FSM</COMPILE>*/

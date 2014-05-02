@@ -14,32 +14,13 @@ class RscMapControl;
 class RscText;
 class RscXSliderH;
 
-class RscDisplayAttributeModule
-{
-	class controls{};
-};
+class RscDisplayAttributeModule;
 class RscDisplayAttributeModuleCombo: RscDisplayAttributeModule
 {
-	class controls: controls
+	class controls
 	{
-		class Title1;
-		class Value1;
-	};
-};
-class RscDisplayAttributeModuleSlider: RscDisplayAttributeModule
-{
-	class controls: controls
-	{
-		class Title1;
-		class Value1;
-	};
-};
-class RscDisplayAttributeModuleTextEdit: RscDisplayAttributeModule
-{
-	class controls: controls
-	{
-		class Title1;
-		class Value1;
+		class Title1: RscText{};
+		class Value1: RscCombo{};
 	};
 };
 
@@ -86,10 +67,7 @@ class RscDisplayAttributesModuleChessmastersCommonLibraryBase
 		class Title: RscText{};
 		class Content: RscControlsGroup
 		{
-			class Controls: RscControlsGroup
-			{
-				class controls{};
-			};
+			class controls{};
 		};
 		class ButtonOK: RscButtonMenuOK{};
 		class ButtonCancel: RscButtonMenuCancel{};

@@ -16,10 +16,7 @@ class CfgFunctions
 			file = "\cws_injury\functions\modules";
 			class moduleConfig{};
 			class moduleCWSLoad{};
-		};
-		class common
-		{
-			file = "\cws_injury\functions\common";
+			class moduleRevive{};
 		};
 		class loaders
 		{
@@ -32,10 +29,6 @@ class CfgFunctions
 			file = "\cws_injury\functions\ui\init";
 			class initAppliesTo{};
 			class initEnableDebugging{};
-		};
-		class events
-		{
-			file = "\cws_injury\functions\events";
 		};
 		class cws
 		{
@@ -64,6 +57,8 @@ class CfgFunctions
 			class handleKeys{};
 			class setupActions{};
 			class setupUnitVariables{};
+			class setHealer{};
+			class reviveUnit{};
 		};
 	};
 };

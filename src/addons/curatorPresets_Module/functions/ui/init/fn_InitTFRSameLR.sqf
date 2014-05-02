@@ -13,6 +13,9 @@ _index = 0;
 	_ctrl lbSetValue [_lbComponent, _index];
 	_index = _index + 1;
 } foreach ["No","Yes"];
+if(isNil "tf_same_lr_frequencies_for_side") then {
+	tf_same_lr_frequencies_for_side = false;
+};
 if(tf_same_lr_frequencies_for_side) then {
 	_ctrl lbSetCurSel 1;
 } else {

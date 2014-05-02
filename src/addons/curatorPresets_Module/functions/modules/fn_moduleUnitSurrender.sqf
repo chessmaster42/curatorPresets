@@ -4,6 +4,7 @@ _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then {
 	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
+	if(isNull _unit) exitWith{};
 
 	//Load up the dialog
 	_ok = createDialog "RscDisplayAttributesModuleUnitSurrender";

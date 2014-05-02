@@ -3,8 +3,10 @@ _message = _this select 0;
 _mode = if(count _this > 1) then {_this select 1} else {0};
 _params = if(count _this > 2) then {_this select 2} else {["CCL"]};
 
-_isDebugging = missionNamespace getVariable ["curatorPresets_Debugging", false];
 _modPrefix = _params select 0;
+
+//TODO - Pull this from the params
+_isDebugging = true;
 
 //Headless client or dedicated server can only ever use mode 2
 if(isServer && isDedicated) then {
@@ -50,7 +52,7 @@ switch(_mode) do {
 			_message = format ["[%1] %2", [0] call ccl_fnc_GetTimestamp, _message]
 		};
 
-		[[_sender, _channel, _message], "cws_fnc_LoadUnitChat"] spawn ccl_fnc_GlobalExec;
+		[[_sender, _channel, _message], "ccl_fnc_LoadUnitChat"] spawn ccl_fnc_GlobalExec;
 	};
 	case 7: {
 		hint _message;
@@ -62,5 +64,8 @@ switch(_mode) do {
 			[_message, 2, _params] call ccl_fnc_ShowMessage;
 			[_message, 3, _params] call ccl_fnc_ShowMessage;
 		};
+	};
+	default {
+		[_message, 2, _params] call ccl_fnc_ShowMessage;
 	};
 };

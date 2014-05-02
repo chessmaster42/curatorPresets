@@ -5,9 +5,6 @@ private ["_unit","_appliesTo"];
 _unit = _this select 0;
 _appliesTo = if(count _this > 1) then {_this select 1} else {nil};
 
-//Make sure that _unit is valid
-if (isNil "_unit") exitWith {};
-
 //Recursively load CWS if the Applies To param is set
 if(!isNil "_appliesTo") then {
 	_unitList = [];
@@ -28,6 +25,9 @@ if(!isNil "_appliesTo") then {
 	};
 };
 
+//Make sure that _unit is valid
+if (isNil "_unit") exitWith {};
+
 //If this unit is already loaded then exit
 if (!isNil {_unit getVariable "cws_ais_aisInit"}) exitWith {};
 
@@ -36,13 +36,6 @@ if(!isPlayer _unit && !(alive _unit)) exitWith {};
 
 //Set the init flag and start loading CWS
 _unit setVariable ["cws_ais_aisInit", true];
-
-"cws_ais_start_heal" addPublicVariableEventHandler {
-	_unit = (_this select 1) select 0;
-	_healer = (_this select 1) select 1;
-
-	_unit setVariable ["healer", _healer, true];
-};
 
 "cws_ais_healed" addPublicVariableEventHandler {
 	_unit = (_this select 1) select 0;

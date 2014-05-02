@@ -5,7 +5,7 @@ _mouseOver = missionnamespace getvariable ["bis_fnc_curatorObjectPlaced_mouseOve
 if ((_mouseOver select 0) == typename objnull) then {
 	_unit = _mouseOver select 1;
 };
-if(isnull _unit) exitWith {
+if(isnull _unit) then {
 	[objnull, "Error - Module was not placed on any unit"] call bis_fnc_showCuratorFeedbackMessage;
 	deletevehicle _logic;
 };

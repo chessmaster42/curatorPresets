@@ -25,6 +25,7 @@ class CfgVehicles
 		displayName = "CCL Module Base";
 		icon = "\chessmastersCommonLibrary\data\icon_ca.paa";
 		picture = "\chessmastersCommonLibrary\data\icon_ca.paa";
+		portrait = "\chessmastersCommonLibrary\data\icon_ca.paa";
 
 		function = "";
 		functionPriority = 1;

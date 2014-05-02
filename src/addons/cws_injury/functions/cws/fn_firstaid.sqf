@@ -39,19 +39,19 @@ if (_healer getVariable "cws_ais_agony" && !_self_revive) exitWith {};
 //Stop the healing if the injured died before the healer arrived
 if (!alive _unit) exitWith {
 	_healer setBehaviour _behaviour;
-	if (isPlayer _healer) then {["It's already too late for this guy."] spawn cws_fnc_showMessage};
+	if (isPlayer _healer) then {["It's already too late for this guy.", 0] spawn ccl_fnc_showMessage};
 };
 
 //Stop the healing if the healer is too far away
 if (_healer distance _unit > cws_ais_firstaid_distance) exitWith {
 	_healer setBehaviour _behaviour;
-	if (isPlayer _healer) then {[format ["%1 is too far away to be healed.", name _unit]] spawn cws_fnc_showMessage};
+	if (isPlayer _healer) then {[format ["%1 is too far away to be healed.", name _unit], 0] spawn ccl_fnc_showMessage};
 };
 
 //Stop the healing if the healer doesn't have enough supplies
 if(!(_has_medikit && _isMedic) && !_has_firstaidkit) exitWith {
 	_healer setBehaviour _behaviour;
-	if (isPlayer _healer) then {[format ["%1 cannot be healed. No first aid available.", name _unit]] spawn cws_fnc_showMessage};
+	if (isPlayer _healer) then {[format ["%1 cannot be healed. No first aid available.", name _unit], 0] spawn ccl_fnc_showMessage};
 };
 
 //Make sure the unit is healable
@@ -59,8 +59,7 @@ rtn = call cws_fnc_isHealable;
 if (!rtn) exitWith {};
 
 //Add the healer to the unit
-cws_ais_start_heal = [_unit, _healer];
-publicVariable "cws_ais_start_heal";
+[[_unit, _healer], "cws_fnc_setHealer"] spawn ccl_fnc_GlobalExec;
 
 cws_healerStopped = false;
 
@@ -68,21 +67,21 @@ _healer selectWeapon primaryWeapon _healer;
 sleep 1;
 cws_animDelay = time + 2;
 
-//Start the medic animation as long as this isn't a self-revive
-if(!_self_revive) then {
-	_healer playAction "medicStart";
-};
-
 //If the healer is an AI then stop all other AI tasks
 if (!isPlayer _healer) then {
 	_healer stop true;
 	_healer disableAI "MOVE";
 	_healer disableAI "TARGET";
 	_healer disableAI "AUTOTARGET";
-	_healer disableAI "ANIM";
+	//_healer disableAI "ANIM";
 };
 
-//If the healer is a player then run through the healing animations
+//Start the medic animation as long as this isn't a self-revive
+if(!_self_revive) then {
+	_healer playAction "medicStart";
+};
+
+//If the healer is a player then setup an animation change event handler
 if (isPlayer _healer) then {
 	_animChangeEVH = _healer addEventhandler ["AnimChanged", {
 		private ["_anim","_healer"];
@@ -112,8 +111,7 @@ _unit setDir _dir;
 //Get some values for the first aid timer/progress
 _time = time;
 _damage = damage _unit;
-if(isNil {_unit getVariable "cws_ais_revived_counter"}) then {_unit setVariable ["cws_ais_revived_counter",0]};
-_revived_counter = _unit getVariable "cws_ais_revived_counter";
+_revived_counter = _unit getVariable ["cws_ais_revived_counter", 0];
 
 //Calculate the healing time in seconds
 //Base is up to 60 seconds plus the healed counter penalty
@@ -152,8 +150,7 @@ detach _healer;
 detach _unit;
 
 //Clear the healer from the unit
-cws_ais_start_heal = [_unit, ObjNull];
-publicVariable "cws_ais_start_heal";
+[[_unit, objnull], "cws_fnc_setHealer"] spawn ccl_fnc_GlobalExec;
 
 //If the healer is an AI then start up all other AI tasks
 if (!isPlayer _healer) then {
@@ -172,7 +169,7 @@ if (alive _healer && {!(_healer getVariable "cws_ais_agony")} && !_self_revive) 
 
 //If either the healer or the injured died during the healing, bail out
 if (!alive _healer) exitWith {};
-if (!alive _unit) exitWith {["It's already too late for this guy."] spawn cws_fnc_showMessage};
+if (!alive _unit) exitWith {["It's already too late for this guy.", 0] spawn ccl_fnc_showMessage};
 
 //Do the actual unit healing as long as the process wasn't interrupted
 if (!cws_healerStopped) then {
@@ -185,5 +182,5 @@ if (!cws_healerStopped) then {
 	//Broadcast unit agony state
 	_unit setVariable ["cws_ais_agony", false, true];
 } else {
-	if (isPlayer _healer) then {["You have stopped the healing process."] spawn cws_fnc_showMessage};
+	if (isPlayer _healer) then {["You have stopped the healing process.", 0] spawn ccl_fnc_showMessage};
 };

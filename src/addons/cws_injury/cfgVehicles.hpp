@@ -19,13 +19,22 @@ class CfgVehicles
 
 		curatorInfoType = "RscDisplayAttributesModuleCWSConfig";
 	};
-	class curatorPresets_ModuleCWSLoad: cws_injury_ModuleBase
+	class cws_injury_ModuleCWSLoad: cws_injury_ModuleBase
 	{
 		subCategory = "Unit";
 
 		scopeCurator = 2;
 
-		displayName = "CWS Injury";
+		displayName = "Load CWS";
 		function = "cws_fnc_ModuleCWSLoad";
+	};
+	class cws_injury_ModuleRevive: cws_injury_ModuleBase
+	{
+		subCategory = "Unit";
+
+		scopeCurator = 2;
+
+		displayName = "Revive Unit";
+		function = "cws_fnc_ModuleRevive";
 	};
 };

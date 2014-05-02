@@ -5,6 +5,7 @@ class CfgPatches
 		units[] = {
 				"curatorPresets_ModuleAirFlight",
 				"curatorPresets_ModuleArtillery",
+				"curatorPresets_ModuleConfig",
 				"curatorPresets_ModuleDamageComponent",
 				"curatorPresets_ModuleFailsafeReload",
 				"curatorPresets_ModuleSpawnGarrison",

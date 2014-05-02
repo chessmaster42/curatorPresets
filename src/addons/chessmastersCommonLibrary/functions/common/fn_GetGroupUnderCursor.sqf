@@ -8,7 +8,7 @@ if ((_mouseOver select 0) == typename objnull) then {
 } else {
 	_group = _mouseOver select 0;
 };
-if(isnull _group) exitWith {
+if(isnull _group) then {
 	[objnull, "Error - Module was not placed on any group or unit"] call bis_fnc_showCuratorFeedbackMessage;
 	deletevehicle _logic;
 };

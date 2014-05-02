@@ -1,4 +1,4 @@
-missionnamespace setVariable ["cws_injury_Config_Debugging", false];
+missionnamespace setVariable ["cws_injury_Config_Debugging", true];
 
 cws_ais_revive_guaranty         =   true;           //  set to true for a 100% revive chance. False, and the unit can die immediately
 cws_ais_rambofactor             =   3;              //  a higher value means more damage tolerance for the unit before the unit are unconcious ( 1== low, 2 == normal, 3 == higher, 5 == extreme)
@@ -60,16 +60,23 @@ cws_ais_killcam_quotes = [
 	[(localize "STR_QUOTE_LAST"),(localize "STR_AUTHOR_LAST")]
 ];
 
-cws_ais_debugging			=	false;
+cws_ais_debugging			=	missionnamespace getVariable ["cws_injury_Config_Debugging", false];
 
 [] spawn {
-	waituntil{alive player};
+	[] call ccl_fnc_WaitForCuratorLoad;
 
-	["Initializing ...", 4, ["CWS"]] call ccl_fnc_ShowMessage;
+	["Initializing ...", 2, ["CWS"]] call ccl_fnc_ShowMessage;
+
+	{
+		//Load the addon server-side
+		if(isServer) then {
+			_x addCuratorAddons ["cws_injury"];
+		};
+	} foreach allCurators;
 
 	{
 		[_x] spawn cws_fnc_LoadCWS;
 	} forEach playableUnits;
 
-	["Initialized", 4, ["CWS"]] call ccl_fnc_ShowMessage;
+	["Initialized", 2, ["CWS"]] call ccl_fnc_ShowMessage;
 };

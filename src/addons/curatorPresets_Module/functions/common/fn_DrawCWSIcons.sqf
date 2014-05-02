@@ -11,6 +11,12 @@ _cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];
 	_angle = 0;
 	_message = "CWS";
 	_text_size = 0.025;
+
+	//Add bleedout time if the unit is in agony
+	if(_x getVariable "cws_ais_agony") then {
+		_life_remaining = _x getVariable "cws_ais_bleedout_time";
+		_message = _message + format[" (%1%2)", ceil (_life_remaining * 100), "%"];
+	};
 	
 	//Draw the icon in 3D space
 	drawIcon3D["a3\ui_f\data\map\MapControl\hospital_ca.paa", _iconColor, _pos, _icon_size, _icon_size, _angle, _message, 0, _text_size];

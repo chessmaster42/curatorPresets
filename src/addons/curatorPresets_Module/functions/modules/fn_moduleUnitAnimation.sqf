@@ -11,6 +11,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	//ENDTEMP
 
 	_unit = [_logic] call ccl_fnc_GetUnitUnderCursor;
+	if(isNull _unit) exitWith{};
 
 	//Save the unit for the UI
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];

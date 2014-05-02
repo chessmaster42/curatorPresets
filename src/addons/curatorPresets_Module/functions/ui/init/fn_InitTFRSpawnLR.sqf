@@ -13,6 +13,9 @@ _index = 0;
 	_ctrl lbSetValue [_lbComponent, _index];
 	_index = _index + 1;
 } foreach ["No","Yes"];
+if(isNil "tf_no_auto_long_range_radio") then {
+	tf_no_auto_long_range_radio = false;
+};
 if(tf_no_auto_long_range_radio) then {
 	_ctrl lbSetCurSel 0;
 } else {

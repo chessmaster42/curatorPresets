@@ -14,32 +14,40 @@ class RscMapControl;
 class RscText;
 class RscXSliderH;
 
-class RscDisplayAttributeModule
+class RscDisplayAttributeModule: RscControlsGroupNoScrollbars
 {
 	class controls{};
 };
 class RscDisplayAttributeModuleCombo: RscDisplayAttributeModule
 {
-	class controls: controls
+	class controls
 	{
-		class Title1;
-		class Value1;
+		class Title1: RscText{};
+		class Value1: RscCombo{};
 	};
 };
 class RscDisplayAttributeModuleSlider: RscDisplayAttributeModule
 {
-	class controls: controls
+	class controls
 	{
-		class Title1;
-		class Value1;
+		class Title1: RscText{};
+		class Value1: RscXSliderH{};
 	};
 };
 class RscDisplayAttributeModuleTextEdit: RscDisplayAttributeModule
 {
-	class controls: controls
+	class controls
 	{
-		class Title1;
-		class Value1;
+		class Title1: RscText{};
+		class Value1: RscEdit{};
+	};
+};
+class RscDisplayAttributeModuleTextEditMultiline: RscDisplayAttributeModule
+{
+	class controls
+	{
+		class Title1: RscText{};
+		class Value1: RscEdit{};
 	};
 };
 
@@ -614,6 +622,23 @@ class RscDisplayAttributeModuleTFRSameSW: RscDisplayAttributeModuleCombo
 		};
 	};
 };
+class RscDisplayAttributeModuleCPMEnableDebugging: RscDisplayAttributeModuleCombo
+{
+	onSetFocus = "_this call cpm_fnc_InitEnableDebugging";
+	idc = 41230;
+	class controls: controls
+	{
+		class Title1: Title1
+		{
+			idc = 41231;
+			text = "Enable Debugging";
+		};
+		class Value1: Value1
+		{
+			idc = 41232;
+		};
+	};
+};
 
 class RscDisplayAttributesModuleChessmastersCommonLibraryBase
 {
@@ -623,10 +648,7 @@ class RscDisplayAttributesModuleChessmastersCommonLibraryBase
 		class Title: RscText{};
 		class Content: RscControlsGroup
 		{
-			class Controls: RscControlsGroup
-			{
-				class controls{};
-			};
+			class controls{};
 		};
 		class ButtonOK: RscButtonMenuOK{};
 		class ButtonCancel: RscButtonMenuCancel{};
@@ -647,7 +669,7 @@ class RscDisplayAttributesModuleAirFlight: RscDisplayAttributesModuleChessmaster
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleUnitSpeed{};
 				class Control2: RscDisplayAttributeModuleVehicleAltitude{};
@@ -671,7 +693,7 @@ class RscDisplayAttributesModuleArtillery: RscDisplayAttributesModuleChessmaster
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleCoordinates{};
 				class Control2: RscDisplayAttributeModuleAmmoType{};
@@ -696,7 +718,7 @@ class RscDisplayAttributesModuleDamageComponent: RscDisplayAttributesModuleChess
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleUnitComponent{};
 				class Control2: RscDisplayAttributeModuleDamageSlider{};
@@ -720,7 +742,7 @@ class RscDisplayAttributesModuleVehicleDisembark: RscDisplayAttributesModuleChes
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleVehicleUnits{};
 			};
@@ -743,7 +765,7 @@ class RscDisplayAttributesModuleWaypoint: RscDisplayAttributesModuleChessmasters
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleWaypointType{};
 			};
@@ -766,7 +788,7 @@ class RscDisplayAttributesModuleUnitAction: RscDisplayAttributesModuleChessmaste
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleUnitAction{};
 				class Control2: RscDisplayAttributeModuleAppliesTo{};
@@ -790,7 +812,7 @@ class RscDisplayAttributesModuleUnitAnimation: RscDisplayAttributesModuleChessma
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleUnitAnimation{};
 				class Control2: RscDisplayAttributeModuleAppliesTo{};
@@ -814,7 +836,7 @@ class RscDisplayAttributesModuleUnitChat: RscDisplayAttributesModuleChessmasters
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleUnitChatChannel{};
 				class Control2: RscDisplayAttributeModuleUnitChatText{};
@@ -838,7 +860,7 @@ class RscDisplayAttributesModuleSpawnGarrison: RscDisplayAttributesModuleChessma
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleCoordinates{};
 				class Control2: RscDisplayAttributeModuleCoordinateRadius{};
@@ -864,7 +886,7 @@ class RscDisplayAttributesModuleUnitSkills: RscDisplayAttributesModuleChessmaste
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleUnitSkills{};
 				class Control2: RscDisplayAttributeModuleAppliesTo{};
@@ -888,7 +910,7 @@ class RscDisplayAttributesModuleUnitRecruitable: RscDisplayAttributesModuleChess
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleAppliesTo{};
 			};
@@ -911,7 +933,7 @@ class RscDisplayAttributesModuleUnitSurrender: RscDisplayAttributesModuleChessma
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleAppliesTo{};
 			};
@@ -934,11 +956,34 @@ class RscDisplayAttributesModuleTaskForceRadio: RscDisplayAttributesModuleChessm
 		};
 		class Content: Content
 		{
-			class Controls: controls
+			class controls: controls
 			{
 				class Control1: RscDisplayAttributeModuleTFRSpawnLR{};
 				class Control2: RscDisplayAttributeModuleTFRSameLR{};
 				class Control3: RscDisplayAttributeModuleTFRSameSW{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};
+class RscDisplayAttributesModuleCPMConfig: RscDisplayAttributesModuleChessmastersCommonLibraryBase
+{
+	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleCPMConfig','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
+	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleCPMConfig','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
+	idd = 42250;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "CPM Config";
+		};
+		class Content: Content
+		{
+			class Controls: controls
+			{
+				class Control1: RscDisplayAttributeModuleCPMEnableDebugging{};
 			};
 		};
 		class ButtonOK: ButtonOK{};

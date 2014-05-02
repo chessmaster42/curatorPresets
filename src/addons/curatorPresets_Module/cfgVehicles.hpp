@@ -9,6 +9,18 @@ class CfgVehicles
 
 		displayName = "Curator Presets Module Base";
 	};
+	class curatorPresets_ModuleConfig: curatorPresets_ModuleBase
+	{
+		subCategory = "System";
+
+		scope = 2;
+		scopeCurator = 2;
+
+		displayName = "CPM Config";
+		function = "cpm_fnc_ModuleConfig";
+
+		curatorInfoType = "RscDisplayAttributesModuleCPMConfig";
+	};
 	class curatorPresets_ModuleFailsafeReload: curatorPresets_ModuleBase
 	{
 		category = "Curator";
@@ -53,8 +65,9 @@ class CfgVehicles
 		displayName = "Task Force Radio";
 		icon = "\curatorPresets_Module\data\icon_tfr_ca.paa";
 		picture = "\curatorPresets_Module\data\icon_tfr_ca.paa";
+		portrait = "\curatorPresets_Module\data\icon_tfr_ca.paa";
 
-		function = "cpm_fnc_ModuleDummy";
+		function = "ccl_fnc_ModuleDummy";
 
 		curatorInfoType = "RscDisplayAttributesModuleTaskForceRadio";
 	};

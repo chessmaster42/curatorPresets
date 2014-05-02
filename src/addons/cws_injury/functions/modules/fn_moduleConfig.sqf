@@ -4,6 +4,8 @@ _activated = _this select 2;
 
 if (_activated && local _logic && !isnull curatorcamera) then
 {
+	_oldDebugging = missionnamespace getVariable ["cws_injury_Config_Debugging", false];
+
 	//Load the dialog
 	createDialog "RscDisplayAttributesModuleCWSConfig";
 
@@ -14,15 +16,10 @@ if (_activated && local _logic && !isnull curatorcamera) then
 	waitUntil { !dialog };
 
 	//Update debugging setting
-	_oldDebugging = missionnamespace getVariable ["cws_injury_Config_Debugging", false];
-	_debugging = uinamespace getVariable "cws_injury_Config_Debugging";
-	if(isNil "_debugging") then {
-		_debugging = _oldDebugging;
-	} else {
-		_debugging = if(_debugging == 1) then {true} else {false};
-	};
-	missionnamespace setVariable ["cws_injury_Config_Debugging", _debugging];
-	cws_ais_debugging = _debugging;
+	_debugging = uinamespace getVariable ["cws_injury_Config_DebuggingValue", (if(_oldDebugging) then {1} else {0})];
+	_newDebugging = if(_debugging == 1) then {true} else {false};
+	missionnamespace setVariable ["cws_injury_Config_Debugging", _newDebugging];
+	cws_ais_debugging = _newDebugging;
 
 	//TODO - Finish config
 

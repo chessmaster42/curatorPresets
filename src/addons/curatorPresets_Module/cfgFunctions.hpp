@@ -17,6 +17,7 @@ class CfgFunctions
 			file = "\curatorPresets_Module\functions\modules";
 			class moduleAirFlight{};
 			class moduleArtillery{};
+			class moduleConfig{};
 			class moduleDamageComponent{};
 			class moduleFailsafeReload{};
 			class moduleSpawnGarrison{};

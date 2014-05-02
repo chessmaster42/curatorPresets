@@ -18,9 +18,6 @@ _index = 0;
 _ctrl lbSetCurSel 0;
 _ctrl ctrlCommit 1;
 
-//Blank out any existing value
-uinamespace setVariable ["curatorPresets_AppliesToValue", nil];
-
 //Setup handler when OK is clicked
 _ctrlButtonOK = _display displayCtrl IDC_OK;
 _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {

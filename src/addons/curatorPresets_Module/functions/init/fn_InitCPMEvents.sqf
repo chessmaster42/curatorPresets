@@ -3,7 +3,7 @@ if(isServer && isDedicated) exitWith {};
 [] spawn {
 	[] call ccl_fnc_WaitForCuratorLoad;
 	
-	["Initializing Events ...", 4, ["CPM"]] call ccl_fnc_ShowMessage;
+	["Initializing Events ...", 2, ["CPM"]] call ccl_fnc_ShowMessage;
 	{
 		[format["Adding event handlers to curator '%1'", _x], 2, ["CPM"]] call ccl_fnc_ShowMessage;
 	
@@ -20,5 +20,5 @@ if(isServer && isDedicated) exitWith {};
 			_this call cpm_fnc_OnWaypointSelectionChanged;
 		}];
 	} foreach allCurators;
-	["Events Initialized", 4, ["CPM"]] call ccl_fnc_ShowMessage;
+	["Events Initialized", 2, ["CPM"]] call ccl_fnc_ShowMessage;
 };
