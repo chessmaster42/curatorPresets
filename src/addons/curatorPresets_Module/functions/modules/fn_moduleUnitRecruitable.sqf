@@ -7,17 +7,17 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	if(isNull _unit) exitWith{};
 
 	//Load up the dialog
-	_ok = createDialog "RscDisplayAttributesModuleUnitRecruitable";
+	createDialog "RscDisplayAttributesModuleUnitRecruitable";
 	waitUntil { dialog };
-	sleep 0.5;
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
 
 	//Get config from saved UI variables
 	_appliesTo = uinamespace getVariable "curatorPresets_AppliesToValue";
+
+	//If values were not defined assume the dialog was canceled and exit
 	if(isnil "_appliesTo") exitWith {
-		[objnull, "Error - 'Applies To' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 

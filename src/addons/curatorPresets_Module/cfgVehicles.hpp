@@ -113,6 +113,13 @@ class CfgVehicles
 		scopeCurator = 2;
 		subCategory = "Unit";
 	};
+	class curatorPresets_ModuleUnitTeleport: curatorPresets_ModuleBase
+	{
+		displayName = "Unit Teleport";
+		function = "cpm_fnc_ModuleUnitTeleport";
+		scopeCurator = 2;
+		subCategory = "Unit";
+	};
 	class curatorPresets_ModuleVAS: curatorPresets_ModuleBase
 	{
 		displayName = "Virtual Ammobox System";

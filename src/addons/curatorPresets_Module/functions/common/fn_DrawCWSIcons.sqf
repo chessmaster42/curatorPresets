@@ -16,8 +16,14 @@ _cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];
 	if(_x getVariable "cws_ais_agony") then {
 		_life_remaining = _x getVariable "cws_ais_bleedout_time";
 		_message = _message + format[" (%1%2)", ceil (_life_remaining * 100), "%"];
+
+		//Add healing percentage if the unit is being healed
+		_healingProgress = _x getVariable ["cws_ais_healing_progress", 0];
+		if(_healingProgress > 0) then {
+			_message = _message + format[" (%1%2)", ceil (_healingProgress * 100), "%"];
+		};
 	};
-	
+
 	//Draw the icon in 3D space
 	drawIcon3D["a3\ui_f\data\map\MapControl\hospital_ca.paa", _iconColor, _pos, _icon_size, _icon_size, _angle, _message, 0, _text_size];
 	

@@ -990,3 +990,26 @@ class RscDisplayAttributesModuleCPMConfig: RscDisplayAttributesModuleChessmaster
 		class ButtonCancel: ButtonCancel{};
 	};
 };
+class RscDisplayAttributesModuleUnitTeleport: RscDisplayAttributesModuleChessmastersCommonLibraryBase
+{
+	onLoad = "['onLoad',_this,'RscDisplayAttributesModuleUnitTeleport','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
+	onUnload = "['onUnload',_this,'RscDisplayAttributesModuleUnitTeleport','CuratorPresetsModDisplays'] call compile preprocessfilelinenumbers 'A3\ui_f\scripts\initDisplay.sqf'";
+	idd = 42260;
+	class Controls: Controls
+	{
+		class Background: Background{};
+		class Title: Title
+		{
+			text = "Teleport";
+		};
+		class Content: Content
+		{
+			class controls: controls
+			{
+				class Control1: RscDisplayAttributeModuleCoordinates{};
+			};
+		};
+		class ButtonOK: ButtonOK{};
+		class ButtonCancel: ButtonCancel{};
+	};
+};

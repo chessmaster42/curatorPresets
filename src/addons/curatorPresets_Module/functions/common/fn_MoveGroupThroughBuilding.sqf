@@ -28,6 +28,16 @@ if(_buildingPosCount < 1) exitWith {
 
 [format["Moving %1 through building %2 with %3 positions", _group, _building, _buildingPosCount], 2] call ccl_fnc_ShowMessage;
 
+_positionArray = [];
+for [{_i=0},{_i<_buildingPosCount},{_i=_i+1}] do {
+	_pos = _building buildingPos _i;
+	_positionArray set [_i, [_i, _pos]];
+};
+
+//Sort the array based on distance from the group leader (nearest to farthest)
+//TODO - Determine if this is even better than just going through the positions sequentially
+_positionArray = [_positionArray, [_leader], {_input0 distance (_x select 1)}, "ASCEND"] call BIS_fnc_sortBy;
+
 //Split up the building positions between every member of the group
 _groupUnits = units _group;
 _unitCount = count _groupUnits;
@@ -36,13 +46,15 @@ _buildingPosIndex = 0;
 {
 	//Build the position array for this unit to search through
 	_buildingPosArray = [];
-	for [{_i=_buildingPosIndex},{_i<(_buildingPosIndex + _positionsPerUnit)},{_i=_i+1}] do {
-		_buildingPosArray set [_i, [_i, _building buildingPos _i]];
+	for [{_i=0},{_i<_positionsPerUnit},{_i=_i+1}] do {
+		if(_buildingPosIndex >= _buildingPosCount) exitWith {};
+
+		_buildingPosArray set [_i, _positionArray select _buildingPosIndex];
+		_buildingPosIndex = _buildingPosIndex + 1;
 	};
 
 	//Send the unit off to search through the building positions
 	[_x, _building, _buildingPosArray] spawn cpm_fnc_MoveUnitThroughBuilding;
-
-	_buildingPosIndex = _buildingPosIndex + _positionsPerUnit;
-	if(_buildingPosIndex >= _buildingPosCount) exitWith {};
 } forEach _groupUnits;
+
+[format["Finished moving %1 through building %2 with %3 positions", _group, _building, _buildingPosCount], 2] call ccl_fnc_ShowMessage;

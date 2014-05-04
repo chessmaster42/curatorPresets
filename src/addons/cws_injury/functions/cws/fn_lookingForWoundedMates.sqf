@@ -2,8 +2,13 @@
 // Based on 'A3 Wounding System' by Psychobastard
 
 #define __includedMates (units group _unit - [_unit])
-private ["_unit","_need_help","_help_him"];
+private ["_unit","_canHeal","_need_help","_help_him"];
 _unit = _this select 0;
+
+//Stop looking for wounded if we can't heal anyone
+_canHeal = [_unit] call cws_fnc_canHeal;
+if(!_canHeal) exitWith {};
+
 _need_help = false;
 _help_him = objNull;
 

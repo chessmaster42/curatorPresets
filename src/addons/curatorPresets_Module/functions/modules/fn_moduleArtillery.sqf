@@ -1,5 +1,3 @@
-disableSerialization;
-
 _logic = _this select 0;
 _units = _this select 1;
 _activated = _this select 2;
@@ -12,9 +10,8 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
 
 	//Load up the dialog
-	_ok = createDialog "RscDisplayAttributesModuleArtillery";
+	createDialog "RscDisplayAttributesModuleArtillery";
 	waitUntil { dialog };
-	sleep 0.1;
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
@@ -23,16 +20,9 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_coordinate = uinamespace getVariable "curatorPresets_CoordinateValue";
 	_ammoType = uinamespace getVariable "curatorPresets_AmmoTypeValue";
 	_roundCount = uinamespace getVariable "curatorPresets_RoundsValue";
-	if(isnil "_coordinate") exitWith {
-		[objnull, "Error - 'Coordinates' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
-		deletevehicle _logic;
-	};
-	if(isnil "_ammoType") exitWith {
-		[objnull, "Error - Ammo Type was not defined"] call bis_fnc_showCuratorFeedbackMessage;
-		deletevehicle _logic;
-	};
-	if(isnil "_roundCount") exitWith {
-		[objnull, "Error - Round Count was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+
+	//If values were not defined assume the dialog was canceled and exit
+	if(isnil "_coordinate" || isnil "_ammoType" || isnil "_roundCount") exitWith {
 		deletevehicle _logic;
 	};
 
@@ -46,9 +36,6 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		//Alert Zeus
 		[objnull, format["%1 - Out of range, cannot fire at %3 from %2", name _unit, mapGridPosition _unit, _coordinate]] call bis_fnc_showCuratorFeedbackMessage;
 	};
-	
-	//Clean up
-	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
-	
+		
 	deletevehicle _logic;
 };

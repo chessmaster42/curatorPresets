@@ -19,6 +19,16 @@ class CfgVehicles
 
 		curatorInfoType = "RscDisplayAttributesModuleCWSConfig";
 	};
+	class cws_injury_ModuleFailsafeReload: cws_injury_ModuleBase
+	{
+		category = "Curator";
+
+		scope = 2;
+		scopeCurator = 2;
+
+		displayName = "CWS Failsafe Reload";
+		function = "cws_fnc_ModuleFailsafeReload";
+	};
 	class cws_injury_ModuleCWSLoad: cws_injury_ModuleBase
 	{
 		subCategory = "Unit";

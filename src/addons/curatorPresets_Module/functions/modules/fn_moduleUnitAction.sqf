@@ -10,9 +10,8 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
 
 	//Load up the dialog
-	_ok = createDialog "RscDisplayAttributesModuleUnitAction";
+	createDialog "RscDisplayAttributesModuleUnitAction";
 	waitUntil { dialog };
-	sleep 0.5;
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
@@ -20,12 +19,9 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	//Get config from saved UI variables
 	_action = uinamespace getVariable "curatorPresets_UnitActionValue";
 	_appliesTo = uinamespace getVariable "curatorPresets_AppliesToValue";
-	if(isnil "_appliesTo") exitWith {
-		[objnull, "Error - 'Applies To' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
-		deletevehicle _logic;
-	};
-	if(isnil "_action") exitWith {
-		[objnull, "Error - 'Action' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+
+	//If values were not defined assume the dialog was canceled and exit
+	if(isnil "_action" || isnil "_appliesTo") exitWith {
 		deletevehicle _logic;
 	};
 
@@ -34,8 +30,5 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 
 	[objnull, format["%1 - Action %3 activated at %2", name _unit, mapGridPosition _unit, _action]] call bis_fnc_showCuratorFeedbackMessage;
 	
-	//Clean up
-	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
-
 	deletevehicle _logic;
 };

@@ -5,6 +5,7 @@ private ["_healer","_isMedic"];
 _healer = _this;
 
 //Check if the class of the healer contains the attendant attribute
+//TODO - Improvements to allow more unit types to be healers
 _isMedic = if (getNumber (configFile >> "CfgVehicles" >> (typeOf _healer) >> "attendant") == 1) then {true} else {false};
 
 _isMedic

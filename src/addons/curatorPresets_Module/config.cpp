@@ -16,6 +16,7 @@ class CfgPatches
 				"curatorPresets_ModuleUnitRecruitable",
 				"curatorPresets_ModuleUnitSkills",
 				"curatorPresets_ModuleUnitSurrender",
+				"curatorPresets_ModuleUnitTeleport",
 				"curatorPresets_ModuleVAS",
 				"curatorPresets_ModuleVehicleDisembark"
 		};

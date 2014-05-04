@@ -1,5 +1,3 @@
-disableSerialization;
-
 _logic = _this select 0;
 _units = _this select 1;
 _activated = _this select 2;
@@ -12,9 +10,8 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
 
 	//Load up the dialog
-	_ok = createDialog "RscDisplayAttributesModuleUnitSkills";
+	createDialog "RscDisplayAttributesModuleUnitSkills";
 	waitUntil { dialog };
-	sleep 0.1;
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
@@ -22,12 +19,9 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	//Get config from saved UI variables
 	_skillsArray = uinamespace getVariable "curatorPresets_UnitSkillsArray";
 	_appliesTo = uinamespace getVariable "curatorPresets_AppliesToValue";
-	if(isnil "_skillsArray") exitWith {
-		[objnull, "Error - 'Skills Array' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
-		deletevehicle _logic;
-	};
-	if(isnil "_appliesTo") exitWith {
-		[objnull, "Error - 'Applies To' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+
+	//If values were not defined assume the dialog was canceled and exit
+	if(isnil "_skillsArray" || isnil "_appliesTo") exitWith {
 		deletevehicle _logic;
 	};
 
@@ -41,9 +35,6 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 
 	
 	[objnull, format["%1 - Set skills at %2", name _unit, mapGridPosition _unit]] call bis_fnc_showCuratorFeedbackMessage;
-	
-	//Clean up
-	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
 	
 	deletevehicle _logic;
 };

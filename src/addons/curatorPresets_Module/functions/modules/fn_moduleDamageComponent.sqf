@@ -1,5 +1,3 @@
-disableSerialization;
-
 _logic = _this select 0;
 _units = _this select 1;
 _activated = _this select 2;
@@ -12,9 +10,8 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	uinamespace setVariable ["curatorPresets_ModuleUnit", _unit];
 
 	//Load up the dialog
-	_ok = createDialog "RscDisplayAttributesModuleDamageComponent";
+	createDialog "RscDisplayAttributesModuleDamageComponent";
 	waitUntil { dialog };
-	sleep 0.1;
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
@@ -22,12 +19,9 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	//Get config from saved UI variables
 	_component = uinamespace getVariable "curatorPresets_UnitComponentValue";
 	_hit = uinamespace getVariable "curatorPresets_DamageValue";
-	if(isnil "_component") exitWith {
-		[objnull, "Error - 'Component' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
-		deletevehicle _logic;
-	};
-	if(isnil "_hit") exitWith {
-		[objnull, "Error - 'Damage' was not defined"] call bis_fnc_showCuratorFeedbackMessage;
+
+	//If values were not defined assume the dialog was canceled and exit
+	if(isnil "_component" || isnil "_hit") exitWith {
 		deletevehicle _logic;
 	};
 
@@ -42,9 +36,6 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 
 	//Alert Zeus
 	[objnull, format["%1 - Component %3 has %4 damage at %2", name _unit, mapGridPosition _unit, _componentName, _hit]] call bis_fnc_showCuratorFeedbackMessage;
-	
-	//Clean up
-	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
 	
 	deletevehicle _logic;
 };

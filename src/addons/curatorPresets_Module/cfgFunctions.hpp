@@ -27,16 +27,20 @@ class CfgFunctions
 			class moduleUnitRecruitable{};
 			class moduleUnitSkills{};
 			class moduleUnitSurrender{};
+			class moduleUnitTeleport{};
 			class moduleVAS{};
 			class moduleVehicleDisembark{};
 		};
 		class common
 		{
 			file = "\curatorPresets_Module\functions\common";
-			class spawnGarrison{};
+			class addWaypoint{};
+			class drawCWSIcons{};
 			class moveGroupThroughBuilding{};
 			class moveUnitThroughBuilding{};
-			class drawCWSIcons{};
+			class setupDisplayHandlers{};
+			class spawnGarrison{};
+			class removeWaypoint{};
 		};
 		class loaders
 		{
@@ -76,6 +80,9 @@ class CfgFunctions
 		class events
 		{
 			file = "\curatorPresets_Module\functions\events";
+			class onGroupSelectionChanged{};
+			class onKeyDown{};
+			class onMouseButtonClick{};
 			class onWaypointEdited{};
 			class onWaypointPlaced{};
 			class onWaypointSelectionChanged{};

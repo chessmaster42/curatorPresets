@@ -16,6 +16,7 @@ class CfgFunctions
 			file = "\cws_injury\functions\modules";
 			class moduleConfig{};
 			class moduleCWSLoad{};
+			class moduleFailsafeReload{};
 			class moduleRevive{};
 		};
 		class loaders
@@ -59,6 +60,8 @@ class CfgFunctions
 			class setupUnitVariables{};
 			class setHealer{};
 			class reviveUnit{};
+			class canHeal{};
+			class setHealingProgress{};
 		};
 	};
 };

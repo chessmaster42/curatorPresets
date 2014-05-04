@@ -1,5 +1,3 @@
-disableSerialization;
-
 _logic = _this select 0;
 _units = _this select 1;
 _activated = _this select 2;
@@ -20,17 +18,17 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_vehiclePassengers = crew _unit - _vehicleCrew;
 	
 	//Load up the dialog
-	_ok = createDialog "RscDisplayAttributesModuleVehicleDisembark";
+	createDialog "RscDisplayAttributesModuleVehicleDisembark";
 	waitUntil { dialog };
-	sleep 0.1;
 
 	//Wait until the dialog has been closed
 	waitUntil { !dialog };
 
 	//Get config from saved UI variables
 	_unitsToDisembark = uinamespace getVariable "curatorPresets_VehicleUnitsValue";
+
+	//If values were not defined assume the dialog was canceled and exit
 	if(isnil "_unitsToDisembark") exitWith {
-		[objnull, "Error - Unit type was not defined"] call bis_fnc_showCuratorFeedbackMessage;
 		deletevehicle _logic;
 	};
 
@@ -52,10 +50,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		} forEach _vehiclePassengers;
 	};
 	
-	[objnull, format["%1 - %3 disembarked at %2", name _unit, mapGridPosition _unit, _unitsToDisembark]] call bis_fnc_showCuratorFeedbackMessage;
-	
-	//Clean up
-	uinamespace setVariable ["curatorPresets_ModuleUnit", nil];
+	[format["%1 - %3 disembarked at %2", name _unit, mapGridPosition _unit, _unitsToDisembark], 5] call ccl_fnc_ShowMessage;
 	
 	deletevehicle _logic;
 };

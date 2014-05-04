@@ -22,7 +22,7 @@ link7[] = {5,6};
 link8[] = {8,9};
 link9[] = {9,2};
 globals[] = {0.000000,0,0,0,0,640,480,1,22,6316128,1,-438.949554,227.492523,183.215668,-406.520813,740,911,1};
-window[] = {2,-1,-1,-1,-1,811,75,1335,75,3,758};
+window[] = {2,-1,-1,-1,-1,961,225,1485,225,3,758};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -71,18 +71,20 @@ class FSM
       name = "bleed_loop";
       init = /*%FSM<STATEINIT""">*/"_blinkduration = 0.7 + random 0.4;" \n
        "" \n
+       "if(isNil ""_pausedTime"") then {_pausedTime = 0};" \n
+       "" \n
        "//Pause the bleedout timer" \n
-       "if(!isNull(_unit getVariable [""healer"", objNull]) && _pausedTime == 0) then {" \n
+       "if(!isNull(_unit getVariable [""healer"", objNull]) && _pausedTime < 1) then {" \n
        "	_pausedTime = time - _time_of_agony;" \n
        "" \n
-       "	[format [""%1 - Bleeding paused"", _unit], 99] call ccl_fnc_ShowMessage;" \n
+       "	[format [""%1 - Bleeding paused"", _unit], 2] call ccl_fnc_ShowMessage;" \n
        "};" \n
        "" \n
        "//Unpause the bleedout timer" \n
        "if(isNull(_unit getVariable [""healer"", objNull]) && _pausedTime > 0) then {" \n
        "	_pausedTime = 0;" \n
        "" \n
-       "	[format [""%1 - Bleeding resumed"", _unit], 99] call ccl_fnc_ShowMessage;" \n
+       "	[format [""%1 - Bleeding resumed"", _unit], 2] call ccl_fnc_ShowMessage;" \n
        "};" \n
        "" \n
        "_damage_inverse = 1 - ([_unit] call cws_fnc_getUnitDamage);" \n

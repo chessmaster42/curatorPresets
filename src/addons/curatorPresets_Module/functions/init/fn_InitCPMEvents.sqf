@@ -19,6 +19,11 @@ if(isServer && isDedicated) exitWith {};
 			["CuratorWaypointSelectionChanged", 2, ["CPM"]] call ccl_fnc_ShowMessage;
 			_this call cpm_fnc_OnWaypointSelectionChanged;
 		}];
+		_x addEventHandler ["CuratorGroupSelectionChanged", {
+			["CuratorGroupSelectionChanged", 2, ["CPM"]] call ccl_fnc_ShowMessage;
+			_this call cpm_fnc_OnGroupSelectionChanged;
+		}];
 	} foreach allCurators;
+
 	["Events Initialized", 2, ["CPM"]] call ccl_fnc_ShowMessage;
 };

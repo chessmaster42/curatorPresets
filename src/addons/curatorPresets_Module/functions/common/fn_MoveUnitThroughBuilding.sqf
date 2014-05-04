@@ -1,4 +1,4 @@
-private ["_unit","_building","_positionArray","_posCount","_pos"];
+private ["_unit","_building","_positionArray","_pos"];
 _unit = _this select 0;
 _building = _this select 1;
 _positionArray = [];
@@ -6,10 +6,10 @@ _positionArray = [];
 if(count _this > 2) then {
 	_positionArray = _this select 2;
 } else {
-	_posCount = 0;
+	_buildingPosCount = 0;
 	while { format ["%1", _building buildingPos _buildingPosCount] != "[0,0,0]" } do {_buildingPosCount = _buildingPosCount + 1};
 	for [{_i=0},{_i<_buildingPosCount},{_i=_i+1}] do {
-		_pos = _building buildingPos _x;
+		_pos = _building buildingPos _i;
 		_positionArray set [_i, [_i, _pos]];
 	};
 };

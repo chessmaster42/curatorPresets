@@ -56,6 +56,7 @@ Known Issues
 Changelog
 ==========
 
+-	v1.9 (Not Released Yet)
 -	v1.8.1 Released
 		-	Added CWS icons above units when they have CWS loaded. Color is white a full heath and red when injured
 		-	Fixed bug with losing custom category of modules when closing and re-opening the curator display
