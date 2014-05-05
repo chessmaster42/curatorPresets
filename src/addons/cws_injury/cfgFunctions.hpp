@@ -14,7 +14,6 @@ class CfgFunctions
 		class modules
 		{
 			file = "\cws_injury\functions\modules";
-			class moduleConfig{};
 			class moduleCWSLoad{};
 			class moduleFailsafeReload{};
 			class moduleRevive{};
@@ -29,6 +28,8 @@ class CfgFunctions
 		{
 			file = "\cws_injury\functions\ui\init";
 			class initAppliesTo{};
+			class initConfigCheckboxes{};
+			class initConfigSliders{};
 			class initEnableDebugging{};
 		};
 		class cws

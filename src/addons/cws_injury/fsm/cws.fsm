@@ -86,7 +86,7 @@ link45[] = {33,4};
 link46[] = {34,35};
 link47[] = {35,24};
 globals[] = {0.000000,0,0,0,0,640,480,1,56,6316128,1,-652.281982,517.110352,426.921021,-567.772156,933,911,1};
-window[] = {2,-1,-1,-1,-1,837,100,1359,100,3,951};
+window[] = {2,-1,-1,-1,-1,912,175,1434,175,3,951};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -546,7 +546,7 @@ class FSM
           priority = 1.000000;
           to="agony";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"{isNull {_unit getVariable ""healer""}} || {!alive {_unit getVariable ""healer""}}"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"isNull (_unit getVariable ""healer"") || !alive (_unit getVariable ""healer"")"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

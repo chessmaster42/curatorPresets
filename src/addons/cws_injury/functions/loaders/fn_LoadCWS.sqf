@@ -137,7 +137,7 @@ if (cws_ais_dead_dialog == 1) then {
 
 //If this unit is the local player show a hint to let them know CWS is loaded
 if (_unit == player) then {
-	["CWS Wounding Loaded", 7, "CWS"] call ccl_fnc_ShowMessage;
+	["CWS Loaded", 7, "CWS"] call ccl_fnc_ShowMessage;
 };
 
 //Message to side chat so that everyone knows when units on their side have CWS loaded
@@ -150,9 +150,9 @@ if(playerSide == (side _unit)) then {
 };
 
 if(local _unit) then {
-	[format["%1 (Local) - CWS Wounding Loaded!", _unit], 99] call ccl_fnc_ShowMessage;
+	[format["%1 (Local) - CWS Loaded!", _unit], 2] call ccl_fnc_ShowMessage;
 } else {
-	[format["%1 (Remote) - CWS Wounding Loaded!", _unit], 99] call ccl_fnc_ShowMessage;
+	[format["%1 (Remote) - CWS Loaded!", _unit], 2] call ccl_fnc_ShowMessage;
 };
 
 _cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];

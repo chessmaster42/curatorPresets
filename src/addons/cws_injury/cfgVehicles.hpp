@@ -15,7 +15,7 @@ class CfgVehicles
 		scopeCurator = 2;
 
 		displayName = "CWS Config";
-		function = "cws_fnc_ModuleConfig";
+		function = "ccl_fnc_ModuleDummy";
 
 		curatorInfoType = "RscDisplayAttributesModuleCWSConfig";
 	};

@@ -21,6 +21,7 @@ _cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];
 		_healingProgress = _x getVariable ["cws_ais_healing_progress", 0];
 		if(_healingProgress > 0) then {
 			_message = _message + format[" (%1%2)", ceil (_healingProgress * 100), "%"];
+			_iconColor = [0, 1, 0, 1];
 		};
 	};
 

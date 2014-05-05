@@ -1,6 +1,6 @@
 // Authored by chessmaster42
 
-private["_healer","_return"];
+private["_unit","_return","_has_medikit","_has_firstaidkit","_isMedic","_attachedUnit"];
 _unit = _this select 0;
 _return = true;
 
@@ -20,6 +20,5 @@ if(!(_has_medikit && _isMedic) && !_has_firstaidkit) then {_return = false};
 //Check that the unit isn't already healing someone
 _attachedUnit = attachedTo _unit;
 if(!isNull _attachedUnit) then {_return = false};
-if(!canStand _unit) then {_return = false};
 
 _return

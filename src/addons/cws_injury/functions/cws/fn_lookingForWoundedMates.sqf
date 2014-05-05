@@ -9,12 +9,13 @@ _unit = _this select 0;
 _canHeal = [_unit] call cws_fnc_canHeal;
 if(!_canHeal) exitWith {};
 
-_need_help = false;
 _help_him = objNull;
 
+//Check for group members that might need help
 {
-	if (_x getVariable "cws_ais_agony") then {_need_help = true};
-	if (_need_help) exitWith {_help_him = _x}
+	_isHealable = [_x] call cws_fnc_IsHealable;
+	_inAgony = _x getVariable ["cws_ais_agony", false];
+	if (_isHealable && _inAgony) exitWith {_help_him = _x};
 } forEach __includedMates;
 
 //If noone in the group needs help see if anyone else nearby does
@@ -26,9 +27,11 @@ if(isNull _help_him) then {
 		if((side _x) == _unitFaction) then {
 			{
 				_distance = _unit distance _x;
+				_isHealable = [_x] call cws_fnc_IsHealable;
+				_inAgony = _x getVariable ["cws_ais_agony", false];
 
-				//Update the selection if closer, alive, in agony, and doesn't have a healer yet
-				if (_distance < _min_distance && alive _x && (_x getVariable "cws_ais_agony") && isNull(_unit getVariable ["healer", objNull])) then {
+				//Update the selection if closer, in agony, are healable, and our not ourselves
+				if ((_distance < _min_distance) && _isHealable && _inAgony && (_x != _unit)) then {
 					_min_distance = _distance;
 					_help_him = _x;
 				};
@@ -37,16 +40,16 @@ if(isNull _help_him) then {
 	} forEach allGroups;
 };
 
-if(cws_ais_debugging) then {
-	if(isNull _help_him) then {
-		diag_log format["%1 found noone to help", _unit];
-	} else {
+//Check if we found someone to help
+if(isNull _help_him) then {
+	if(cws_ais_debugging) then {
+		[format ["%1 found nobody to help", _unit], 2] call ccl_fnc_ShowMessage;
+	};
+} else {
+	if(cws_ais_debugging) then {
 		diag_log format["%1 is going to help %2", _unit, _help_him];
 	};
-};
 
-if (_need_help) then {
-	if (!isNull _help_him) then {
-		[_help_him, _unit] spawn cws_fnc_sendAIHealer;
-	};
+	//Go help them!
+	[_help_him, _unit] spawn cws_fnc_FirstAid;
 };
