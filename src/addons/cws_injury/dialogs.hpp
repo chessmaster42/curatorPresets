@@ -84,7 +84,7 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 			idc = 43032;
 			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 		class Title2: RscText
@@ -102,7 +102,7 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 			idc = 43034;
 			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "1.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 		class Title3: RscText
@@ -120,7 +120,7 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 			idc = 43036;
 			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "2.2 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 		class Title4: RscText
@@ -138,7 +138,7 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 			idc = 43038;
 			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "3.3 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 		class Title5: RscText
@@ -156,7 +156,7 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 			idc = 43040;
 			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "4.4 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 		class Title6: RscText
@@ -174,7 +174,7 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 			idc = 43042;
 			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "5.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 	};

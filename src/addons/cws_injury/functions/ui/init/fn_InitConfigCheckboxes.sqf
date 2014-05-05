@@ -28,7 +28,7 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 
 	//Update the config with the new values
 	_ctrl = _display displayCtrl 43032;
-	cws_ais_revive_guaranty = cbChecked _ctrl];
+	cws_ais_revive_guaranty = cbChecked _ctrl;
 	_ctrl = _display displayCtrl 43034;
 	cws_ais_allow_self_revive = cbChecked _ctrl;
 	_ctrl = _display displayCtrl 43036;
