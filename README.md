@@ -16,7 +16,7 @@ Core
 
 System
 ------
--	CWS Injury Load - Loads Chessmaster's Wounding System onto the unit
+-	CPM Config - Basic config dialog for the mod
 -	Task Force Radio - Basic config for the TFR voip addon. Support for other voip methods and more TFR options will come later
 -	Virtual Ammobox System - Loads the Virtual Ammobox System onto the unit/object
 
@@ -27,13 +27,13 @@ Unit
 -	Unit Chat - Sends a text chat message through the unit
 -	Unit Recruitable - Adds an action to the unit that allows players to recruit into their own group
 -	Unit Skills - Sets the precise skills for the unit
--	Unit Speed - Sets the unit's group speed to limited, normal, or full based on the selection
 -	Unit Surrender - Calls the unit to surrender
+-	Unit Teleport - Teleports the unit to the given coordinates
 
 Non-Module Features
 ===================
 
--	Waypoint Handler - When a waypoint is placed in Zeus (RMB by default) you will get a config popup to set the waypoint type. This is skipped for get-in or destroy orders.
+-	Waypoint Handler - Ctrl+Shift+RMB - Custom waypoint dialog to setup non-standard waypoints
 -	Waypoint Type 'Land' - Fleeing is disabled and vehicle will land and shut down
 -	Waypoint Type 'Land - Get In' - Fleeing is disabled and vehicle will come to a hover a few meters off of the ground
 -	Waypoint Type 'Search Buildings' - Unit/Group will search through all positions in the building nearest to the waypoint when placed. Groups will divide up the task as evenly as possible and will spread out to cover all building positions.
@@ -44,19 +44,28 @@ Notes
 
 -	Spawn Garrison is limited to 150 units and 25 groups. Once at the unit limit no more will spawn. Once at the group limit all future units will be added to the last group.
 -	Unit Animation is not yet complete and as such will not do anything yet.
--	Search Buildings is very new and very buggy. Please let me know of any suggestions you have or bugs you find.
+-	Search Buildings is new and buggy. Please let me know of any suggestions you have or bugs you find.
 
 Known Issues
 ============
 
--	'GUARD' waypoint type spawns a trigger and icon that can't yet be removed. Still working on this one here and there
 -	Units will not always obey when Unit Action is called on them (seems to be limited to specific action types but maybe a locality issue)
--	Clicking on Core, System, and Unit categories for CPM modules will put a non-functioning module object on the cursor. Just right-click it away to continue
+-	Clicking on custom sub-categories for modules will put a non-functioning module object on the cursor. Just right-click it away to continue
 
 Changelog
 ==========
 
--	v1.9 (Not Released Yet)
+-	v1.9
+		-	Created new mod "Chessmaster's Common Library" that houses many common functions and UI elements for both CPM and CWS (this will also have a separate release later)
+		-	Created new mod version of CWS (this will have a separate release later)
+		-	Fixed icon and improved functionality of TaskForceRadio module
+		-	CWS icons over units in Zeus screen now have bleeding percentage as well has healing progress percentage
+		-	Overhauled the waypoint handler to use the new Ctrl+Shift+RMB key combo for placing the custom waypoints
+		-	Fixed innumerable bugs and improved AI in CWS dramatically
+		-	Overhauled bleeding system in CWS. Bleeding pausing while being healed is now much more reliable
+		-	Added Failsafe Reload Module to both CWS and CPM. Putting this down will cause a full reload of the respective mod
+		-	Improved the AI behaviour in 'Search Building' waypoint type. It is now distance sorted and more reliable
+		-	And many more misc things ...
 -	v1.8.1 Released
 		-	Added CWS icons above units when they have CWS loaded. Color is white a full heath and red when injured
 		-	Fixed bug with losing custom category of modules when closing and re-opening the curator display
