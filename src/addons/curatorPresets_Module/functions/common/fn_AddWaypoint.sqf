@@ -4,7 +4,7 @@ _wpID = _this select 2;
 _waypointType = _this select 3;
 
 //Only create the waypoints on the server
-if(!isServer) exitWith {};
+//if(!isServer) exitWith {};
 
 //Create the new waypoint	
 _newWP = _group addWaypoint [_pos, 0, _wpID];

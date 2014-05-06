@@ -1,4 +1,4 @@
-missionnamespace setVariable ["curatorPresets_Debugging", true];
+missionnamespace setVariable ["curatorPresets_Debugging", false];
 
 [] spawn {
 	[] call ccl_fnc_WaitForCuratorLoad;
@@ -6,11 +6,6 @@ missionnamespace setVariable ["curatorPresets_Debugging", true];
 	["Initializing ...", 2, ["CPM"]] call ccl_fnc_ShowMessage;
 
 	{
-		//Load the addon server-side
-		if(isServer) then {
-			_x addCuratorAddons ["curatorPresets_Module"];
-		};
-
 		if(isServer && isDedicated) exitWith {};
 
 		if([player] call ccl_fnc_IsZeusCurator) then

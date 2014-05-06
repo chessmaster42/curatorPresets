@@ -11,7 +11,6 @@ _groupCountMax = 25;
 
 //Convert the side to the BIS values
 _faction = "";
-_classType = "";
 switch (toLower _side) do {
 	case "west": {
 		_side = west;
@@ -34,20 +33,21 @@ switch (toLower _side) do {
 //Get a list of available unit types
 _index = 0;
 _CfgVehicles = configFile >> "CfgVehicles";
+_classType = "men";
+_displayNameFilterArray = ["Rifleman", "Grenadier", "Autorifleman", "Combat Life Saver", "Rifleman (AT)"];
 _unitsArray = [];
 for [{_i=1},{_i<(count _CfgVehicles - 1)},{_i=_i+1}] do 
 {
 	_CfgVehicle = _CfgVehicles select _i;
 
-	//Only use public entries
 	if (getNumber(_CfgVehicle >> "scope") == 2) then 
 	{
 		_vehicleDisplayName 	= getText(_CfgVehicle >> "displayname");
-		_vehicleDisplayName		= [_vehicleDisplayName, gettext(_CfgVehicle >> "picture")];
 		_cfgclass 				= configName _CfgVehicle;  
 		_cfgFaction 			= getText(_CfgVehicle >> "faction");
 		_simulation 			= getText(_CfgVehicle >> "simulation");
 		_vehicleClass			= getText(_CfgVehicle >> "vehicleClass");
+		_unitDataArray			= [_vehicleDisplayName, gettext(_CfgVehicle >> "picture")];
 		  
 		if (toLower(_cfgFaction) == _faction) then 
 		{
@@ -55,8 +55,11 @@ for [{_i=1},{_i<(count _CfgVehicles - 1)},{_i=_i+1}] do
 			{
 				if ((toLower(_vehicleClass) == _classType) || (_classType == "")) then 
 				{
-					_unitsArray set[_index, [_cfgclass, _vehicleDisplayName]];									
-					_index = _index + 1;
+					if(_vehicleDisplayName in _displayNameFilterArray) then
+					{
+						_unitsArray set[_index, [_cfgclass, _unitDataArray]];									
+						_index = _index + 1;
+					};
 				};
 			};
 		};
@@ -120,8 +123,14 @@ _groupArray = [];
 				//Spawn as long as there are no other nearby units and we're below the max
 				if (count (nearestObjects [_spawnPos, ["Man"], 1]) < 1 && (_unitCount < _unitCountMax)) then
 				{
+					//Determine the unit type
+					_type = 0;
+					if (random 100 < 50) then
+					{
+						_type = _unitsArray select round (random 5);
+					};
+
 					//Create the new unit
-					_type = _unitsArray select round (random 5);
 					_unit = _group createUnit [_type select 0, _spawnPos, [], 0.5, "NONE"];
 					waituntil {alive _unit}; 
 					_unit setpos _spawnPos;

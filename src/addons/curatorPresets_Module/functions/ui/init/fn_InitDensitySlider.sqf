@@ -10,6 +10,7 @@ _display = ctrlParent _control;
 _ctrl = _display displayCtrl 41132;
 _ctrl sliderSetRange [0, 10];
 _ctrl sliderSetPosition 5;
+_ctrl ctrlSetTooltip "5";
 _ctrl ctrlCommit 1;
 
 //Setup handler when OK is clicked

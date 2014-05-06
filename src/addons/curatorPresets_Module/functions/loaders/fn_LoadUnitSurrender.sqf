@@ -4,19 +4,7 @@ _appliesTo = if(_mode == 0) then {_this select 2} else {0};
 
 //Mode 0 - Unit is surrendering
 if(_mode == 0) then {
-	_unitList = [];
-	switch(_appliesTo) do {
-		case 0: {
-			_unitList = [_unit];
-		};
-		case 1: {
-			_group = group _unit;
-			_unitList = units _group;
-		};
-		default {
-			_unitList = [_unit];
-		};
-	};
+	_unitList = [_appliesTo, _unit] call cpm_fnc_GetAppliesToUnitList;
 
 	if(count _unitList < 1) exitWith {};
 

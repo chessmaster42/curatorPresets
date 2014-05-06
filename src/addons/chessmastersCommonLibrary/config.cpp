@@ -16,9 +16,9 @@ class CfgPatches
 		};
 		author[] = {"Chessmaster42"};
 		authorUrl = "https://github.com/chessmaster42/";
-		version = 1.0.0;
-		versionStr = "1.0.0";
-		versionAr[] = {1,0,0};
+		version = 1.0.1;
+		versionStr = "1.0.1";
+		versionAr[] = {1,0,1};
 	};
 };
 
@@ -53,8 +53,14 @@ class CfgFactionClasses
 	};
 };
 
-#include "cfgVehicles.hpp"
+class CfgVehicles
+{
+	#include "cfgVehicles.hpp"
+};
 
-#include "cfgFunctions.hpp"
+class CfgFunctions
+{
+	#include "cfgFunctions.hpp"
+};
 
 #include "dialogs.hpp"

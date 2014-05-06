@@ -4,12 +4,15 @@ _control = _this select 0;
 
 _control ctrlRemoveAllEventHandlers "setFocus";
 
+//_wpTypeArray = ["MOVE", "DESTROY", "GETIN", "SAD", "JOIN", "LEADER", "GETOUT", "CYCLE", "LOAD", "UNLOAD", "TR UNLOAD", "HOLD", "SENTRY","GUARD","SUPPORT","GETIN NEAREST","DISMISS","Land","Land - Get in","Search Building"];
+_wpTypeArray = ["SAD", "GETOUT", "TR UNLOAD", "HOLD", "SENTRY", "GUARD", "SUPPORT", "LOITER", "Land", "Land - Get in", "Search Building"];
+
 //Configure the list box for waypoint type
 _display = ctrlParent _control;
 _ctrl = _display displayCtrl 41012;
 {
 	_lbComponent = _ctrl lbAdd _x;
-} foreach ["MOVE", "DESTROY", "GETIN", "SAD", "JOIN", "LEADER", "GETOUT", "CYCLE", "LOAD", "UNLOAD", "TR UNLOAD", "HOLD", "SENTRY","GUARD","SUPPORT","GETIN NEAREST","DISMISS","Land","Land - Get in","Search Building"];
+} foreach _wpTypeArray;
 _ctrl lbSetCurSel 0;
 _ctrl ctrlCommit 1;
 

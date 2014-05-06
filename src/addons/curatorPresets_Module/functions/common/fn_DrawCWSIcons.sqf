@@ -2,6 +2,9 @@ _cwsDebugging = cws_ais_debugging;
 cws_ais_debugging = false;
 _cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];
 {
+	if(isNil "_x") exitWith {};
+	if(isNull _x) exitWith {};
+
 	//Build the config for the icon
 	_unitDamage = [_x] call cws_fnc_GetUnitDamage;
 	_iconColor = [1, 1 - _unitDamage, 1 - _unitDamage, 0.5 + _unitDamage * 0.5];

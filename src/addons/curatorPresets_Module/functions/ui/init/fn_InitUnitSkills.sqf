@@ -16,8 +16,9 @@ _skillSliders = [41172,41174,41176,41178,41180,41182,41184,41186,41188,41190];
 _index = 0;
 {
 	_ctrl = _display displayCtrl (_skillSliders select _index); 
-	_ctrl sliderSetRange [0, 10];
-	_ctrl sliderSetPosition ((_unit skill _x) * 10);
+	_ctrl sliderSetRange [0, 1];
+	_ctrl sliderSetPosition (_unit skill _x);
+	_ctrl ctrlSetTooltip str (_unit skill _x);
 	_ctrl ctrlCommit 1;
 	_index = _index + 1;
 } forEach _skillTypes;
@@ -30,7 +31,7 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_skillValues = [];
 	{
 		_ctrl = _display displayCtrl (_skillSliders select _index);
-		_skillValue = [_x, ((sliderPosition _ctrl) * 0.1)];
+		_skillValue = [_x, (sliderPosition _ctrl)];
 		_skillValues set [_index, _skillValue];
 		_index = _index + 1;
 	} forEach _skillTypes;
@@ -40,6 +41,5 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 //Setup handler when Cancel is clicked
 _ctrlButtonCancel = _display displayCtrl IDC_CANCEL;
 _ctrlButtonCancel ctrlAddEventHandler ["buttonclick", {
-	//Blank out any existing value
 	uinamespace setVariable ["curatorPresets_UnitSkillsArray", nil];
 }];
