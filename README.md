@@ -44,7 +44,7 @@ Notes
 
 -	Spawn Garrison is limited to 150 units and 25 groups. Once at the unit limit no more will spawn. Once at the group limit all future units will be added to the last group.
 -	Unit Animation is not yet complete and as such will not do anything yet.
--	Search Buildings is new and buggy. Please let me know of any suggestions you have or bugs you find.
+-	Search Buildings is buggy. Please let me know of any suggestions you have or bugs you find.
 
 Known Issues
 ============
@@ -55,43 +55,74 @@ Known Issues
 Changelog
 ==========
 
--	v1.9
-		-	Created new mod "Chessmaster's Common Library" that houses many common functions and UI elements for both CPM and CWS (this will also have a separate release later)
-		-	Created new mod version of CWS (this will have a separate release later)
-		-	Fixed icon and improved functionality of TaskForceRadio module
-		-	CWS icons over units in Zeus screen now have bleeding percentage as well has healing progress percentage
-		-	Overhauled the waypoint handler to use the new Ctrl+Shift+RMB key combo for placing the custom waypoints
-		-	Fixed innumerable bugs and improved AI in CWS dramatically
-		-	Overhauled bleeding system in CWS. Bleeding pausing while being healed is now much more reliable
-		-	Added Failsafe Reload Module to both CWS and CPM. Putting this down will cause a full reload of the respective mod
-		-	Improved the AI behaviour in 'Search Building' waypoint type. It is now distance sorted and more reliable
-		-	And many more misc things ...
+-	v1.9.1 Released
+  -	Moved CWS mod off back to main cws_injury repository
+  -	Added LICENSE
+  -	Removed server-only restriction in addWaypoint
+  -	Added better error handling to drawCWSIcons
+  -	Restricted the unit types in spawnGarrison and added a better random distribution
+  -	Changed debugging default to off
+  -	Removed forced addon load in initCPM
+  -	Unified code that works with "Applies To"
+  -	Fixed missing tooltip for sliders on dialog load
+  -	Removed redundant waypoint types from waypoint handler
+  -	Updated mod logo
+-	v1.9 Released
+  -	Created new mod "Chessmaster's Common Library" that houses many common functions and UI elements for both CPM and CWS (this will also have a separate release later)
+  -	Created new mod version of CWS (this will have a separate release later)
+  -	Fixed icon and improved functionality of TaskForceRadio module
+  -	CWS icons over units in Zeus screen now have bleeding percentage as well has healing progress percentage
+  -	Overhauled the waypoint handler to use the new Ctrl+Shift+RMB key combo for placing the custom waypoints
+  -	Fixed innumerable bugs and improved AI in CWS dramatically
+  -	Overhauled bleeding system in CWS. Bleeding pausing while being healed is now much more reliable
+  -	Added Failsafe Reload Module to both CWS and CPM. Putting this down will cause a full reload of the respective mod
+  -	Improved the AI behaviour in 'Search Building' waypoint type. It is now distance sorted and more reliable
+  -	And many more misc things ...
 -	v1.8.1 Released
-		-	Added CWS icons above units when they have CWS loaded. Color is white a full heath and red when injured
-		-	Fixed bug with losing custom category of modules when closing and re-opening the curator display
-		-	Added 'CPM Failsafe Module' to the old 'Zeus' category that can be placed to do a forced reload of the mod
-		-	Added more functionality to 'ShowMessage' function
-		-	More minor tweaks working towards fixing the module on cursor bug for the CPM module sub-categories
+  -	Added CWS icons above units when they have CWS loaded. Color is white a full heath and red when injured
+  -	Fixed bug with losing custom category of modules when closing and re-opening the curator display
+  -	Added 'CPM Failsafe Module' to the old 'Zeus' category that can be placed to do a forced reload of the mod
+  -	Added more functionality to 'ShowMessage' function
+  -	More minor tweaks working towards fixing the module on cursor bug for the CPM module sub-categories
 -	v1.8 Released
-		-	Added 'Search Building' waypoint type
-		-	Added 'Task Force Radio' module
-		-	Added 'Unit Skills' module that gives access to all 10 AI skills for a unit
-		-	Added custom category for CPM modules
-		-	Added 'Applies To' option to most unit-based modules so that module can be applies to unit, group, faction, or even players (depends on module)
-		-	Reorganized config files
-		-	Reorganized most script files
-		-	Fixed some issues with Unit Surrender
-		-	Overflow units from 'Spawn Garrison' are now grouped with the nearest group instead of the last created group
-		-	Drop-down UI elements are now much more accessible
-		-	Slider UI elements now show the current value in the tooltip text
-		-	Disabled fleeing for "Land" or "Land - Get In" waypoint type
-		-	Major UI overhauls
--	v1.7.1 - Fixed some critical problems in the new Spawn Garrison module
--	v1.7 - Added Spawn Garrison module
--	v1.6 - Added Unit Action module, Added Unit Animation module (incomplete), Added Unit Chat module, Improved Unit Surrender module, Changed list boxes to combo boxes, Misc UI improvements
--	v1.5 - Internal UI overhaul, Added Air Flight module, Added waypoint placement handler
--	v1.4 - Fixed global and persistence of module functions
--	v1.3 - Added Artillery and Vehicle Disembark modules, Fixed mod logo
--	v1.2 - Implemented config dialogs for Component Damage and Unit Speed
--	v1.1 - Added bisign keys, Fixed Curator messages, Added recruit unit module
+  -	Added 'Search Building' waypoint type
+  -	Added 'Task Force Radio' module
+  -	Added 'Unit Skills' module that gives access to all 10 AI skills for a unit
+  -	Added custom category for CPM modules
+  -	Added 'Applies To' option to most unit-based modules so that module can be applies to unit, group, faction, or even players (depends on module)
+  -	Reorganized config files
+  -	Reorganized most script files
+  -	Fixed some issues with Unit Surrender
+  -	Overflow units from 'Spawn Garrison' are now grouped with the nearest group instead of the last created group
+  -	Drop-down UI elements are now much more accessible
+  -	Slider UI elements now show the current value in the tooltip text
+  -	Disabled fleeing for "Land" or "Land - Get In" waypoint type
+  -	Major UI overhauls
+-	v1.7.1 Released
+  - Fixed some critical problems in the new Spawn Garrison module
+-	v1.7 Released
+  - Added Spawn Garrison module
+-	v1.6 Released
+  -	Added Unit Action module
+  - Added Unit Animation module (incomplete)
+  - Added Unit Chat module
+  - Improved Unit Surrender module
+  - Changed list boxes to combo boxes
+  - Misc UI improvements
+-	v1.5 Released
+  - Internal UI overhaul
+  - Added Air Flight module
+  - Added waypoint placement handler
+-	v1.4 Released
+  - Fixed global and persistence of module functions
+-	v1.3 Released
+  - Added Artillery module
+  - Vehicle Disembark module
+  - Fixed mod logo
+-	v1.2 Released
+  - Implemented config dialogs for Component Damage and Unit Speed
+-	v1.1 Released
+  -	Added bisign keys
+  - Fixed Curator messages
+  - Added recruit unit module
 -	v1.0 - Initial alpha release
