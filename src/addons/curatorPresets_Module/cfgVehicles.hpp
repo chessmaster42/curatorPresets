@@ -15,7 +15,7 @@ class curatorPresets_ModuleConfig: curatorPresets_ModuleBase
 	scopeCurator = 2;
 
 	displayName = "CPM Config";
-	function = "cpm_fnc_ModuleConfig";
+	function = "ccl_fnc_ModuleDummy";
 
 	curatorInfoType = "RscDisplayAttributesModuleCPMConfig";
 };

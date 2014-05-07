@@ -124,11 +124,14 @@ _groupArray = [];
 				if (count (nearestObjects [_spawnPos, ["Man"], 1]) < 1 && (_unitCount < _unitCountMax)) then
 				{
 					//Determine the unit type
-					_type = 0;
+					_typeIndex = 0;
 					if (random 100 < 50) then
 					{
-						_type = _unitsArray select round (random 5);
+						_typeIndex = floor (random 5);
 					};
+					if(_typeIndex < 0) then {_typeIndex = 0};
+					if(_typeIndex >= (count _unitsArray)) then {_typeIndex = 0};
+					_type = _unitsArray select _typeIndex;
 
 					//Create the new unit
 					_unit = _group createUnit [_type select 0, _spawnPos, [], 0.5, "NONE"];

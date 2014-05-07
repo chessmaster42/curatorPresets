@@ -13,7 +13,6 @@ class curatorPresets
 		file = "\curatorPresets_Module\functions\modules";
 		class moduleAirFlight{};
 		class moduleArtillery{};
-		class moduleConfig{};
 		class moduleDamageComponent{};
 		class moduleFailsafeReload{};
 		class moduleSpawnGarrison{};
@@ -58,6 +57,7 @@ class curatorPresets
 		class initCoordinateRadius{};
 		class initDamageSlider{};
 		class initDensitySlider{};
+		class initEnableDebugging{};
 		class initRoundCount{};
 		class initTFRSameLR{};
 		class initTFRSameSW{};
