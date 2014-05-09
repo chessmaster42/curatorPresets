@@ -30,5 +30,6 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_display = ctrlParent (_this select 0);
 	_ctrl = _display displayCtrl 41232;
 	_newDebugging = if((_ctrl lbValue lbCurSel _ctrl) > 0) then {true} else {false};
-	missionnamespace setVariable ["curatorPresets_Debugging", _newDebugging];
+
+	[["curatorPresets_Debugging", _newDebugging], "cpm_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 }];

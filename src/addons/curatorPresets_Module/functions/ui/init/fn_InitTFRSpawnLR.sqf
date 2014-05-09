@@ -30,8 +30,8 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_ctrl = _display displayCtrl 41202;
 	_enableLRSpawn = _ctrl lbValue lbCurSel _ctrl;
 	if(_enableLRSpawn > 0) then {
-		tf_no_auto_long_range_radio = false;
+		[["tf_no_auto_long_range_radio", false], "cpm_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	} else {
-		tf_no_auto_long_range_radio = true;
+		[["tf_no_auto_long_range_radio", true], "cpm_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	};
 }];

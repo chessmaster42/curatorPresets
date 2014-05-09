@@ -30,11 +30,11 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_ctrl = _display displayCtrl 41212;
 	_sameLR = _ctrl lbValue lbCurSel _ctrl;
 	if(_sameLR > 0) then {
-		tf_same_lr_frequencies_for_side = true;
-		tf_freq_west_lr = 51;
-		tf_freq_east_lr = 51;
-		tf_freq_guer_lr = 51;
+		[["tf_same_lr_frequencies_for_side", true], "cpm_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
+		//tf_freq_west_lr = 51;
+		//tf_freq_east_lr = 51;
+		//tf_freq_guer_lr = 51;
 	} else {
-		tf_same_lr_frequencies_for_side = false;
+		[["tf_same_lr_frequencies_for_side", false], "cpm_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	};
 }];

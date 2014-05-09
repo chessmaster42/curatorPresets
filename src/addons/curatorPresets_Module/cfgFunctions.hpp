@@ -41,10 +41,11 @@ class curatorPresets
 	class loaders
 	{
 		file = "\curatorPresets_Module\functions\loaders";
+		class loadConfigSetting{};
 		class loadDamageComponent{};
 		class loadRecruitable{};
 		class loadUnitAction{};
-		class loadUnitChat{};
+		class loadUnitSkills{};
 		class loadUnitSurrender{};
 		class loadVAS{};
 	};
