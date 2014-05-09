@@ -16,9 +16,9 @@ class CfgPatches
 		};
 		author[] = {"Chessmaster42"};
 		authorUrl = "https://github.com/chessmaster42/";
-		version = 1.0.1;
-		versionStr = "1.0.1";
-		versionAr[] = {1,0,1};
+		version = 1.0.2;
+		versionStr = "1.0.2";
+		versionAr[] = {1,0,2};
 	};
 };
 

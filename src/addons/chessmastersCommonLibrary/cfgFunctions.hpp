@@ -17,6 +17,7 @@ class chessmastersCommonLibrary
 		class globalExec{};
 		class isZeusCurator{};
 		class monitorCuratorDisplay{};
+		class sendUnitChat{};
 		class showMessage{};
 		class waitForCuratorLoad{};
 		class waitForGameLoad{};

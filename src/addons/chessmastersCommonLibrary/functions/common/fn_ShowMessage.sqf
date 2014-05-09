@@ -52,7 +52,7 @@ switch(_mode) do {
 			_message = format ["[%1] %2", [0] call ccl_fnc_GetTimestamp, _message]
 		};
 
-		[[_sender, _channel, _message], "ccl_fnc_LoadUnitChat"] spawn ccl_fnc_GlobalExec;
+		[[_sender, _channel, _message], "ccl_fnc_SendUnitChat"] spawn ccl_fnc_GlobalExec;
 	};
 	case 7: {
 		hint _message;
