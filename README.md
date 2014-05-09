@@ -55,6 +55,12 @@ Known Issues
 Changelog
 ==========
 
+-	v1.9.2 Released
+  - Fixed missing loadUnitSkills function in cfgFunctions.hpp
+  - Added global config saving mechanism
+  - Removed CWS curator icons (moved into CWS mod)
+  - Fixed unit skills module (again)
+  - Fixed missing unit chat function in CCL (now using CCL 1.0.2)
 -	v1.9.1 Released
   -	Moved CWS mod off back to main cws_injury repository
   -	Added LICENSE
