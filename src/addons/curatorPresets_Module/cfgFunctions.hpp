@@ -30,7 +30,6 @@ class curatorPresets
 	{
 		file = "\curatorPresets_Module\functions\common";
 		class addWaypoint{};
-		class drawCWSIcons{};
 		class getAppliesToUnitList{};
 		class moveGroupThroughBuilding{};
 		class moveUnitThroughBuilding{};
