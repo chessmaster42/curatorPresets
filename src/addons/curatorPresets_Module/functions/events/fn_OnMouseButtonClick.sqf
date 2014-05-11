@@ -39,7 +39,8 @@ if(_ctrl_state && _shift_state && _button == 1) then {
 		if(isnil "_waypointType") exitWith {};
 	
 		//Create the new waypoint at the end of the groups waypoint list
-		[[_group, _wpPos, count waypoints _group, _waypointType], "cpm_fnc_AddWaypoint", false] call ccl_fnc_GlobalExec;
+		//[[_group, _wpPos, count waypoints _group, _waypointType], "cpm_fnc_AddWaypoint", false] call ccl_fnc_GlobalExec;
+		[_group, _wpPos, count waypoints _group, _waypointType] call cpm_fnc_AddWaypoint;
 	
 		//Alert Zeus
 		[format["%1 - Added waypoint type %2 at %3", _group, _waypointType, _wpPos], 5] call ccl_fnc_ShowMessage;

@@ -55,6 +55,12 @@ Known Issues
 Changelog
 ==========
 
+-	v1.9.3 Released
+  - Changed most calls to ccl_fnc_GlobalExec to be NOT persistent (fixed many lag and performance issues)
+  - Added start of version broadcast mechanism
+  - Added some more error handling
+  - Added some more checks to see if player is a curator
+  - Fixed bug with duplicating waypoints when using Ctrl+Shift+RMB
 -	v1.9.2 Released
   - Fixed missing loadUnitSkills function in cfgFunctions.hpp
   - Added global config saving mechanism
