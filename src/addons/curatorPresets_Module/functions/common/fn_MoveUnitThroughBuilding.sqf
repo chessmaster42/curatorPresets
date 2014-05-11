@@ -3,6 +3,13 @@ _unit = _this select 0;
 _building = _this select 1;
 _positionArray = [];
 
+//If the unit is invalid, exit immediately
+if(isNil "_unit") exitWith {};
+if(isNull _unit) exitWith {};
+
+//If the unit is dead, exit immediately
+if(!alive _unit) exitWith {};
+
 if(count _this > 2) then {
 	_positionArray = _this select 2;
 } else {

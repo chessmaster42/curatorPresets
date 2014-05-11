@@ -1,14 +1,15 @@
-#include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
-
 if(isServer && isDedicated) exitWith {};
-
-uinamespace setVariable ["CuratorPresetsMod_displays", []];
-uinamespace setVariable ["CuratorPresetsMod_classes", []];
 
 [] spawn {
 	[] call ccl_fnc_WaitForCuratorLoad;
 
+	//Skip GUI loading for non-curator players
+	if(!([player] call ccl_fnc_IsZeusCurator)) exitWith {};
+	
 	["Initializing GUI ...", 2, ["CPM"]] call ccl_fnc_ShowMessage;
+
+	uinamespace setVariable ["CuratorPresetsMod_displays", []];
+	uinamespace setVariable ["CuratorPresetsMod_classes", []];
 
 	["CuratorPresets"] spawn ccl_fnc_MonitorCuratorDisplay;
 	[] spawn cpm_fnc_SetupDisplayHandlers;

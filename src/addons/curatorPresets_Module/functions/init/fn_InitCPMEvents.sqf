@@ -2,6 +2,9 @@ if(isServer && isDedicated) exitWith {};
 
 [] spawn {
 	[] call ccl_fnc_WaitForCuratorLoad;
+
+	//Skip event loading for non-curator players
+	if(!([player] call ccl_fnc_IsZeusCurator)) exitWith {};
 	
 	["Initializing Events ...", 2, ["CPM"]] call ccl_fnc_ShowMessage;
 	{
