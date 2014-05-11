@@ -32,7 +32,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	_componentName = getText(configFile >> "cfgVehicles" >> _unitClass >> "HitPoints" >> _component >> "name");
 
 	//Damage the component
-	[[_unit, _componentName, _hit], "cpm_fnc_LoadDamageComponent"] spawn ccl_fnc_GlobalExec;
+	[[_unit, _componentName, _hit], "cpm_fnc_LoadDamageComponent", false] spawn ccl_fnc_GlobalExec;
 
 	//Alert Zeus
 	[objnull, format["%1 - Component %3 has %4 damage at %2", name _unit, mapGridPosition _unit, _componentName, _hit]] call bis_fnc_showCuratorFeedbackMessage;

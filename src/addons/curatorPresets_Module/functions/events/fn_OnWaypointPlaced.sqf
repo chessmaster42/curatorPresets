@@ -10,5 +10,5 @@ uinamespace setVariable ["curatorPresets_Module_CuratorPlacedWaypoint", [_group,
 
 if(uinamespace getVariable ["curatorPresets_Module_PlacingCustomWaypoint", false]) then {
 	deleteWaypoint [_group, _wpID];
-	[[_group, _wpID], "cpm_fnc_RemoveWaypoint"] call ccl_fnc_GlobalExec;
+	[[_group, _wpID], "cpm_fnc_RemoveWaypoint", false] call ccl_fnc_GlobalExec;
 };

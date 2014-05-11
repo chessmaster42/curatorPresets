@@ -26,7 +26,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	};
 
 	//Run the action
-	[[_unit, _action, _appliesTo], "cpm_fnc_LoadUnitAction"] spawn ccl_fnc_GlobalExec;
+	[[_unit, _action, _appliesTo], "cpm_fnc_LoadUnitAction", false] spawn ccl_fnc_GlobalExec;
 
 	[objnull, format["%1 - Action %3 activated at %2", name _unit, mapGridPosition _unit, _action]] call bis_fnc_showCuratorFeedbackMessage;
 	

@@ -24,7 +24,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 		deletevehicle _logic;
 	};
 
-	[[_coordinate, _radius, _density, _side], "cpm_fnc_SpawnGarrison"] spawn ccl_fnc_GlobalExec;
+	[[_coordinate, _radius, _density, _side], "cpm_fnc_SpawnGarrison", false] spawn ccl_fnc_GlobalExec;
 
 	deletevehicle _logic;
 };
